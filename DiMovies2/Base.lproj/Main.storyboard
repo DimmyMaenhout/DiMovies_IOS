@@ -1,24 +1,416 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xsB-Vo-cBP">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--DiMovies2-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MoviesViewController" customModule="DiMovies2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="120" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="faO-Ao-SRU">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" accessoryType="detailDisclosureButton" indentationWidth="0.0" reuseIdentifier="movieCell" rowHeight="120" id="y3S-JJ-JB7" customClass="MovieCell" customModule="DiMovies2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="120"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y3S-JJ-JB7" id="fVj-o9-Ux4">
+                                            <rect key="frame" x="0.0" y="0.0" width="308" height="119.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="The Avengers Poster" translatesAutoresizingMaskIntoConstraints="NO" id="q8s-UD-QTD">
+                                                    <rect key="frame" x="15" y="9" width="60" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The Avengers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7m-RJ-Zzf">
+                                                    <rect key="frame" x="83" y="9" width="191" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PQ-rW-MgN">
+                                                    <rect key="frame" x="83" y="31" width="238" height="78"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBp-sz-zOI">
+                                                    <rect key="frame" x="276" y="11" width="30.5" height="12"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.9" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jee-nm-h9a">
+                                                            <rect key="frame" x="0.0" y="0.0" width="15.5" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oh-EW-tHz">
+                                                            <rect key="frame" x="15.5" y="0.0" width="15" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="8oh-EW-tHz" firstAttribute="leading" secondItem="jee-nm-h9a" secondAttribute="trailing" id="ymb-KN-Jba"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TBp-sz-zOI" firstAttribute="top" secondItem="fVj-o9-Ux4" secondAttribute="top" constant="11" id="nHg-dF-3IJ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.1337890625" green="0.1312391493" blue="0.13050672739999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="TBp-sz-zOI" secondAttribute="trailing" constant="68.5" id="YUe-t0-oec"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="overview" destination="4PQ-rW-MgN" id="VE4-tE-OFm"/>
+                                            <outlet property="poster" destination="q8s-UD-QTD" id="dkI-1O-WsU"/>
+                                            <outlet property="score" destination="jee-nm-h9a" id="kcO-aI-7PW"/>
+                                            <outlet property="title" destination="J7m-RJ-Zzf" id="Q4k-Qc-zW1"/>
+                                            <segue destination="Tqd-5P-HzJ" kind="show" identifier="selectedMovie" id="rZR-Mp-qbt"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="gOJ-sH-IZ7"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="L0Q-dm-aQV"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="faO-Ao-SRU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1LX-cQ-jfq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="faO-Ao-SRU" secondAttribute="bottom" id="MW9-GE-5YW"/>
+                            <constraint firstItem="faO-Ao-SRU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="fHw-Ba-spw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="faO-Ao-SRU" secondAttribute="trailing" id="qX1-WP-Q0L"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="DiMovies2" id="W9z-2C-wHc">
+                        <barButtonItem key="backBarButtonItem" title="Movies " id="4AM-bW-Ldf"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="faO-Ao-SRU" id="LX1-RE-BUF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="476" y="133.5832083958021"/>
+        </scene>
+        <!--Movie Selection View Controller-->
+        <scene sceneID="6qA-aE-9bJ">
+            <objects>
+                <viewController id="Tqd-5P-HzJ" customClass="MovieSelectionViewController" customModule="DiMovies2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lmE-N1-D4N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yy6-Dt-u2K">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="movieHeaderCell" rowHeight="386" id="gkW-TF-bVm" customClass="MovieHeaderCell" customModule="DiMovies2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="386"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gkW-TF-bVm" id="dIh-dU-Fa7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="385.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Scarlett Johansson, Chris Hemsworth,  Chris Evans, Robert Downy Jr, Mark Ruffalo, Jeremy Renner, Tom Hiddleston, Cobie Smulders" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ya-bK-jt6">
+                                                    <rect key="frame" x="125" y="165" width="237" height="67"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H07-bO-TJU">
+                                                    <rect key="frame" x="335" y="82" width="30.5" height="12"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="8,9" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAR-dP-koi">
+                                                            <rect key="frame" x="0.0" y="0.0" width="15.5" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UkM-EC-b3d">
+                                                            <rect key="frame" x="15.5" y="0.0" width="15" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="The Avengers Poster" translatesAutoresizingMaskIntoConstraints="NO" id="Oyw-uX-Vay">
+                                                    <rect key="frame" x="9" y="81.5" width="110" height="150"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="110" id="Gcf-6x-ig5"/>
+                                                        <constraint firstAttribute="height" constant="150" id="W1c-aG-KHm"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4vu-U2-66S">
+                                                    <rect key="frame" x="125" y="97" width="109.5" height="21.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Director:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgB-Nt-TBj">
+                                                            <rect key="frame" x="0.0" y="0.0" width="42.5" height="21.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" ambiguous="YES" text="Michael Mann" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O21-im-pji">
+                                                            <rect key="frame" x="42.5" y="0.0" width="67" height="21.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IpV-mv-Ec2">
+                                                    <rect key="frame" x="8" y="240.5" width="359" height="142"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="142" id="bBF-cN-j7D"/>
+                                                    </constraints>
+                                                    <string key="text">Nick Fury is the director of S.H.I.E.L.D., an international peace-keeping agency. The agency is a who's who of Marvel Super Heroes, with Iron Man, The Incredible Hulk, Thor, Captain America, Hawkeye and Black Widow. When global security is threatened by Loki and his cohorts, Nick Fury and his team will need all their powers to save the world from disaster which is formed by Loki and his team</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iry-ja-OsD">
+                                                    <rect key="frame" x="125" y="113" width="100" height="12"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Writer:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMF-qy-g8H">
+                                                            <rect key="frame" x="0.0" y="0.0" width="33" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" ambiguous="YES" text="Michael Mann" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PsN-sI-Bwf">
+                                                            <rect key="frame" x="33" y="0.0" width="67" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="PsN-sI-Bwf" firstAttribute="leading" secondItem="yMF-qy-g8H" secondAttribute="trailing" id="Ndd-QK-ZkO"/>
+                                                        <constraint firstItem="PsN-sI-Bwf" firstAttribute="leading" secondItem="yMF-qy-g8H" secondAttribute="trailing" id="thn-hx-DoP"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thor Ragnarok" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8sL-hu-yfM">
+                                                    <rect key="frame" x="29" y="11" width="316" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="316" id="99S-5E-TH5"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygp-HD-UQk">
+                                                    <rect key="frame" x="124" y="81.5" width="81" height="12.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Duration:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4n4-ix-dsg">
+                                                            <rect key="frame" x="0.0" y="0.0" width="45" height="12.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="148" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dC-Dr-1Mw">
+                                                            <rect key="frame" x="45" y="0.0" width="18" height="12.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="18" id="G2s-m2-iPm"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzh-mc-4ah">
+                                                            <rect key="frame" x="63" y="0.0" width="18" height="12.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="18" id="1gy-gw-OS6"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stars:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8Z-48-uBN">
+                                                    <rect key="frame" x="127" y="154.5" width="30" height="12"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="WAg-Fs-lIA"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fVh-nw-aKx">
+                                                    <rect key="frame" x="125" y="127" width="103.5" height="12"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Genre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGn-tT-nOX">
+                                                            <rect key="frame" x="0.0" y="0.0" width="32.5" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" ambiguous="YES" text="Action, Thriller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlE-QU-Es5">
+                                                            <rect key="frame" x="32.5" y="0.0" width="71" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="GlE-QU-Es5" firstAttribute="baseline" secondItem="ZGn-tT-nOX" secondAttribute="baseline" id="raw-q2-aMz"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Seen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6L-Xq-kG5">
+                                                    <rect key="frame" x="8" y="39" width="39" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yMo-09-Ayo">
+                                                    <rect key="frame" x="52" y="34" width="49" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="onTintColor" red="1" green="0.65745048279999996" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="thumbTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8sL-hu-yfM" firstAttribute="leading" secondItem="dIh-dU-Fa7" secondAttribute="leading" constant="29" id="0nn-7J-zLb"/>
+                                                <constraint firstItem="2ya-bK-jt6" firstAttribute="top" secondItem="E8Z-48-uBN" secondAttribute="bottom" constant="8" symbolic="YES" id="3GG-B5-3Bj"/>
+                                                <constraint firstItem="E8Z-48-uBN" firstAttribute="leading" secondItem="Oyw-uX-Vay" secondAttribute="trailing" constant="8" id="761-SC-Fei"/>
+                                                <constraint firstAttribute="trailing" secondItem="IpV-mv-Ec2" secondAttribute="trailing" constant="8" id="9Os-Rh-izT"/>
+                                                <constraint firstItem="Oyw-uX-Vay" firstAttribute="bottom" secondItem="2ya-bK-jt6" secondAttribute="bottom" id="CDi-Pr-jjR"/>
+                                                <constraint firstItem="E8Z-48-uBN" firstAttribute="top" secondItem="GlE-QU-Es5" secondAttribute="bottom" constant="5" id="COD-Bv-RNu"/>
+                                                <constraint firstItem="Oyw-uX-Vay" firstAttribute="leading" secondItem="dIh-dU-Fa7" secondAttribute="leadingMargin" constant="-6" id="Cj2-mg-c9K"/>
+                                                <constraint firstItem="8sL-hu-yfM" firstAttribute="top" secondItem="dIh-dU-Fa7" secondAttribute="topMargin" id="HUI-OK-AZe"/>
+                                                <constraint firstItem="PsN-sI-Bwf" firstAttribute="top" secondItem="O21-im-pji" secondAttribute="bottom" constant="4" id="O8d-Ux-YxN"/>
+                                                <constraint firstItem="8sL-hu-yfM" firstAttribute="centerX" secondItem="dIh-dU-Fa7" secondAttribute="centerX" id="OLj-4S-gqC"/>
+                                                <constraint firstItem="Oyw-uX-Vay" firstAttribute="top" secondItem="8sL-hu-yfM" secondAttribute="bottom" constant="50" id="PVe-Ox-LG6"/>
+                                                <constraint firstItem="fVh-nw-aKx" firstAttribute="top" secondItem="iry-ja-OsD" secondAttribute="bottom" constant="3" id="S9O-f2-pmY"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ygp-HD-UQk" secondAttribute="trailing" constant="170" id="TiO-eo-0Da"/>
+                                                <constraint firstItem="4vu-U2-66S" firstAttribute="top" secondItem="Ygp-HD-UQk" secondAttribute="bottom" constant="3" id="YtF-UU-SH5"/>
+                                                <constraint firstItem="Ygp-HD-UQk" firstAttribute="leading" secondItem="4vu-U2-66S" secondAttribute="leading" id="bQD-31-4mq"/>
+                                                <constraint firstItem="Ygp-HD-UQk" firstAttribute="top" secondItem="H07-bO-TJU" secondAttribute="top" id="bb7-yZ-i8r"/>
+                                                <constraint firstItem="Oyw-uX-Vay" firstAttribute="top" secondItem="Ygp-HD-UQk" secondAttribute="top" id="dDT-W5-Eew"/>
+                                                <constraint firstItem="iry-ja-OsD" firstAttribute="leading" secondItem="fVh-nw-aKx" secondAttribute="leading" id="exJ-tY-a1C"/>
+                                                <constraint firstItem="Ygp-HD-UQk" firstAttribute="leading" secondItem="Oyw-uX-Vay" secondAttribute="trailing" constant="5" id="gaB-K1-czu"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2ya-bK-jt6" secondAttribute="trailing" constant="-3" id="hR2-wU-ckg"/>
+                                                <constraint firstItem="4vu-U2-66S" firstAttribute="leading" secondItem="iry-ja-OsD" secondAttribute="leading" id="hvu-uL-TjM"/>
+                                                <constraint firstItem="4vu-U2-66S" firstAttribute="top" secondItem="dIh-dU-Fa7" secondAttribute="top" constant="97" id="kpp-wI-fjc"/>
+                                                <constraint firstItem="IpV-mv-Ec2" firstAttribute="leading" secondItem="dIh-dU-Fa7" secondAttribute="leading" constant="8" id="mj6-Qr-c1c"/>
+                                                <constraint firstItem="IpV-mv-Ec2" firstAttribute="top" secondItem="Oyw-uX-Vay" secondAttribute="bottom" constant="9" id="o01-yE-E8F"/>
+                                                <constraint firstItem="E8Z-48-uBN" firstAttribute="leading" secondItem="2ya-bK-jt6" secondAttribute="leading" id="w30-0l-Xny"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.1333333333" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="duration" destination="4dC-Dr-1Mw" id="FdW-Bj-T1r"/>
+                                            <outlet property="genre" destination="GlE-QU-Es5" id="Mwi-Wp-vFN"/>
+                                            <outlet property="nameDirector" destination="O21-im-pji" id="VAV-LP-uoX"/>
+                                            <outlet property="nameWriter" destination="PsN-sI-Bwf" id="lJL-CK-3NW"/>
+                                            <outlet property="overview" destination="IpV-mv-Ec2" id="d5N-cd-kG3"/>
+                                            <outlet property="score" destination="NAR-dP-koi" id="6Dt-rp-C1R"/>
+                                            <outlet property="starsInMovie" destination="2ya-bK-jt6" id="qRR-2v-lNQ"/>
+                                            <outlet property="title" destination="8sL-hu-yfM" id="gnL-5U-Zr8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="actorCell" rowHeight="86" id="Vva-bf-40c" customClass="ActorCell" customModule="DiMovies2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="414" width="375" height="86"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vva-bf-40c" id="azv-Ss-Kze">
+                                            <rect key="frame" x="0.0" y="0.0" width="308" height="85.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Naam" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deB-eO-rtA">
+                                                    <rect key="frame" x="73" y="7" width="286" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAj-mN-VIn">
+                                                    <rect key="frame" x="73" y="28" width="236" height="49"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">Chris Hemsworth was born in Melbourne, Australia, to Leonie (van Os), a teacher of English, and Craig Hemsworth, a social-services counselor. His brothers are actors Liam Hemsworth and Luke Hemsworth. He is of Dutch (from his immigrant maternal grandfather), Irish, English, Scottish, and German ancestry. His uncle, by marriage, was Rod Ansell, the bushman who inspired the film Crocodile Dundee (1986).
+
+Chris saw quite a bit of the country in his youth, after his family moved to the Northern Territory before finally settling on Phillip Island, to the south of Melbourne. In 2004, he unsuccessfully auditioned for the role of Robbie Hunter in the Australian soap opera Home and Away (1988) but was recalled for the role of Kim Hyde which he played until 2007. In 2006, he entered the Australian version of Dancing with the Stars (2004) and his popularity in the soap enabled him to hang on until show 7 (Dancing with the Stars: Episode #5.7 (2006) when he became the fifth contestant to be eliminated.
+
+His first Hollywood appearance was in Star Trek: The Future Begins (2009), but it was his titular role in Thor (2011) which propelled him to prominence worldwide. He reprised the character in the science fiction blockbuster The Avengers (2012).
+
+Chris's American representative, management company ROAR, also manages actress Elsa Pataky, and it was through them that the two met, marrying in 2010. The couple have a daughter and twin sons.</string>
+                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="10"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kzm-ZN-k8u">
+                                                    <rect key="frame" x="10" y="7" width="55" height="70"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.1333333333" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="bio" destination="aAj-mN-VIn" id="tbf-9r-3At"/>
+                                            <outlet property="name" destination="deB-eO-rtA" id="io4-hA-vJ0"/>
+                                            <outlet property="photo" destination="Kzm-ZN-k8u" id="UJW-eh-g0h"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Tqd-5P-HzJ" id="2dJ-53-sie"/>
+                                    <outlet property="delegate" destination="Tqd-5P-HzJ" id="zD3-VS-Fk8"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="aiQ-G2-uGi"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="yy6-Dt-u2K" id="PtU-cb-sct"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i6A-uh-TvH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1332" y="133.5832083958021"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cEu-9l-Ls9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xsB-Vo-cBP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Jsu-rP-jC2">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="goz-Pa-6RR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SC4-5K-Qgk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-303" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="The Avengers Poster" width="631" height="946"/>
+    </resources>
 </document>
