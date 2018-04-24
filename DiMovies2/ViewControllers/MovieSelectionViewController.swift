@@ -1,16 +1,10 @@
-//
-//  MovieSelectionViewController.swift
-//  DiMovies2
-//
-//  Created by Dimmy Maenhout on 24/12/2017.
-//  Copyright © 2017 Dimmy Maenhout. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 class MovieSelectionViewController : UIViewController {
     
+    var movieTask: URLSessionTask?
+    let session = URLSession(configuration: .ephemeral)
     let apiKey = "fba7c35c2680c39c8829a17d5e902b97"
     let baseURL_TMDB = "https://api.themoviedb.org/3"
     //for actor photo
@@ -25,12 +19,10 @@ class MovieSelectionViewController : UIViewController {
     var movieData : [ Int : [Actor]] = [:]
     //gaan we opvullen met actors die we hebben opgehaald (eerst converteren van JSON naar object!)
     var actors : [Actor] = [
-                            Actor(id: 1, name: "Vin Diesel", birthyear: "1984", deathday: "31", biography: "Actor from the Riddick & Fast and Furious seris", gender: 2, placeOfBirth: "USA", photo_file_path: "photo Vin Diesel" ),
+                            /*Actor(id: 1, name: "Vin Diesel", birthyear: "1984", deathday: "31", biography: "Actor from the Riddick & Fast and Furious seris", gender: 2, placeOfBirth: "USA", photo_file_path: "photo Vin Diesel" ),
                             Actor(id: 2, name: "Angelina Jolie", birthyear: "1970", deathday: "20", biography: "Actress from Lara Croft", gender: 1, placeOfBirth: "USA", photo_file_path: "photo Angelina Jolie" ),
-                            Actor(id: 3, name: "Paul Walker", birthyear: "1964", deathday: "31", biography: "Actor from Fast and Furious 1, 2, 4, 5, 6, 7", gender: 2, placeOfBirth: "USA", photo_file_path: "photo Paul Walker" )
+                            Actor(id: 3, name: "Paul Walker", birthyear: "1964", deathday: "31", biography: "Actor from Fast and Furious 1, 2, 4, 5, 6, 7", gender: 2, placeOfBirth: "USA", photo_file_path: "photo Paul Walker" )*/
                            ]
-    
-    
     var cast : [Dictionary<String, Any>?] = []
     
     
@@ -51,17 +43,45 @@ class MovieSelectionViewController : UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        getMovieDetails(movieId : movie.id!)
-        getCast(movieId: movie.id!)
+        guard let movieID = movie.id else {
+            print("Movie Selection View Controlelr line 51, movieID is nil")
+            return
+        }
+
+        //getMovieDetails(for: movieID)
+        movieTask?.cancel()
+        print("Movie selection view controller line 57, movieTask: \(String(describing: movieTask))")
+        movieTask = TmdbAPIService.getMovieDetails(for: movieID){
+            self.movie = $0!
+            
+        }
+        movieTask!.resume()
+        movieTask = TmdbAPIService.getCast(for: movieID){
+            print("Movie selection view controller line 57, movieID: \(movieID)")
+            self.actors = $0!
+            self.tableView.reloadData()
+        }
+        movieTask!.resume()
+        for actor in actors {
+            movieTask = TmdbAPIService.getActorInfo(for: actor.id){
+                print("Movie selection view controller line 57, movieID: \(movieID)")
+                self.actors.append($0!) 
+                self.tableView.reloadData()
+            }
+            movieTask!.resume()
+        }
+        
+        
+        //getCast(movieID: movie.id!)
         //getActorInfo()
         /*toont film details + de cellen met alle actor cellen*/
-        movieData = [0 : actors]
+        //movieData = [0 : actors]
     }
     
     /*
         ophalen film adhv id
      */
-    func getMovieDetails(movieId : Int){
+    /*func getMovieDetails(for movieId : Int){
         /* request is based on TMDB api example code (is adapted to what I need)*/
         let postData = NSData(data: "{}".data(using: String.Encoding.utf8)!)
         var request = URLRequest(url: NSURL(string: "\(baseURL_TMDB)/movie/\(movieId)?language=en-US&api_key=\(apiKey)")! as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
@@ -69,12 +89,12 @@ class MovieSelectionViewController : UIViewController {
         request.httpMethod = "GET"
         request.httpBody = postData as Data
         
-        let session = URLSession.shared
-        print("lijn 63")
+        //let session = URLSession.shared
+        print("lijn 75")
         let dataTask = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
-            print("lijn 75")
+            print("lijn 77")
             if let data = data{
-                print("lijn 77")
+                print("lijn 79")
                 if let responsed = try! JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] {
                     print("response from TMDB movieDetails: \(responsed)")
                     self.movieDetails = responsed
@@ -88,7 +108,7 @@ class MovieSelectionViewController : UIViewController {
                                           duration: self.movieDetails["runtime"] as! String,
                                           budget: self.movieDetails["budget"] as! Double,
                                           popularity: self.movieDetails["popularity"] as! Double,
-                                          releaseDate: "",
+                                          releaseDate: self.movieDetails["release_date"] as! String,//dit is toegevoegd!
                                           revenue: self.movieDetails["revenue"] as! Double,
                                           status: self.movieDetails["status"] as! String,
                                           tagline: self.movieDetails["tagline"] as! String,
@@ -108,14 +128,15 @@ class MovieSelectionViewController : UIViewController {
         })
         dataTask.resume()
     }
+ */
     
     /*
      ophalen Cast film adhv movie id
      */
     
-    func getCast(movieId : Int){
+    //func getCast(movieID : Int){
        
-        let postData = NSData(data: "{}".data(using: String.Encoding.utf8)!)
+        /*let postData = NSData(data: "{}".data(using: String.Encoding.utf8)!)
         var request = URLRequest(url: NSURL(string: "https://api.themoviedb.org/3/movie/\(movieId)/credits?api_key=\(apiKey)")! as URL, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10.0)
         request.httpMethod = "GET"
         request.httpBody = postData as Data
@@ -152,13 +173,14 @@ class MovieSelectionViewController : UIViewController {
             }
         })
         
-        dataTask.resume()
-    }
+        dataTask.resume()*/
+        //TmdbAPIService.getCast(for: movieID)
+    //}
     
     /*
      Ophalen info actor adhv id
      */
-    func getActorInfo(){
+    /*func getActorInfo(){
         //for photo we need file_path
         //link to get actor account is \(baseURL_TMDB)/person/id/images?\(apiKey)
         
@@ -203,7 +225,7 @@ class MovieSelectionViewController : UIViewController {
             })
             dataTask.resume()
         } //end for
-    }
+    }*/
     
 }
 
@@ -215,57 +237,58 @@ extension MovieSelectionViewController : UITableViewDelegate{
 }
 
 extension MovieSelectionViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return actors.count - 1
+        return actors.count
 
     }
-    /*HeaderCell*/
-    //for the headerCell the code is based on https://www.youtube.com/watch?v=k7_XFDXiGfU (ViewForHeaderInSection )
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView()
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "movieHeaderCell") as! MovieHeaderCell
-        
-        cell.nameDirector.text = movie.director
-        cell.duration.text = movie.duration
-        cell.genre.text = movie.genres.joined(separator: ",")
-        cell.starsInMovie.text = movie.stars
-        cell.overview.text = movie.overview
-        var punten : String = String(format: "%.1F",movie.vote_average!)
-        cell.score.text = punten
-        cell.title.text = movie.title
-        cell.nameWriter.text = movie.writer
-        
-        view.addSubview(cell)
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 400
-    }
-    
-    /*ActorCell*/
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "actorCell", for: indexPath) as! ActorCell
-        cell.bio.text = actors[indexPath.row].biography
-        cell.name.text = actors[indexPath.row].name
-        
-        //image can be displayed with \(baseUrl) + \(sizeProfilePhoto) + imageURL
-        /*let imageURL = actors[indexPath.row].photo_file_path
-        let photoURL = URL(string: baseUrl + sizeProfilePhoto + imageURL )!
-        let data = try! Data.init(contentsOf: photoURL)
-        cell.photo.image = UIImage(data: data)*/
-        return cell
-        
+        switch (indexPath.row){
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "movieHeaderCell", for: indexPath) as! MovieHeaderCell
+            
+            cell.nameDirector.text = movie.director
+            //cell.duration.text = movie.duration
+            cell.genre.text = movie.genres.joined(separator: ",")
+            cell.starsInMovie.text = movie.stars
+            cell.overview.text = movie.overview
+            let punten : String = String(format: "%.1F",movie.vote_average!)
+            cell.score.text = punten
+            cell.title.text = movie.title
+            cell.nameWriter.text = movie.writer
+            
+            return cell
+            
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "actorCell", for: indexPath) as! ActorCell
+            
+            cell.bio.text = actors[indexPath.row].biography
+            cell.name.text = actors[indexPath.row].name
+            
+            //image can be displayed with \(baseUrl) + \(sizeProfilePhoto) + imageURL
+            let imageURL = actors[indexPath.row].photoFilePath
+            let photoURL = URL(string: baseUrl + sizeProfilePhoto + imageURL )!
+//            let data = try! Data.init(contentsOf: photoURL)
+//            cell.photo.image = UIImage(data: data)
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        
+        if indexPath.row != 0 {
+            
+            return 86
+        }
+        else {
+            return 450
+        }
     }
 }
