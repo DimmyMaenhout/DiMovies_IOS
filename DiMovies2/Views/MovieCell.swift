@@ -20,7 +20,6 @@ class MovieCell : UITableViewCell {
             title.text = movie.title
             overview.text = movie.overview
             score.text = String(describing: movie.vote_average)
-            
         }
     }
 }
