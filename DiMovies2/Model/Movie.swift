@@ -12,7 +12,7 @@ class Movie {
     var imdb_id = ""
     var title = ""
     var overview = ""
-    var duration = ""
+    var duration : Int?
     var budget : Double?
     
     var popularity : Double?
@@ -29,9 +29,10 @@ class Movie {
     var stars = ""
     var genres : [String] = []            //film heeft een array waarin id's (int) en name (string) zit dus gaan we name ophalen
     //    var poster : UIImage = nil
+    var trailerUrl = ""
     
     
-    convenience init(movie_id: Int, imdb_id: String, title: String, overview: String, duration: String, budget: Double, popularity: Double, releaseDate: String, revenue: Double, status: String, tagline: String, video: Bool, vote_average: Double, votecount: Int, writer : String, director :  String, stars: String, genres : [String], poster_path: String) {
+    convenience init(movie_id: Int, imdb_id: String, title: String, overview: String, duration: Int, budget: Double, popularity: Double, releaseDate: String, revenue: Double, status: String, tagline: String, video: Bool, vote_average: Double, votecount: Int, writer : String, director :  String, stars: String, genres : [String], poster_path: String, trailerUrl: String) {
         
         self.init()
         self.id = movie_id
@@ -53,6 +54,7 @@ class Movie {
         self.stars = stars
         self.genres = genres
         self.poster_path = poster_path
+        self.trailerUrl = trailerUrl
     }
     
 }
