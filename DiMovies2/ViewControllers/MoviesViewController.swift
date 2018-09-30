@@ -1,17 +1,20 @@
 import Foundation
 import UIKit
-
+/*
+ *  Shows movies in cinema
+ */
 class MoviesViewController : UIViewController {
     
     let apiKey = "fba7c35c2680c39c8829a17d5e902b97"
     let baseURL_TMDB = "https://api.themoviedb.org/3"
     //voor poster
     let baseUrlPoster = "https://image.tmdb.org/t/p/"
-    let sizePoster = "w92"
+    let sizePoster = "original" //"w92"
     var moviesTBMD : [Dictionary<String, Any>?] = []
     var movies: [Movie] = []
     var moviesTask: URLSessionTask?
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
        super.viewDidLoad()
@@ -19,13 +22,18 @@ class MoviesViewController : UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
+        searchBar.delegate = self
+        searchBar.returnKeyType = UIReturnKeyType.done
+        
         moviesTask?.cancel()
         moviesTask = TmdbAPIService.getMoviesPlaying(){
             self.movies = $0!
             self.tableView.reloadData()
         }
         moviesTask!.resume()
+        
     }
+    
     //                          TODO
     //finding movies by title:
     //vb werkende url adhv titel
@@ -39,9 +47,9 @@ class MoviesViewController : UIViewController {
         guard segue.identifier == "selectedMovie" else {
             fatalError("Unknown segue")
         }
+        
         let movieSelectionViewController = segue.destination as! MovieSelectionViewController
         movieSelectionViewController.movie = movies[tableView.indexPathForSelectedRow!.row]
-        
     }
 }
 extension MoviesViewController : UITableViewDataSource {
@@ -55,10 +63,11 @@ extension MoviesViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MovieCell
-        print("Movies view controller line 119, #movies: ", movies.count, indexPath.row)
-        let movie = movies[indexPath.row]
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MovieCell
+//        print("Movies view controller line 74, #movies: ", movies.count, indexPath.row)
+        let movie = movies[indexPath.row]
+//        print("Movies view controller line 76, \(movies[indexPath.row]): \(movie.title)")
         cell.title.text = movie.title
         let punten : String = String(format: "%.1F",movie.vote_average!)
         cell.score.text = punten
@@ -73,10 +82,37 @@ extension MoviesViewController : UITableViewDataSource {
         return cell
     }
 }
+
 extension MoviesViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       // performSegue(withIdentifier: "selectedMovie", sender: self)
+        
+//        Zorgt ervoor dat de table cell niet meer geselecteerd is als we terug komen
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
+
+extension MoviesViewController : UISearchBarDelegate {
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let searchKeywords = searchBar.text else {
+            print("Movies view controller line 93, searchKeywords is nil")
+            return
+        }
+        print("Movie view controller line 96, searchKeywords: \(searchKeywords)")
+        moviesTask?.cancel()
+        moviesTask = TmdbAPIService.getMovieByName(for: searchKeywords) {
+            self.movies.removeAll()
+            self.movies = $0!
+            self.tableView.reloadData()
+            
+        }
+        moviesTask?.resume()
+        self.view.endEditing(true)
+    }
+}
+
+
+
