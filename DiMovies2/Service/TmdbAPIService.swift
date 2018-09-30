@@ -178,7 +178,7 @@ enum TmdbAPIService {
     static func getActorInfo(for actorID: Int, completion: @escaping (Actor?) -> Void) -> URLSessionTask {
         
         let url = URL(string: "\(baseURL_TMDB)/person/\(actorID)?api_key=\(apiKey)&append_to_response=images")!
-        
+        print("TMDB API Service line 181, url: \(url)")
         return session.dataTask(with: url){
             data, response, error in
             let completion: (Actor?) -> Void = {
@@ -199,17 +199,24 @@ enum TmdbAPIService {
                 completion(nil)
                 return
             }
-            guard let images = result!["images"] as! [String: Any]? else {
+            guard let images = result!["images"] as! [String: [Any]]? else {
                 completion(nil)
             return
             }
+            print("Tmdb API Service line 206, images: \(String(describing: images)) \n images[profiles]\(images["profiles"])")
             print("Tmdb API Service line 207, result: \(String(describing: result))")
-            guard let profiles = images["profiles"] as? [Any] else {
+            guard let profiles = images["profiles"] as? [Any],
+                let lastImageObject = profiles.last as! [String: Any]?,
+                let imagePath = lastImageObject["file_path"] as! String?else {
                 completion(nil)
                 return
             }
-            print("Tmdb API Service line 212, profiles: \(String(describing: profiles))")
-            
+            print("Tmdb API Service line 214, lastImageObject: \(String(describing: lastImageObject))")
+            print("Tmdb API Service line 215, imagePath: \(String(describing: imagePath))")
+//            guard let imagePath = lastImageObject["file_path"] as! String? else {
+//                completion (nil)
+//                return
+//            }
             let actor = Actor(id: result!["id"] as! Int,
                               name: result!["name"] as! String,
                               birthyear: result!["birthday"] as! String,
@@ -217,8 +224,9 @@ enum TmdbAPIService {
                               biography: result!["biography"] as! String,
                               gender: result!["gender"] as! Int,
                               placeOfBirth: result!["place_of_birth"] as! String,
-                              photoFilePath: "",
+                              photoFilePath: imagePath,
                               profilePath: result!["profile_path"] as! String)
+            print("TMDB API Service line 234, actor biography: \(actor.biography)")
             completion(actor)
         }
     }
@@ -251,9 +259,6 @@ enum TmdbAPIService {
             }
             print("TMDB API Service line 253, result: \(String(describing: result))")
             print("TMDB API Service line 253, json: \(json)")
-            
-//            SOMS GEEFT DIT EEN INDEX OUT OF BOUND ERROR TERUG, ONDERZOEKEN WAAROM!
-//            - De reden was dat de json hiervoor null was
             
             var youtubeKey = ""
             if json.count > 0 {
