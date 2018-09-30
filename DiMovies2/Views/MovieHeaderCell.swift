@@ -8,13 +8,15 @@
 
 import Foundation
 import UIKit
+import WebKit
+
 class MovieHeaderCell : UITableViewCell {
     
     @IBOutlet weak var title: UILabel!
     
-    @IBOutlet weak var seenMovie: UIButton!
+    @IBOutlet weak var seenMovie: UISwitch!
     
-    @IBOutlet weak var wantToSeeMovie: UIButton!
+    @IBOutlet weak var wantToWatchMovie: UISwitch!
     
     @IBOutlet weak var score: UILabel!
     
@@ -30,20 +32,19 @@ class MovieHeaderCell : UITableViewCell {
     
     @IBOutlet weak var overview: UILabel!
     
-    @IBOutlet weak var trailerMovie: UIView!
+    @IBOutlet weak var poster: UIImageView!
     
     var movie : Movie! {
         
         didSet{
             title.text = movie.title
-            score.text = "\(movie.vote_average)"
-            duration.text = movie.duration
+            score.text = "\(String(describing: movie.vote_average))"
+            duration.text = "\(String(describing: movie.duration))"
             nameDirector.text = movie.director
             nameWriter.text = movie.writer
             //genre.text = movie.genre
             starsInMovie.text = movie.stars
             overview.text = movie.overview
-            
         }
     }
 }
