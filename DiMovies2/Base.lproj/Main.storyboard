@@ -41,7 +41,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="EVH-dd-tmU">
                                                     <rect key="frame" x="8" y="8" width="292" height="104"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="The Avengers Poster" translatesAutoresizingMaskIntoConstraints="NO" id="q8s-UD-QTD">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q8s-UD-QTD">
                                                             <rect key="frame" x="0.0" y="0.0" width="70" height="100"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="70" id="hyf-7w-6wv"/>
@@ -51,25 +51,25 @@
                                                             <rect key="frame" x="74" y="0.0" width="218" height="104"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3If-iZ-UqS">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="218" height="20.333333333333332"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="218" height="12"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="The Avengers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7m-RJ-Zzf">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="20.333333333333332"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="12"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sDV-hR-Vj6">
-                                                                            <rect key="frame" x="187.66666666666669" y="0.0" width="30.333333333333343" height="20.333333333333332"/>
+                                                                            <rect key="frame" x="187.66666666666669" y="0.0" width="30.333333333333343" height="12"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="8.9" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1wu-AZ-8tE">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="15.666666666666666" height="20.333333333333332"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="15.666666666666666" height="12"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OTr-Uj-YnO">
-                                                                                    <rect key="frame" x="15.666666666666629" y="0.0" width="14.666666666666664" height="20.333333333333332"/>
+                                                                                    <rect key="frame" x="15.666666666666629" y="0.0" width="14.666666666666664" height="12"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <nil key="highlightedColor"/>
@@ -79,7 +79,7 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4PQ-rW-MgN">
-                                                                    <rect key="frame" x="0.0" y="24.333333333333336" width="218" height="79.666666666666657"/>
+                                                                    <rect key="frame" x="0.0" y="16" width="218" height="88"/>
                                                                     <string key="text">Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.</string>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
