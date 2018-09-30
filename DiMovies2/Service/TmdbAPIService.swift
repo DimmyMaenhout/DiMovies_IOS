@@ -62,7 +62,7 @@ enum TmdbAPIService {
                                    director: "",
                                    stars: "",
                                    genres: [],
-                                   poster_path: movie["poster_path"] as! String,
+                                   poster_path: movie["poster_path"] as! String ?? "",
                                    trailerUrl: ""))
                 
             }
@@ -304,12 +304,21 @@ enum TmdbAPIService {
                     completion(nil)
                     return
             }
-//            print("Tmbd API Service line 43, getMovieByName json: \(json)")
+            print("Tmbd API Service line 307, getMovieByName json: \(json)")
 //            print("Tmbd API Service line 253, getMovieByName response: \(response)")
-        
+//            guard let poster = movie!["poster_path"] else {
+//                completion nil
+//                return
+//            }
+            guard let posters = json.first as! [String: Any]? else {
+                completion(nil)
+                return
+            }
+            print("Tmbd API Service line 317, getMovieByName posters: \(posters)")
             var movies : [Movie] = []
             for i in 0 ... json.count - 1 {
                 let movie = json[i]
+                print("Tmbd API Service line 321, getMovieByName poster_path: \(movie["poster_path"])")
                 movies.append(Movie(movie_id: movie["id"] as! Int,
                                     imdb_id: "",
                                     title: movie["title"] as! String,
@@ -328,7 +337,7 @@ enum TmdbAPIService {
                                     director: "",
                                     stars: "",
                                     genres: [],
-                                    poster_path: movie["poster_path"] as! String,
+                                    poster_path: movie["poster_path"]as? String ?? "",
                                     trailerUrl: ""))
                 
             }
