@@ -266,6 +266,11 @@ enum TmdbAPIService {
         }
     }
     
+    /*
+        vb werkende url adhv titel
+        https://api.themoviedb.org/3/search/movie?api_key=fba7c35c2680c39c8829a17d5e902b97&query=the+fast+and+the+furious
+        baseURL_TMDB/search/movie?api_key=apiKey&query=the+fast+and+the+furious
+    */
     static func getMovieByName(for movieName: String, completion: @escaping ([Movie]?) -> Void) -> URLSessionTask {
 //        https://api.themoviedb.org/3/search/movie?api_key=fba7c35c2680c39c8829a17d5e902b97&language=en-US&query=the%20best%20of%20me&page=1&include_adult=false
         let movie = movieName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
