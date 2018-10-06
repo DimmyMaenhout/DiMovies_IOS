@@ -14,17 +14,13 @@ class MoviesViewController : UIViewController {
     var movies: [Movie] = []
     var moviesTask: URLSessionTask?
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    
+
     override func viewDidLoad() {
        super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        searchBar.delegate = self
-        searchBar.returnKeyType = UIReturnKeyType.done
-        
+
         moviesTask?.cancel()
         moviesTask = TmdbAPIService.getMoviesPlaying(){
             self.movies = $0!
@@ -34,15 +30,6 @@ class MoviesViewController : UIViewController {
         
     }
     
-    //                          TODO
-    //finding movies by title:
-    //vb werkende url adhv titel
-    //https://api.themoviedb.org/3/search/movie?api_key=fba7c35c2680c39c8829a17d5e902b97&query=the+fast+and+the+furious
-    //baseURL_TMDB/search/movie?api_key=apiKey&query=the+fast+and+the+furious
-    /*  func getMovieByName(name: String){
-    
-    }   */
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "selectedMovie" else {
             fatalError("Unknown segue")
@@ -52,6 +39,7 @@ class MoviesViewController : UIViewController {
         movieSelectionViewController.movie = movies[tableView.indexPathForSelectedRow!.row]
     }
 }
+
 extension MoviesViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,11 +61,14 @@ extension MoviesViewController : UITableViewDataSource {
         cell.score.text = punten
         cell.overview.text = movie.overview
         
-        //voor image bestaat de url uit 3 delen = base_url, full_size and the file path
-        let imageURL = movie.poster_path
-        let moviePosterURL = URL(string: baseUrlPoster + sizePoster + imageURL)!
-        let data = try! Data.init(contentsOf: moviePosterURL)
-        cell.poster.image =  UIImage(data: data)
+        if movie.poster_path != "" {
+        
+            //voor image bestaat de url uit 3 delen = base_url, full_size and the file path
+            let imageURL = movie.poster_path
+            let moviePosterURL = URL(string: baseUrlPoster + sizePoster + imageURL)!
+            let data = try! Data.init(contentsOf: moviePosterURL)
+            cell.poster.image =  UIImage(data: data)
+        }
         
         return cell
     }
@@ -90,29 +81,4 @@ extension MoviesViewController : UITableViewDelegate {
 //        Zorgt ervoor dat de table cell niet meer geselecteerd is als we terug komen
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
 }
-
-extension MoviesViewController : UISearchBarDelegate {
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        guard let searchKeywords = searchBar.text else {
-            print("Movies view controller line 93, searchKeywords is nil")
-            return
-        }
-        print("Movie view controller line 96, searchKeywords: \(searchKeywords)")
-        moviesTask?.cancel()
-        moviesTask = TmdbAPIService.getMovieByName(for: searchKeywords) {
-            self.movies.removeAll()
-            self.movies = $0!
-            self.tableView.reloadData()
-            
-        }
-        moviesTask?.resume()
-        self.view.endEditing(true)
-    }
-}
-
-
-
