@@ -175,6 +175,9 @@ extension MovieSelectionViewController: UITableViewDataSource {
             
             print("Movie Selection view controller line 176, got here (actor cell), actors[indexPath.row].biography: \(actors[indexPath.row - 2].biography)")
             
+            if actorsWithDetails[indexPath.row - 2].biography.isEmpty {
+                actorsWithDetails[indexPath.row - 2].biography = "N/A"
+            }
             actorCell.bio.text = actorsWithDetails[indexPath.row - 2].biography
             actorCell.name.text = actorsWithDetails[indexPath.row - 2].name
             
