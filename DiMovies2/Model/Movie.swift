@@ -1,33 +1,32 @@
-
 import Foundation
+import RealmSwift
 
-class Movie {
-    var id : Int?
-    var poster_path = ""
-    var original_language = ""
-    var original_title = ""
-    var backdrop_path = ""
-    var adult = ""
-    var release_date = ""
-    var imdb_id = ""
-    var title = ""
-    var overview = ""
-    var duration : Int?
-    var budget : Double?
-    
-    var popularity : Double?
+class Movie : Object {
+    @objc dynamic var id : Int = 0
+    @objc dynamic var poster_path : String = ""
+    @objc dynamic var original_language : String = ""
+    @objc dynamic var original_title : String = ""
+    @objc dynamic var backdrop_path : String = ""
+    @objc dynamic var adult : String = ""
+    @objc dynamic var release_date : String = ""
+    @objc dynamic var imdb_id : String = ""
+    @objc dynamic var title : String = ""
+    @objc dynamic var overview : String = ""
+    @objc dynamic var duration : Int = 0
+    @objc dynamic var budget : Double = 0.0
+    @objc dynamic var popularity : Double = 0.0
     //var production_countries : [String] = []
     //var production_companies : []
-    var revenue : Double?
-    var status = ""
-    var tagline = ""
-    var video = false
-    var vote_average : Double?
-    var vote_count : Int?
-    var stars = ""
-    var genres : [String] = []            //film heeft een array waarin id's (int) en name (string) zit dus gaan we name ophalen
-    //    var poster : UIImage = nil
-    var trailerUrl = ""
+    @objc dynamic var revenue : Double = 0.0
+    @objc dynamic var status : String = ""
+    @objc dynamic var tagline : String = ""
+    @objc dynamic var video : Bool = false
+    @objc dynamic var vote_average : Double = 0.0
+    @objc dynamic var vote_count : Int = 0
+    @objc dynamic var stars : String = ""
+    //film heeft een array waarin id's (int) en name (string) zit dus gaan we name ophalen
+    @objc dynamic var genres : [String] = []
+    @objc dynamic var trailerUrl : String = ""
     
     
     convenience init(movie_id: Int, imdb_id: String, title: String, overview: String, duration: Int, budget: Double, popularity: Double, releaseDate: String, revenue: Double, status: String, tagline: String, video: Bool, vote_average: Double, votecount: Int, stars: String, genres : [String], poster_path: String, trailerUrl: String) {
