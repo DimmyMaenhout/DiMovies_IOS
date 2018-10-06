@@ -22,10 +22,6 @@ class MovieHeaderCell : UITableViewCell {
     
     @IBOutlet weak var duration: UILabel!
     
-    @IBOutlet weak var nameDirector: UILabel!
-    
-    @IBOutlet weak var nameWriter: UILabel!
-    
     @IBOutlet weak var genre: UILabel!
     
     @IBOutlet weak var starsInMovie: UILabel!
@@ -33,6 +29,7 @@ class MovieHeaderCell : UITableViewCell {
     @IBOutlet weak var overview: UILabel!
     
     @IBOutlet weak var poster: UIImageView!
+    @IBOutlet weak var releaseDate: UILabel!
     
     var movie : Movie! {
         
@@ -40,11 +37,10 @@ class MovieHeaderCell : UITableViewCell {
             title.text = movie.title
             score.text = "\(String(describing: movie.vote_average))"
             duration.text = "\(String(describing: movie.duration))"
-            nameDirector.text = movie.director
-            nameWriter.text = movie.writer
             //genre.text = movie.genre
             starsInMovie.text = movie.stars
             overview.text = movie.overview
+            releaseDate.text = movie.release_date
         }
     }
 }
