@@ -9,34 +9,21 @@ class MovieSelectionViewController : UIViewController {
     let baseURL_TMDB = "https://api.themoviedb.org/3"
     //for actor photo
     let baseUrl = "https://image.tmdb.org/t/p/"
-    let sizePoster = "w92"
-    let sizeProfilePhoto = "w45"
-    //film die we krijgen van MovieViewController
+    let originalPosterSize = "original"
+    //Movie selected from MovieViewController
     var movie : Movie!
-    var movieDetails : [String : Any] = [:]
-    var actor : Actor!
-    /* voor headercell en actor cells */
-    var movieData : [ Int : [Actor]] = [:]
+//    var movieDetails : [String : Any] = [:]
+//    var actor : Actor!
     //gaan we opvullen met actors die we hebben opgehaald (eerst converteren van JSON naar object!)
-    var actors : [Actor] = [
-                            /*Actor(id: 1, name: "Vin Diesel", birthyear: "1984", deathday: "31", biography: "Actor from the Riddick & Fast and Furious seris", gender: 2, placeOfBirth: "USA", photo_file_path: "photo Vin Diesel" ),
-                            Actor(id: 2, name: "Angelina Jolie", birthyear: "1970", deathday: "20", biography: "Actress from Lara Croft", gender: 1, placeOfBirth: "USA", photo_file_path: "photo Angelina Jolie" ),
-                            Actor(id: 3, name: "Paul Walker", birthyear: "1964", deathday: "31", biography: "Actor from Fast and Furious 1, 2, 4, 5, 6, 7", gender: 2, placeOfBirth: "USA", photo_file_path: "photo Paul Walker" )*/
-                           ]
-    var cast : [Dictionary<String, Any>?] = []
-    
+    var actors : [Actor] = []
+    var actorsWithDetails : [Actor] = []
+    var cast: [[String : Actor]] = [[:]]
+    var stars: [String] = []
     var youtubeTrailerKey = ""
+    
+    let dispatchGroup = DispatchGroup()
+    
     @IBOutlet weak var tableView: UITableView!
-    
-    //Voor de cast van de film te krijgen gebruik maken van:
-    //                                                          get/movie/{movie_id}/credits
-    
-    //eens we de persoon id hebben (acteur) kunnen we gebruik maken van 1 van de 3 methoden:
-    /*
-     http://api.themoviedb.org/3/person/62/movie_credits?api_key=###
-     http://api.themoviedb.org/3/person/62/tv_credits?api_key=###
-     http://api.themoviedb.org/3/person/62/combined_credits?api_key=###
-     */
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,54 +32,80 @@ class MovieSelectionViewController : UIViewController {
         tableView.dataSource = self
         
         guard let movieID = movie.id else {
-            print("Movie Selection View Controlelr line 47, movieID is nil")
+            print("Movie Selection View Controlelr line 34, movieID is nil")
             return
         }
-        print("Movie selection view controller line 51, movieID: \(String(describing: movieID))")
-        
-        movieTask?.cancel()
-        print("Movie selection view controller line 54, movieTask: \(String(describing: movieTask))")
-        movieTask = TmdbAPIService.getMovieDetails(for: movieID){
-            self.movie = $0!
-            print("MovieSelectionViewController line 57, \(self.movie)")
-            self.tableView.reloadData()
+        print("Movie selection view controller line 38, movieID = \(movieID)")
+        getMovieDetails(for: movieID)
+        getYoutubeTrailerKey(for: movieID)
+        getCast(for: movieID)
+//        De code in de dispatchGrupo.notifiy zou pas moeten uitgevoerd worden als de andere calls klaar zijn
+        dispatchGroup.notify(queue: .global()){
+            print("Movie selection view controller line 44, # actors: \(self.actors.count) actors: \(self.actors)")
+            for actor in self.actors {
+                print("Movie selection view controller line 46,\(actor) actorID: \(actor.id)")
+                self.getActorDetails(for: actor.id)
+            }
+            print("Movie selection view controller line 49, # cast \(self.cast.count) cast: \(self.cast)")
+            print("Movie selection view controller line 50, # actorsWithDetails \(self.actorsWithDetails.count) cast: \(self.actorsWithDetails)")
         }
 
-        movieTask!.resume()
-        movieTask = TmdbAPIService.getCast(for: movieID) {
-            print("Movie selection view controller line 63, movieID: \(movieID)")
-            self.actors = $0!
-            print("Movie selection view controller line 65, # actors: \(self.actors.count)")
+        print("Movie selection view controller line 53, # cast: \(cast.count)\t # actors: \(actors.count)")
+//        Updaten van de UI (moet op de main thread gebeuren)
+        dispatchGroup.notify(queue: .main){
             self.tableView.reloadData()
         }
-        
-//        movieTask?.cancel()
-        
-        movieTask!.resume()
-        while actors.count != 0{
-            
-            for actor in actors {
-                movieTask = TmdbAPIService.getActorInfo(for: actor.id  /* 500 */ ) {
-                    print("Movie selection view controller line 73, actorId: \(actor.id)")
-                    
-                    self.actors.append($0!)
-                    print("Movie selection view controller line 76, # actors: \(self.actors.count)")
-                    self.tableView.reloadData()
-                }
-                
-                //            movieTask!.resume()
+    }
+    
+    func getMovieDetails(for movieID: Int) {
+        movieTask = TmdbAPIService.getMovieDetails(for: movieID, completion: { (movieDetails) in
+            guard let movieDetails = movieDetails else {
+                return
             }
-        }
-        
-        
+            self.movie = movieDetails
+        })
         movieTask!.resume()
-        movieTask = TmdbAPIService.getTrailerUrlKey(for: movieID) {
-            self.youtubeTrailerKey = $0!
-            print("Movie selection view controller line 85, youtubeTrailerKey = \(self.youtubeTrailerKey)")
-        }
-        
+    }
+    
+    func getYoutubeTrailerKey(for movieID: Int) {
+        movieTask = TmdbAPIService.getTrailerUrlKey(for: movieID, completion: { (urlKey) in
+            guard let urlKey = urlKey else {
+                return
+            }
+            self.youtubeTrailerKey = urlKey
+        })
         movieTask!.resume()
-//        self.tableView.reloadData()
+    }
+    
+    func getCast(for movieID: Int) {
+        dispatchGroup.enter()
+        movieTask = TmdbAPIService.getCast(for: movieID, completion: { (actors) in
+            guard let actors = actors else {
+                return
+            }
+            self.actors = actors
+            print("Movie selection view controller line 87, # actors: \(actors.count)")
+            self.dispatchGroup.leave()
+        })
+        movieTask!.resume()
+        
+    }
+    
+    func getActorDetails(for actorID: Int) {
+        dispatchGroup.enter()
+        movieTask = TmdbAPIService.getActorInfo(for: actorID, completion: { (actorDetails) in
+            guard let actor = actorDetails else {
+                return
+            }
+            self.cast.append([actor.name : actor])
+            self.actorsWithDetails.append(actor)
+            print("Movie selection view controller line 102, actor: \(actor.biography)")
+            print("Movie selection view controller line 103, cast: \(self.cast.count) \t # actors: \(self.actors.count) \t # actorsWithDetails: \(self.actorsWithDetails.count)")
+            self.tableView.reloadData()
+            self.dispatchGroup.leave()
+        })
+        print("Movie selection view controller line 107, cast: \(self.cast.count) \t # actors: \(self.actors.count)")
+        movieTask!.resume()
     }
 }
 
@@ -110,8 +123,8 @@ extension MovieSelectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        + 2 voor movieHeader en trailerCell
-        print("Movie Selection view controller line 107, nr of rows: \(actors.count + 2)")
-        return actors.count + 2
+        print("Movie Selection view controller line 126, nr of rows: \(actorsWithDetails.count + 2)")
+        return actorsWithDetails.count + 2//actors.count + 2
 
     }
 
@@ -120,24 +133,29 @@ extension MovieSelectionViewController: UITableViewDataSource {
         switch (indexPath.row) {
             
         case 0:
-            print("MovieSelectionViewController line 106, movie director: \(movie.director)")
             let movieHeaderCell = tableView.dequeueReusableCell(withIdentifier: "movieHeaderCell", for: indexPath) as! MovieHeaderCell
-
-            movieHeaderCell.nameDirector.text = movie.director
-            movieHeaderCell.nameWriter.text = movie.writer
-            print("Movie selection view controller line 116, writer: \(movie.writer)")
+            
             movieHeaderCell.duration.text = "\(String(describing: movie.duration!))"
             movieHeaderCell.genre.text = movie.genres.joined(separator: ",")
-            movieHeaderCell.starsInMovie.text = movie.stars
-            print("Movie selection view controller line 118, movie stars: \(movie.stars)")
+
+            print("Movie selection view controller line 141, actorsWithDetails.prefix(8): \(actorsWithDetails.prefix(8))")
+//            get first 8 cast members
+            for i in actorsWithDetails.prefix(8) {
+                let actor = i
+                stars.append(actor.name)
+            }
+
+            let namesStars = stars.joined(separator: ", ")
+            movieHeaderCell.starsInMovie.text = namesStars
+            print("Movie selection view controller line 150, movie stars: \(movie.stars)")
             movieHeaderCell.overview.text = movie.overview
-            print("Movie selection view controller line 120, movie overview: \(movie.overview)")
+            print("Movie selection view controller line 152, movie overview: \(movie.overview)")
             let punten : String = String(format: "%.1F",movie.vote_average!)
             movieHeaderCell.score.text = punten
             movieHeaderCell.title.text = movie.title
            
-//            Poster for movie
-            let posterUrl = URL(string: baseUrl + sizePoster + movie.poster_path)
+//            Poster for movie, gets the original size of the poster
+            let posterUrl = URL(string: baseUrl + originalPosterSize + movie.poster_path)
             let data = try! Data.init(contentsOf: posterUrl!)
             movieHeaderCell.poster.image = UIImage(data: data)
             
@@ -147,28 +165,28 @@ extension MovieSelectionViewController: UITableViewDataSource {
             let trailerCell = tableView.dequeueReusableCell(withIdentifier: "trailerCell", for: indexPath) as! TrailerCell
             
             let embedUrl = URL(string: "https://www.youtube.com/embed/\(youtubeTrailerKey)")
-            let trailerRequest = URLRequest(url: embedUrl! /*URL(string: movie.trailerUrl)!*/)
+            let trailerRequest = URLRequest(url: embedUrl!)
             trailerCell.webView.load(trailerRequest)
             
             return trailerCell
 
         default:
             let actorCell = tableView.dequeueReusableCell(withIdentifier: "actorCell", for: indexPath) as! ActorCell
-            print("Movie Selection view controller line 151, got here (actor cell), indexPath: \(indexPath)")
-            print("Movie Selection view controller line 152, got here (actor cell), actorsindexPath: \(indexPath)")
-            print("Movie Selection view controller line 153, got here (actor cell), actors[indexPath.row].biography: \(actors[indexPath.row - 2].biography)")
-            actorCell.bio.text = actors[indexPath.row - 2].biography
-            actorCell.name.text = actors[indexPath.row - 2].name
             
-            if (actors[indexPath.row - 2].photoFilePath != "") {
+            print("Movie Selection view controller line 176, got here (actor cell), actors[indexPath.row].biography: \(actors[indexPath.row - 2].biography)")
+            
+            actorCell.bio.text = actorsWithDetails[indexPath.row - 2].biography
+            actorCell.name.text = actorsWithDetails[indexPath.row - 2].name
+            
+            
+            if actorsWithDetails[indexPath.row - 2].profilePath != ""  {
                 //            image can be displayed with \(baseUrl) + \(sizeProfilePhoto) + imageURL
-                let imageURL = actors[indexPath.row - 2].photoFilePath
+                let imageURL = actorsWithDetails[indexPath.row - 2].photoFilePath
                 let photoURL = URL(string: baseUrl + "original"/* sizeProfilePhoto */+ imageURL)!
-                print("Movie Selection view controller line 166, photoUrl: \(photoURL)")
+                print("Movie Selection view controller line 186, photoUrl: \(photoURL)")
                 let data = try! Data.init(contentsOf: photoURL)
                 actorCell.photo.image = UIImage(data: data)
             }
-
             
             return actorCell
         }
