@@ -4,19 +4,11 @@ import Foundation
 enum TmdbAPIService {
     
     private static let session = URLSession(configuration: .ephemeral)
-    private static let apiKey = "fba7c35c2680c39c8829a17d5e902b97"
-    private static let baseURL_TMDB = "https://api.themoviedb.org/3"
-    //voor poster
-    private static let baseUrlPoster = "https://image.tmdb.org/t/p/"
-    private static let sizePoster = "w92"
-    //size poster actor
-    private static let sizeProfilePhoto = "w45"
-    
     /*
         Ophalen films die momenteel in de cinema spelen
     */
     static func getMoviesPlaying(completion: @escaping ([Movie]?) -> Void) -> URLSessionTask {
-        let url = URL(string: "\(baseURL_TMDB)/movie/now_playing?page=1&language=en-US&api_key=\(apiKey)")!
+        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/now_playing?page=1&language=en-US&api_key=\(TmdbApiPrivateData.apiKey)")!
         
         return session.dataTask(with: url) {
             data, response, error in
@@ -49,20 +41,16 @@ enum TmdbAPIService {
                                    title: movie["title"] as! String,
                                    overview: movie["overview"] as! String,
                                    duration: 0,
-                                   budget: 0.0,
                                    popularity: movie["popularity"] as! Double,
                                    releaseDate: movie["release_date"] as! String,
-                                   revenue: 0.0,
                                    status: "",
                                    tagline: "",
-                                   video: movie["video"] as! Bool,
                                    vote_average: movie["vote_average"] as! Double,
                                    votecount: movie["vote_count"] as! Int,
                                    stars: "",
-                                   genres: [],
+//                                   genres: [],
                                    poster_path: movie["poster_path"] as? String ?? "",
                                    trailerUrl: ""))
-                
             }
             completion(movies)
         }
@@ -70,7 +58,7 @@ enum TmdbAPIService {
     /* Details van elke film ophalen */
     static func getMovieDetails(for movieID: Int, completion: @escaping (Movie?) -> Void) -> URLSessionTask {
 //        Nog checken of er null waarden in de json zitten, bv bij 
-        let url = URL(string: "\(baseURL_TMDB)/movie/\(movieID)?language=en-US&api_key=\(apiKey)")!
+        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/\(movieID)?language=en-US&api_key=\(TmdbApiPrivateData.apiKey)")!
         print("Tmbd API Service line 73, movieID: \(movieID)")
         return session.dataTask(with: url) {
             data, response, error in
@@ -100,17 +88,13 @@ enum TmdbAPIService {
                              title: json["title"] as! String,
                              overview: json["overview"] as! String,
                              duration: json["runtime"] as? Int ?? 0,
-                             budget: json["budget"] as! Double,
                              popularity: json["popularity"] as! Double,
                              releaseDate: json["release_date"] as! String,
-                             revenue: json["revenue"] as! Double,
                              status: json["status"] as! String,
                              tagline: json["tagline"] as! String,
-                             video: json["video"] as! Bool,
                              vote_average: json["vote_average"] as! Double,
                              votecount: json["vote_count"] as! Int,
                              stars: "",
-                             genres: [""],
                              poster_path: json["poster_path"] as! String,
                              trailerUrl: "")
             
@@ -122,7 +106,7 @@ enum TmdbAPIService {
      Ophalen cast (acteurs) die hebben meegespeeld in de film
     */
     static func getCast(for movieID: Int, completion: @escaping ([Actor]?) -> Void) -> URLSessionTask {
-        let url = URL(string: "\(baseURL_TMDB)/movie/\(movieID)/credits?api_key=\(apiKey)")!
+        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/\(movieID)/credits?api_key=\(TmdbApiPrivateData.apiKey)")!
         
         return session.dataTask(with: url) {
             data, response, error in
@@ -139,15 +123,13 @@ enum TmdbAPIService {
                     completion(nil)
                     return
             }
-            //print("Tmbd API Service line 113, getCast response: \(response)")
-            //print("Tmbd API Service line 115, getCast data: \(data)")
+
             guard let result = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let json = result!["cast"] as? [[String: Any]] else {
                     print("Tmdb API Service line 146, result is nil")
                     completion(nil)
                     return
             }
-//            print("Tmbd API Service line 124, getCast result: \(String(describing: result))")
             print("Tmbd API Service line 151, getCast json: \(json)")
             var cast : [Actor] = []
             for i in 0 ... json.count - 1 {
@@ -173,7 +155,7 @@ enum TmdbAPIService {
     
     static func getActorInfo(for actorID: Int, completion: @escaping (Actor?) -> Void) -> URLSessionTask {
         
-        let url = URL(string: "\(baseURL_TMDB)/person/\(actorID)?api_key=\(apiKey)&append_to_response=images")! //\(actorID)
+        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/person/\(actorID)?api_key=\(TmdbApiPrivateData.apiKey)&append_to_response=images")!
         print("TMDB API Service line 177, url: \(url)")
         return session.dataTask(with: url){
             data, response, error in
@@ -230,7 +212,7 @@ enum TmdbAPIService {
     */
     static func getTrailerUrlKey(for movieID: Int, completion: @escaping (String?) -> Void) -> URLSessionTask {
         //http://api.themoviedb.org/3/movie/400/videos?api_key=fba7c35c2680c39c8829a17d5e902b97
-        let url = URL(string: "\(baseURL_TMDB)/movie/\(movieID)/videos?api_key=\(apiKey)")!
+    let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/\(movieID)/videos?api_key=\(TmdbApiPrivateData.apiKey)")!
         
         return session.dataTask(with: url) {
             data, response, error in
@@ -276,7 +258,7 @@ enum TmdbAPIService {
         let movie = movieName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         print("TMDB API service line 275, \(String(describing: movie!))")
         
-        let url = URL(string: "\(baseURL_TMDB)/search/movie?api_key=\(apiKey)&language=en-US&query=\(movie!)&include_adult=false")!
+        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/search/movie?api_key=\(TmdbApiPrivateData.apiKey)&language=en-US&query=\(movie!)&include_adult=false")!
         
         print("TMDB API Service line 279, url: \(url)")
         return session.dataTask(with: url) {
@@ -323,17 +305,17 @@ enum TmdbAPIService {
                                     title: movie["title"] as! String,
                                     overview: movie["overview"] as! String,
                                     duration: 0,
-                                    budget: 0.0,
+//                                    budget: 0.0,
                                     popularity: movie["popularity"] as! Double,
                                     releaseDate: movie["release_date"] as! String,
-                                    revenue: 0.0,
+//                                    revenue: 0.0,
                                     status: "",
                                     tagline: "",
-                                    video: movie["video"] as! Bool,
+//                                    video: movie["video"] as! Bool,
                                     vote_average: movie["vote_average"] as! Double,
                                     votecount: movie["vote_count"] as! Int,
                                     stars: "",
-                                    genres: [],
+//                                    genres: [],
                                     poster_path: movie["poster_path"]as? String ?? "",
                                     trailerUrl: ""))
                 
