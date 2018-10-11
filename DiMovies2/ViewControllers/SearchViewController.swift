@@ -2,27 +2,26 @@ import Foundation
 import UIKit
 
 class SearchViewController : UIViewController {
-
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
     
 //    combined results (movies & series) with type (int) as key
 //    var searchResults : [Int: [Any]] = [:]
     var movieResults : [Movie] = []
 //    var serieResults : [Movie] = [] //type gaat nog veranderd moeten worden
     var searchTask : URLSessionTask?
-
-    //voor poster
-    let baseUrlPoster = "https://image.tmdb.org/t/p/"
-    let sizePoster = "original"
     let sections = [Type.Movies/*"Movies"*//*, "Series"*/]
+    var sv = UIView()
+    var isFetchInProgress = false
+    var currentPage = 1
+//    name of movie / serie searched
+    var searchString = ""
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
-        
         
         searchBar.delegate = self
         searchBar.becomeFirstResponder()
@@ -47,15 +46,20 @@ extension SearchViewController : UISearchBarDelegate {
             print("Search view controller line 43, searchKeywords is nil")
             return
         }
+//        nodig voor pagination
+        searchString = searchKeywords
+        
         print("Search view controller line 46, searchKeywords: \(searchKeywords)")
         searchTask?.cancel()
-        searchTask = TmdbAPIService.getMovieByName(for: searchKeywords) {
+        searchTask = TmdbAPIService.getMovieByName(for: searchKeywords, page: currentPage) {
+            UIViewController.removeSpinner(spinner: self.sv)
             self.movieResults.removeAll()
             self.movieResults = $0!
             self.tableView.reloadData()
             
         }
         searchTask?.resume()
+        sv = UIViewController.displaySpinner(onView: self.view)
         self.view.endEditing(true)
     }
     
@@ -67,7 +71,7 @@ extension SearchViewController : UISearchBarDelegate {
     }
    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 86
+        return 120
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -88,7 +92,6 @@ extension SearchViewController: UITableViewDelegate {
         default:
             break
         }
-        
         return cell
     }
     
@@ -109,24 +112,61 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchedMovieCell"/*"movieCell"*/, for: indexPath) as! MovieCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchedMovieCell", for: indexPath) as! MovieCell
         //        print("Search view controller line 74, #movies: ", movies.count, indexPath.row)
         let movie = movieResults[indexPath.row]
         //        print("Search view controller line 76, \(movies[indexPath.row]): \(movie.title)")
         cell.title.text = movie.title
-        let punten : String = String(format: "%.1F",movie.vote_average!)
+        let punten : String = String(format: "%.1F",movie.vote_average) //!
         cell.score.text = punten
+        
+        if movie.overview.isEmpty {
+            movie.overview = "N/A"
+        }
         cell.overview.text = movie.overview
         
         if movie.poster_path != "" {
             
             //voor image bestaat de url uit 3 delen = base_url, full_size and the file path
             let imageURL = movie.poster_path
-            let moviePosterURL = URL(string: baseUrlPoster + sizePoster + imageURL)!
+            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + imageURL)!
             let data = try! Data.init(contentsOf: moviePosterURL)
             cell.poster.image =  UIImage(data: data)
         }
-        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastItem = movieResults.count - 1
+        if indexPath.row == lastItem {
+            //            load more data (next page)
+            fetchMoreMovies()
+        }
+    }
+    //    gets the next page with searched movies
+    func fetchMoreMovies() {
+//        if fetch is already in progress don't fetch again
+        guard !isFetchInProgress else {
+            return
+        }
+        
+        isFetchInProgress = true
+        currentPage += 1
+        print("Search view controller line 155, searchString: \(searchString), currentPage: \(String(currentPage))")
+        searchTask?.cancel()
+        searchTask = TmdbAPIService.getMovieByName(for: searchString, page: currentPage, completion: { (searchResults) in
+            
+            UIViewController.removeSpinner(spinner: self.sv)
+
+            self.isFetchInProgress = false
+            self.movieResults.insert(contentsOf: searchResults!, at: self.movieResults.count)
+            print("Search view controller line 163, movieResults.count: \(self.movieResults.count)")
+            DispatchQueue.main.async {
+
+                self.tableView.reloadData()
+            }
+        })
+            searchTask!.resume()
+            sv = UIViewController.displaySpinner(onView: self.view)
     }
 }

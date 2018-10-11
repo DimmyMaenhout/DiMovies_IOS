@@ -7,8 +7,8 @@ enum TmdbAPIService {
     /*
         Ophalen films die momenteel in de cinema spelen
     */
-    static func getMoviesPlaying(completion: @escaping ([Movie]?) -> Void) -> URLSessionTask {
-        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/now_playing?page=1&language=en-US&api_key=\(TmdbApiPrivateData.apiKey)")!
+    static func getMoviesPlaying(with page: Int, completion: @escaping ([Movie]?) -> Void) -> URLSessionTask {
+        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/now_playing?page=\(page)&language=en-US&api_key=\(TmdbApiPrivateData.apiKey)")!
         
         return session.dataTask(with: url) {
             data, response, error in
@@ -32,7 +32,7 @@ enum TmdbAPIService {
                     completion(nil)
                     return
             }
-//            print("Tmbd API Service line 43, result: \(String(describing: result))")
+            print("Tmbd API Service line 43, page: \(page) result: \(String(describing: result))")
             var movies : [Movie] = []
             for i in 0 ... json.count - 1 {
                 let movie = json[i]
@@ -57,7 +57,7 @@ enum TmdbAPIService {
     }
     /* Details van elke film ophalen */
     static func getMovieDetails(for movieID: Int, completion: @escaping (Movie?) -> Void) -> URLSessionTask {
-//        Nog checken of er null waarden in de json zitten, bv bij 
+
         let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/\(movieID)?language=en-US&api_key=\(TmdbApiPrivateData.apiKey)")!
         print("Tmbd API Service line 73, movieID: \(movieID)")
         return session.dataTask(with: url) {
@@ -253,12 +253,12 @@ enum TmdbAPIService {
         https://api.themoviedb.org/3/search/movie?api_key=fba7c35c2680c39c8829a17d5e902b97&query=the+fast+and+the+furious
         baseURL_TMDB/search/movie?api_key=apiKey&query=the+fast+and+the+furious
     */
-    static func getMovieByName(for movieName: String, completion: @escaping ([Movie]?) -> Void) -> URLSessionTask {
+    static func getMovieByName(for movieName: String, page: Int, completion: @escaping ([Movie]?) -> Void) -> URLSessionTask {
 //        https://api.themoviedb.org/3/search/movie?api_key=fba7c35c2680c39c8829a17d5e902b97&language=en-US&query=the%20best%20of%20me&page=1&include_adult=false
         let movie = movieName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         print("TMDB API service line 275, \(String(describing: movie!))")
         
-        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/search/movie?api_key=\(TmdbApiPrivateData.apiKey)&language=en-US&query=\(movie!)&include_adult=false")!
+        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/search/movie?api_key=\(TmdbApiPrivateData.apiKey)&language=en-US&query=\(movie!)&page=\(page)&include_adult=false")!
         
         print("TMDB API Service line 279, url: \(url)")
         return session.dataTask(with: url) {
@@ -305,13 +305,10 @@ enum TmdbAPIService {
                                     title: movie["title"] as! String,
                                     overview: movie["overview"] as! String,
                                     duration: 0,
-//                                    budget: 0.0,
                                     popularity: movie["popularity"] as! Double,
                                     releaseDate: movie["release_date"] as! String,
-//                                    revenue: 0.0,
                                     status: "",
                                     tagline: "",
-//                                    video: movie["video"] as! Bool,
                                     vote_average: movie["vote_average"] as! Double,
                                     votecount: movie["vote_count"] as! Int,
                                     stars: "",
