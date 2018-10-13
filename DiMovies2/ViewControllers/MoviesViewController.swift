@@ -14,6 +14,14 @@ class MoviesViewController : UIViewController {
     var isFetchInProgress = false
     @IBOutlet weak var tableView: UITableView!
 
+//    Spinner is called here (to center it to the view)
+    override func viewWillAppear(_ animated: Bool) {
+//        indien we anders terug komen (bv van search) blijft de spinner op de pagina
+        if movies.count == 0 {
+            sv = UIViewController.displaySpinner(onView: self.view)
+        }
+        
+    }
     override func viewDidLoad() {
        super.viewDidLoad()
         
@@ -35,9 +43,6 @@ class MoviesViewController : UIViewController {
             }
         }
         moviesTask!.resume()
-        sv.center = self.view.center
-        sv = UIViewController.displaySpinner(onView: self.view)
-//        tableView.ind
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -65,7 +70,6 @@ extension MoviesViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as! MovieCell
         print("Movies view controller line 74, nr of cell: \(indexPath.row) #movies: ", movies.count, indexPath.row)
         let movie = movies[indexPath.row]
-//        print("Movies view controller line 76, \(movies[indexPath.row]): \(movie.title)")
         cell.title.text = movie.title
         let punten : String = String(format: "%.1F",movie.vote_average)//!
         cell.score.text = punten
@@ -82,17 +86,14 @@ extension MoviesViewController : UITableViewDataSource {
             let data = try! Data.init(contentsOf: moviePosterURL)
             cell.poster.image =  UIImage(data: data)
         }
-        
         return cell
     }
-    
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastItem = movies.count - 1
         if indexPath.row == lastItem {
 //            load more data (next page)
             fetchMoreMoviesPlaying()
-//            sv = UIViewController.displaySpinner(onView: self.view)
         }
     }
 //    gets the next page with movies playing
@@ -119,13 +120,6 @@ extension MoviesViewController : UITableViewDataSource {
         moviesTask!.resume()
         sv = UIViewController.displaySpinner(onView: self.view)
     }
-    
-//    private func calculateIndexPathsToReload(from newMoviesPlaying: [Movie]) -> [IndexPath]
-//    {
-//        let startIndex = movies.count - newMoviesPlaying.count
-//        let endIndex = startIndex + newMoviesPlaying.count
-//        return (startIndex ..< endIndex).map { IndexPath(row: $0, section: 0)}
-//    }
 }
 
 extension MoviesViewController : UITableViewDelegate {
