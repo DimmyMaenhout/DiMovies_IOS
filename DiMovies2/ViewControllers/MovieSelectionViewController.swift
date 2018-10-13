@@ -4,14 +4,12 @@ import RealmSwift
 
 class MovieSelectionViewController : UIViewController {
     
-    
     var movieTask: URLSessionTask?
     //Movie selected from MovieViewController
     var movie : Movie!
     //gaan we opvullen met actors die we hebben opgehaald (eerst converteren van JSON naar object!)
     var actors : [Actor] = []
     var actorsWithDetails : [Actor] = []
-    var cast: [[String : Actor]] = [[:]]
     var stars: [String] = []
     var youtubeTrailerKey = ""
     
@@ -33,7 +31,7 @@ class MovieSelectionViewController : UIViewController {
         getCast(for: movie.id)
 //        De code in de dispatchGroup.notifiy zou pas moeten uitgevoerd worden als de andere calls klaar zijn
         dispatchGroup.notify(queue: .global()){
-            print("Movie selection view controller line 44, # actors: \(self.actors.count) actors: \(self.actors)")
+            print("Movie selection view controller line 34, # actors: \(self.actors.count) actors: \(self.actors)")
             for actor in self.actors {
 
                 self.getActorDetails(for: actor.id)
@@ -49,7 +47,6 @@ class MovieSelectionViewController : UIViewController {
         if actors.count == 0 {
              sv = UIViewController.displaySpinner(onView: self.tableView)
         }
-       
     }
     
     func getMovieDetails(for movieID: Int) {
@@ -79,7 +76,7 @@ class MovieSelectionViewController : UIViewController {
                 return
             }
             self.actors = actors
-            print("Movie selection view controller line 87, # actors: \(actors.count)")
+            print("Movie selection view controller line 79, # actors: \(actors.count)")
             self.dispatchGroup.leave()
         })
         movieTask!.resume()
@@ -114,42 +111,35 @@ extension MovieSelectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        + 2 voor movieHeader en trailerCell
-        print("Movie Selection view controller line 127, nr of rows: \(actorsWithDetails.count + 2)")
+        print("Movie Selection view controller line 114, nr of rows: \(actorsWithDetails.count + 2)")
         return actorsWithDetails.count + 2
     }
 
     @objc func wantToWatchTriggered(_ sender: AnyObject){
-        
-//        let wantToWatchSwitch = sender as! UISwitch
-//        if wantToWatchSwitch.isOn {
+
         let realm = try! Realm()
         let header = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! MovieHeaderCell
         
-        
         if header.wantToWatchMovie.isOn {
+            
             if header.seenMovie.isOn {
+                
                 header.seenMovie.isOn = false
                 
                 try! realm.write {
 //                    mss hier een guard van maken
                     let deleteMovie = user!.moviesSeen.filter("id == \(movie.id)").first
                     let deleteIndex = user!.moviesSeen.index(of: deleteMovie!)
-                    print("Movie selection view controller line 135, deleteMovie: \(deleteMovie!.title)")
-//                    user!.moviesSeen.remove(at: deleteMovie)
-                    print("Movie selection view controller line 138, # moviesSeen before delete: \(user!.moviesSeen.count)")
                     user!.moviesSeen.remove(at: deleteIndex!)
 //                    realm.delete(deleteMovie!)
-                    print("Movie selection view controller line 140, # moviesSeen after delete: \(user!.moviesSeen.count)")
                 }
             }
             
             try! realm.write {
                 user!.moviesToWatch.append(movie)
-                print("Movie selection view controller line 143, # movies to watch: \(user!.moviesToWatch.count) \n overview movie saved:\(user!.moviesToWatch.first!.overview)")
+                print("Movie selection view controller line 140, # movies to watch: \(user!.moviesToWatch.count) \n overview movie saved:\(user!.moviesToWatch.first!.overview)")
             }
         }
-        
-//        }
     }
     
    @objc func seenTriggered(_ sender: AnyObject){
@@ -158,14 +148,15 @@ extension MovieSelectionViewController: UITableViewDataSource {
         let header = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! MovieHeaderCell
     
         if header.seenMovie.isOn {
+            
             if header.wantToWatchMovie.isOn {
-            header.wantToWatchMovie.isOn = false
+                
+                header.wantToWatchMovie.isOn = false
                 
                 try! realm.write {
                     //                    mss hier een guard van maken
                     let deleteMovie = user!.moviesToWatch.filter("id == \(movie.id)").first
                     let deleteIndex = user!.moviesToWatch.index(of: deleteMovie!)
-
 
                     user!.moviesToWatch.remove(at: deleteIndex!)
                     //                    realm.delete(deleteMovie!)
@@ -174,7 +165,7 @@ extension MovieSelectionViewController: UITableViewDataSource {
             
             try! realm.write {
                 user!.moviesSeen.append(movie)
-                print("Movie selection view controller line 187, # movies to watch: \(user!.moviesSeen.count) \n overview movie saved:\(user!.moviesSeen.first!.overview)")
+                print("Movie selection view controller line 168, # movies to watch: \(user!.moviesSeen.count) \n overview movie saved:\(user!.moviesSeen.first!.overview)")
             }
         }
     }
@@ -202,7 +193,7 @@ extension MovieSelectionViewController: UITableViewDataSource {
             movieHeaderCell.duration.text = "\(String(describing: movie.duration))"
 //            movieHeaderCell.genre.text = movie.genres.joined(separator: ",")
 
-            print("Movie selection view controller line 141, actorsWithDetails.prefix(8): \(actorsWithDetails.prefix(8))")
+            print("Movie selection view controller line 196, actorsWithDetails.prefix(8): \(actorsWithDetails.prefix(8))")
 //            get first 8 cast members
             if stars.isEmpty || stars.count != 8 {
                 stars.removeAll()
@@ -258,7 +249,7 @@ extension MovieSelectionViewController: UITableViewDataSource {
         default:
             let actorCell = tableView.dequeueReusableCell(withIdentifier: "actorCell", for: indexPath) as! ActorCell
             
-            print("Movie Selection view controller line 176, got here (actor cell), actors[indexPath.row].biography: \(actors[indexPath.row - 2].biography)")
+            print("Movie Selection view controller line 252, got here (actor cell), actors[indexPath.row].biography: \(actors[indexPath.row - 2].biography)")
             
             if actorsWithDetails[indexPath.row - 2].biography.isEmpty {
                 actorsWithDetails[indexPath.row - 2].biography = "N/A"
@@ -271,7 +262,7 @@ extension MovieSelectionViewController: UITableViewDataSource {
                 //            image can be displayed with \(baseUrl) + \(sizeProfilePhoto) + imageURL
                 let imageURL = actorsWithDetails[indexPath.row - 2].photoFilePath
                 let photoURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + imageURL)!
-                print("Movie Selection view controller line 186, photoUrl: \(photoURL)")
+                print("Movie Selection view controller line 265, photoUrl: \(photoURL)")
                 let data = try! Data.init(contentsOf: photoURL)
                 actorCell.photo.image = UIImage(data: data)
             }
