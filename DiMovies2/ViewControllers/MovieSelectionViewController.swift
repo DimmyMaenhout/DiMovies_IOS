@@ -4,8 +4,8 @@ import RealmSwift
 
 class MovieSelectionViewController : UIViewController {
     
+    
     var movieTask: URLSessionTask?
-//    let session = URLSession(configuration: .ephemeral)
     //Movie selected from MovieViewController
     var movie : Movie!
     //gaan we opvullen met actors die we hebben opgehaald (eerst converteren van JSON naar object!)
@@ -27,11 +27,7 @@ class MovieSelectionViewController : UIViewController {
         tableView.dataSource = self
         
         user = try! Realm().objects(User.self)[0]
-        print("Movie selection view controller line 30, user: \(String(describing: user?.username))")
 
-        sv = UIViewController.displaySpinner(onView: self.view)
-        
-        print("Movie selection view controller line 38, movieID = \(movie.id)")
         getMovieDetails(for: movie.id)
         getYoutubeTrailerKey(for: movie.id)
         getCast(for: movie.id)
@@ -39,18 +35,21 @@ class MovieSelectionViewController : UIViewController {
         dispatchGroup.notify(queue: .global()){
             print("Movie selection view controller line 44, # actors: \(self.actors.count) actors: \(self.actors)")
             for actor in self.actors {
-                print("Movie selection view controller line 46,\(actor) actorID: \(actor.id)")
+
                 self.getActorDetails(for: actor.id)
             }
-            print("Movie selection view controller line 49, # cast \(self.cast.count) cast: \(self.cast)")
-            print("Movie selection view controller line 50, # actorsWithDetails \(self.actorsWithDetails.count) cast: \(self.actorsWithDetails)")
         }
-
-        print("Movie selection view controller line 53, # cast: \(cast.count)\t # actors: \(actors.count)")
 //        Updaten van de UI (moet op de main thread gebeuren)
         dispatchGroup.notify(queue: .main){
             self.tableView.reloadData()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if actors.count == 0 {
+             sv = UIViewController.displaySpinner(onView: self.tableView)
+        }
+       
     }
     
     func getMovieDetails(for movieID: Int) {
@@ -93,14 +92,10 @@ class MovieSelectionViewController : UIViewController {
             guard let actor = actorDetails else {
                 return
             }
-            self.cast.append([actor.name : actor])
             self.actorsWithDetails.append(actor)
-            print("Movie selection view controller line 102, actor: \(actor.biography)")
-            print("Movie selection view controller line 103, cast: \(self.cast.count) \t # actors: \(self.actors.count) \t # actorsWithDetails: \(self.actorsWithDetails.count)")
             self.tableView.reloadData()
             self.dispatchGroup.leave()
         })
-        print("Movie selection view controller line 107, cast: \(self.cast.count) \t # actors: \(self.actors.count)")
         movieTask!.resume()
     }
 }
@@ -125,24 +120,61 @@ extension MovieSelectionViewController: UITableViewDataSource {
 
     @objc func wantToWatchTriggered(_ sender: AnyObject){
         
-        let wantToWatchSwitch = sender as! UISwitch
-        if wantToWatchSwitch.isOn {
-            let realm = try! Realm()
+//        let wantToWatchSwitch = sender as! UISwitch
+//        if wantToWatchSwitch.isOn {
+        let realm = try! Realm()
+        let header = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! MovieHeaderCell
+        
+        
+        if header.wantToWatchMovie.isOn {
+            if header.seenMovie.isOn {
+                header.seenMovie.isOn = false
+                
+                try! realm.write {
+//                    mss hier een guard van maken
+                    let deleteMovie = user!.moviesSeen.filter("id == \(movie.id)").first
+                    let deleteIndex = user!.moviesSeen.index(of: deleteMovie!)
+                    print("Movie selection view controller line 135, deleteMovie: \(deleteMovie!.title)")
+//                    user!.moviesSeen.remove(at: deleteMovie)
+                    print("Movie selection view controller line 138, # moviesSeen before delete: \(user!.moviesSeen.count)")
+                    user!.moviesSeen.remove(at: deleteIndex!)
+//                    realm.delete(deleteMovie!)
+                    print("Movie selection view controller line 140, # moviesSeen after delete: \(user!.moviesSeen.count)")
+                }
+            }
+            
             try! realm.write {
                 user!.moviesToWatch.append(movie)
-                print("Movie selection view controller line 139, # movies to watch: \(user!.moviesToWatch.count) \n overview movie saved:\(user!.moviesToWatch.first!.overview)")
+                print("Movie selection view controller line 143, # movies to watch: \(user!.moviesToWatch.count) \n overview movie saved:\(user!.moviesToWatch.first!.overview)")
             }
         }
+        
+//        }
     }
     
    @objc func seenTriggered(_ sender: AnyObject){
-       
-        let seenSwitch = sender as! UISwitch
-        if seenSwitch.isOn {
-            let realm = try! Realm()
+    
+        let realm = try! Realm()
+        let header = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! MovieHeaderCell
+    
+        if header.seenMovie.isOn {
+            if header.wantToWatchMovie.isOn {
+            header.wantToWatchMovie.isOn = false
+                
+                try! realm.write {
+                    //                    mss hier een guard van maken
+                    let deleteMovie = user!.moviesToWatch.filter("id == \(movie.id)").first
+                    let deleteIndex = user!.moviesToWatch.index(of: deleteMovie!)
+
+
+                    user!.moviesToWatch.remove(at: deleteIndex!)
+                    //                    realm.delete(deleteMovie!)
+                }
+            }
+            
             try! realm.write {
                 user!.moviesSeen.append(movie)
-                print("Movie selection view controller line 151, # movies seen: \(user!.moviesSeen.count) \n overview movie saved:\(user!.moviesSeen.first!.overview)")
+                print("Movie selection view controller line 187, # movies to watch: \(user!.moviesSeen.count) \n overview movie saved:\(user!.moviesSeen.first!.overview)")
             }
         }
     }
@@ -182,57 +214,35 @@ extension MovieSelectionViewController: UITableViewDataSource {
 
             let namesStars = stars.joined(separator: ", ")
             movieHeaderCell.starsInMovie.text = namesStars
-            print("Movie selection view controller line 150, movie stars: \(movie.stars)")
             movieHeaderCell.overview.text = movie.overview
-            print("Movie selection view controller line 152, movie overview: \(movie.overview)")
+            
             let punten : String = String(format: "%.1F",movie.vote_average)
             movieHeaderCell.score.text = punten
             movieHeaderCell.title.text = movie.title
            
 //            Poster for movie, gets the original size of the poster
-            let posterUrl = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + movie.poster_path)
-            let data = try! Data.init(contentsOf: posterUrl!)
-            movieHeaderCell.poster.image = UIImage(data: data)
-            
+            if movie.poster_path != "" {
+                let posterUrl = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + movie.poster_path)
+                let data = try! Data.init(contentsOf: posterUrl!)
+                movieHeaderCell.poster.image = UIImage(data: data)
+            }
+
 //            toevoegen van film aan de gepaste lijst, indien film al in db zet switch op true
 //            Film zit al in moviesSeen
-//            if checkIfMovieAlreadyInDb(for: user!.moviesSeen) == true {
-//                movieHeaderCell.seenMovie.isOn = true
-//            }
-////                film zit nog niet in moviesSeen
-//            else {
-//                movieHeaderCell.wantToWatchMovie.addTarget(self, action: #selector((wantToWatchTriggered(_:))), for: .valueChanged)
-//            }
+            if checkIfMovieAlreadyInDb(for: user!.moviesSeen) == true {
+                movieHeaderCell.seenMovie.isOn = true
+            }
+//                film zit nog niet in moviesSeen
+            else {
+                movieHeaderCell.seenMovie.addTarget(self, action: #selector((seenTriggered(_:))), for: .valueChanged)
+            }
             
 //            film zit al in movies to watch
-//            if checkIfMovieAlreadyInDb(for: user!.moviesToWatch) == true {
-//                movieHeaderCell.wantToWatchMovie.isOn = true
-//            } else {
-//                movieHeaderCell.wantToWatchMovie.addTarget(self, action: #selector((wantToWatchTriggered(_:))), for: .valueChanged)
-//            }
-            
-//            var contains = checkIfMovieAlreadyInDb(for: user!.moviesSeen)
-//            var contains = checkIfMovieAlreadyInDb(for: user!.moviesToWatch)
-            
-            
-//            for m in (user!.moviesToWatch) {
-//                if m.id == movie.id {
-////                    contains = true
-//                    movieHeaderCell.wantToWatchMovie.isOn = true
-//                } else {
-                    movieHeaderCell.wantToWatchMovie.addTarget(self, action: #selector((wantToWatchTriggered(_:))), for: .valueChanged)
-//                }
-//            }
-
-//            for m in (user!.moviesSeen) {
-//                if m.id == movie.id {
-////                    contains = true
-//                    movieHeaderCell.seenMovie.isOn = true
-//                } else {
-                    movieHeaderCell.seenMovie.addTarget(self, action: #selector((seenTriggered(_:))), for: .valueChanged)
-//                }
-//            }
-//            movieHeaderCell.seenMovie.addTarget(self, action: #selector((seenTriggered(_:))), for: .valueChanged)
+            if checkIfMovieAlreadyInDb(for: user!.moviesToWatch) == true {
+                movieHeaderCell.wantToWatchMovie.isOn = true
+            } else {
+                movieHeaderCell.wantToWatchMovie.addTarget(self, action: #selector((wantToWatchTriggered(_:))), for: .valueChanged)
+            }
             
             return movieHeaderCell
 
