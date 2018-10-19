@@ -306,18 +306,18 @@ extension MovieSelectionViewController: UITableViewDataSource {
 
 //            toevoegen van film aan de gepaste lijst, indien film al in db zet switch op true
 //            Film zit al in moviesSeen
-//            if checkIfMovieAlreadyInDb(for: user!.moviesSeen) == true {
-//                movieHeaderCell.seenMovie.isOn = true
-//            }
+            if checkIfMovieAlreadyInDb(for: user!.moviesSeen) == true {
+                movieHeaderCell.seenMovie.isOn = true
+            }
 //                film zit nog niet in moviesSeen
 //            else {
                 movieHeaderCell.seenMovie.addTarget(self, action: #selector((seenTriggered(_:))), for: .valueChanged)
 //            }
             
 //            film zit al in movies to watch
-//            if checkIfMovieAlreadyInDb(for: user!.moviesToWatch) == true {
-//                movieHeaderCell.wantToWatchMovie.isOn = true
-//            } else {
+            if checkIfMovieAlreadyInDb(for: user!.moviesToWatch) == true {
+                movieHeaderCell.wantToWatchMovie.isOn = true
+            } //else {
                 movieHeaderCell.wantToWatchMovie.addTarget(self, action: #selector((wantToWatchTriggered(_:))), for: .valueChanged)
 //            }
             
