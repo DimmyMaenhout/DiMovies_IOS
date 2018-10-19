@@ -44,7 +44,7 @@ extension UserMoviesOverviewController : UITableViewDelegate {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 completionHandler(true)
             }
-            seenAction!.backgroundColor = UIColor.green
+            seenAction!.backgroundColor = UIColor.orange
             
             deleteAction = UIContextualAction(style: .destructive, title: "Delete") {
                 (action, view, completionHandler) in
@@ -54,10 +54,8 @@ extension UserMoviesOverviewController : UITableViewDelegate {
                 } else {
                     movie = self.user!.moviesToWatch[indexPath.row]
                 }
-                //            let project = self.user!.moviesSeen[indexPath.row]
                 let realm = try! Realm()
                 try! realm.write {
-                    //                project.tasks.forEach(realm.delete(_:))
                     realm.delete(movie!)
                 }
                 tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -69,16 +67,14 @@ extension UserMoviesOverviewController : UITableViewDelegate {
             deleteAction = UIContextualAction(style: .destructive, title: "Delete") {
                 (action, view, completionHandler) in
                 
-                //            var movie: Movie?
                 if self.selectedList == "Movies seen" {
-                    /*var*/ movie = self.user!.moviesSeen[indexPath.row]
+                    movie = self.user!.moviesSeen[indexPath.row]
                 } else {
-                    /*var*/ movie = self.user!.moviesToWatch[indexPath.row]
+                    movie = self.user!.moviesToWatch[indexPath.row]
                 }
-                //            let project = self.user!.moviesSeen[indexPath.row]
+
                 let realm = try! Realm()
                 try! realm.write {
-                    //                project.tasks.forEach(realm.delete(_:))
                     realm.delete(movie!)
                 }
                 tableView.deleteRows(at: [indexPath], with: .automatic)
