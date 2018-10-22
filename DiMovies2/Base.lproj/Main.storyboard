@@ -517,7 +517,7 @@
                                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-JX-9aO" userLabel="Want to see movie">
                                                                                     <rect key="frame" x="0.0" y="38.999999999999993" width="359" height="31.000000000000007"/>
                                                                                     <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Want to see" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdF-Rx-djw">
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Want to watch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdF-Rx-djw">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="310" height="31"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                             <color key="textColor" red="0.8980392157" green="0.50588235290000005" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -549,31 +549,31 @@
                                                                                             <rect key="frame" x="0.0" y="0.0" width="232" height="28"/>
                                                                                             <subviews>
                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="FAi-2N-ag0">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="210.33333333333334" height="12"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="232" height="12"/>
                                                                                                     <subviews>
                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Ele-vO-fMi">
-                                                                                                            <rect key="frame" x="0.0" y="0.0" width="210.33333333333334" height="12"/>
+                                                                                                            <rect key="frame" x="0.0" y="0.0" width="232" height="12"/>
                                                                                                             <subviews>
                                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="90" translatesAutoresizingMaskIntoConstraints="NO" id="5ys-0q-5AR">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="210.33333333333334" height="12"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="232" height="12"/>
                                                                                                                     <subviews>
                                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="I7H-kP-svl">
-                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="88" height="12"/>
+                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="12"/>
                                                                                                                             <subviews>
-                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Duration:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gj-Nz-uEI">
+                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="Duration:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gj-Nz-uEI">
                                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="44.333333333333336" height="12"/>
                                                                                                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="10"/>
                                                                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                                 </label>
-                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="148" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOz-iG-wnZ">
+                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="148" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOz-iG-wnZ">
                                                                                                                                     <rect key="frame" x="48.333333333333343" y="0.0" width="18" height="12"/>
                                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                                 </label>
-                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3CZ-2z-Qg5">
-                                                                                                                                    <rect key="frame" x="70.333333333333343" y="0.0" width="17.666666666666671" height="12"/>
+                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3CZ-2z-Qg5">
+                                                                                                                                    <rect key="frame" x="70.333333333333343" y="0.0" width="39.333333333333343" height="12"/>
                                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                                                                     <nil key="highlightedColor"/>
@@ -581,7 +581,7 @@
                                                                                                                             </subviews>
                                                                                                                         </stackView>
                                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="9Kh-yW-R0R">
-                                                                                                                            <rect key="frame" x="178" y="0.0" width="32.333333333333343" height="12"/>
+                                                                                                                            <rect key="frame" x="199.66666666666669" y="0.0" width="32.333333333333343" height="12"/>
                                                                                                                             <subviews>
                                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="8,9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Otw-DR-Guy">
                                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="15.666666666666666" height="12"/>
@@ -590,7 +590,7 @@
                                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                                 </label>
                                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WmZ-Hz-SLA">
-                                                                                                                                    <rect key="frame" x="17.666666666666686" y="0.0" width="14.666666666666664" height="12"/>
+                                                                                                                                    <rect key="frame" x="17.666666666666629" y="0.0" width="14.666666666666664" height="12"/>
                                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                                                     <nil key="highlightedColor"/>
@@ -600,8 +600,14 @@
                                                                                                                     </subviews>
                                                                                                                 </stackView>
                                                                                                             </subviews>
+                                                                                                            <constraints>
+                                                                                                                <constraint firstAttribute="trailing" secondItem="5ys-0q-5AR" secondAttribute="trailing" id="EnB-sa-bqG"/>
+                                                                                                            </constraints>
                                                                                                         </stackView>
                                                                                                     </subviews>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstAttribute="trailing" secondItem="Ele-vO-fMi" secondAttribute="trailing" id="b7D-om-YiB"/>
+                                                                                                    </constraints>
                                                                                                 </stackView>
                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ZcC-9D-ICA">
                                                                                                     <rect key="frame" x="0.0" y="16" width="232" height="12"/>
@@ -623,6 +629,7 @@
                                                                                             </subviews>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="trailing" secondItem="ZcC-9D-ICA" secondAttribute="trailing" id="T8p-Rc-x2p"/>
+                                                                                                <constraint firstAttribute="trailing" secondItem="FAi-2N-ag0" secondAttribute="trailing" id="h3D-da-3dN"/>
                                                                                             </constraints>
                                                                                         </stackView>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="UZN-ln-t0O" userLabel="Stack View actors featured">
@@ -664,13 +671,13 @@
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySy-Vy-eup">
                                                                             <rect key="frame" x="0.0" y="232.99999999999997" width="359" height="14.333333333333343"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" ambiguous="YES" text="Release date: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Skk-Zv-o9k">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Release date: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Skk-Zv-o9k">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="79.666666666666671" height="14.333333333333334"/>
                                                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="20/12/2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNl-7a-2O7">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="20/12/2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNl-7a-2O7">
                                                                                     <rect key="frame" x="79.666666666666657" y="0.0" width="279.33333333333337" height="14.333333333333334"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -754,22 +761,22 @@
                                             <outlet property="webView" destination="6qT-jb-eAu" id="tEC-jb-nUS"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="actorCell" rowHeight="103" id="Vva-bf-40c" customClass="ActorCell" customModule="DiMovies2" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="actorCell" rowHeight="103" id="Vva-bf-40c" customClass="ActorCell" customModule="DiMovies2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="767" width="375" height="103"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vva-bf-40c" id="azv-Ss-Kze">
-                                            <rect key="frame" x="0.0" y="0.0" width="315" height="102.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="102.66666666666667"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chris Hemsworth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deB-eO-rtA">
-                                                    <rect key="frame" x="73" y="7" width="294" height="21"/>
+                                                    <rect key="frame" x="73" y="7" width="367" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAj-mN-VIn">
-                                                    <rect key="frame" x="73" y="28" width="243" height="49"/>
+                                                    <rect key="frame" x="73" y="28" width="294" height="67"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <string key="text">Chris Hemsworth was born in Melbourne, Australia, to Leonie (van Os), a teacher of English, and Craig Hemsworth, a social-services counselor. His brothers are actors Liam Hemsworth and Luke Hemsworth. He is of Dutch (from his immigrant maternal grandfather), Irish, English, Scottish, and German ancestry. His uncle, by marriage, was Rod Ansell, the bushman who inspired the film Crocodile Dundee (1986).
 
@@ -783,7 +790,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kzm-ZN-k8u">
-                                                    <rect key="frame" x="9" y="7" width="56" height="70"/>
+                                                    <rect key="frame" x="9" y="7" width="60" height="88"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -817,7 +824,7 @@ Chris's American representative, management company ROAR, also manages actress E
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i6A-uh-TvH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671" y="-726"/>
+            <point key="canvasLocation" x="1669.5999999999999" y="-726.35467980295573"/>
         </scene>
         <!--Home-->
         <scene sceneID="cEu-9l-Ls9">
@@ -970,7 +977,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8o-7I-wrH" userLabel="Want to see movie">
                                                                                     <rect key="frame" x="0.0" y="38.999999999999993" width="359" height="31.000000000000007"/>
                                                                                     <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Want to see" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKs-al-Lfr">
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Want to watch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKs-al-Lfr">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="310" height="31"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                             <color key="textColor" red="0.8980392157" green="0.50588235290000005" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1002,31 +1009,31 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                                             <rect key="frame" x="0.0" y="0.0" width="232" height="28"/>
                                                                                             <subviews>
                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="tfC-eb-HhO">
-                                                                                                    <rect key="frame" x="0.0" y="0.0" width="210.33333333333334" height="12"/>
+                                                                                                    <rect key="frame" x="0.0" y="0.0" width="232" height="12"/>
                                                                                                     <subviews>
                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xxF-vv-tw8">
-                                                                                                            <rect key="frame" x="0.0" y="0.0" width="210.33333333333334" height="12"/>
+                                                                                                            <rect key="frame" x="0.0" y="0.0" width="232" height="12"/>
                                                                                                             <subviews>
                                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="90" translatesAutoresizingMaskIntoConstraints="NO" id="CoO-WL-xE3">
-                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="210.33333333333334" height="12"/>
+                                                                                                                    <rect key="frame" x="0.0" y="0.0" width="232" height="12"/>
                                                                                                                     <subviews>
                                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="hIa-hp-oGs">
-                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="88" height="12"/>
+                                                                                                                            <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="12"/>
                                                                                                                             <subviews>
-                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Duration:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJi-Mg-rXQ">
+                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" text="Duration:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJi-Mg-rXQ">
                                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="44.333333333333336" height="12"/>
                                                                                                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="10"/>
                                                                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                                 </label>
-                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="148" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWs-Su-fJX">
+                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="148" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWs-Su-fJX">
                                                                                                                                     <rect key="frame" x="48.333333333333343" y="0.0" width="18" height="12"/>
                                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                                 </label>
-                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zk7-s9-lsE">
-                                                                                                                                    <rect key="frame" x="70.333333333333343" y="0.0" width="17.666666666666671" height="12"/>
+                                                                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zk7-s9-lsE">
+                                                                                                                                    <rect key="frame" x="70.333333333333343" y="0.0" width="39.333333333333343" height="12"/>
                                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                                                                     <nil key="highlightedColor"/>
@@ -1034,7 +1041,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                                                                             </subviews>
                                                                                                                         </stackView>
                                                                                                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="1pM-09-q36">
-                                                                                                                            <rect key="frame" x="178" y="0.0" width="32.333333333333343" height="12"/>
+                                                                                                                            <rect key="frame" x="199.66666666666669" y="0.0" width="32.333333333333343" height="12"/>
                                                                                                                             <subviews>
                                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="8,9" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4X-r2-tMd">
                                                                                                                                     <rect key="frame" x="0.0" y="0.0" width="15.666666666666666" height="12"/>
@@ -1043,7 +1050,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                                                                                     <nil key="highlightedColor"/>
                                                                                                                                 </label>
                                                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="/10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wmJ-ej-1c4">
-                                                                                                                                    <rect key="frame" x="17.666666666666686" y="0.0" width="14.666666666666664" height="12"/>
+                                                                                                                                    <rect key="frame" x="17.666666666666629" y="0.0" width="14.666666666666664" height="12"/>
                                                                                                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                                                                     <nil key="highlightedColor"/>
@@ -1053,8 +1060,14 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                                                                     </subviews>
                                                                                                                 </stackView>
                                                                                                             </subviews>
+                                                                                                            <constraints>
+                                                                                                                <constraint firstAttribute="trailing" secondItem="CoO-WL-xE3" secondAttribute="trailing" id="vAz-qV-bOh"/>
+                                                                                                            </constraints>
                                                                                                         </stackView>
                                                                                                     </subviews>
+                                                                                                    <constraints>
+                                                                                                        <constraint firstAttribute="trailing" secondItem="xxF-vv-tw8" secondAttribute="trailing" id="ZRG-p3-lz4"/>
+                                                                                                    </constraints>
                                                                                                 </stackView>
                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ZNE-pY-lpq">
                                                                                                     <rect key="frame" x="0.0" y="16" width="232" height="12"/>
@@ -1076,6 +1089,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                                             </subviews>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="trailing" secondItem="ZNE-pY-lpq" secondAttribute="trailing" id="ACN-2K-4Sp"/>
+                                                                                                <constraint firstAttribute="trailing" secondItem="tfC-eb-HhO" secondAttribute="trailing" id="XFu-uI-K8m"/>
                                                                                             </constraints>
                                                                                         </stackView>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="v0e-Zr-8x1" userLabel="Stack View actors featured">
@@ -1117,13 +1131,13 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unE-Sv-HHw">
                                                                             <rect key="frame" x="0.0" y="232.99999999999997" width="359" height="14.333333333333343"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" ambiguous="YES" text="Release date: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-3O-pim">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" text="Release date: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-3O-pim">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="79.666666666666671" height="14.333333333333334"/>
                                                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="20/12/2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GqO-Wt-CuV">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="20/12/2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GqO-Wt-CuV">
                                                                                     <rect key="frame" x="79.666666666666657" y="0.0" width="279.33333333333337" height="14.333333333333334"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1211,18 +1225,18 @@ Chris's American representative, management company ROAR, also manages actress E
                                         <rect key="frame" x="0.0" y="767" width="375" height="103"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7FZ-Dp-v3a" id="D10-VG-OTF">
-                                            <rect key="frame" x="0.0" y="0.0" width="315" height="102.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="308" height="102.66666666666667"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chris Hemsworth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF8-Qa-8S9">
-                                                    <rect key="frame" x="72" y="7" width="294" height="21"/>
+                                                    <rect key="frame" x="72" y="7" width="286" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Elv-8Z-qqD">
-                                                    <rect key="frame" x="72" y="27" width="243" height="50"/>
+                                                    <rect key="frame" x="72" y="27" width="236" height="68"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <string key="text">Chris Hemsworth was born in Melbourne, Australia, to Leonie (van Os), a teacher of English, and Craig Hemsworth, a social-services counselor. His brothers are actors Liam Hemsworth and Luke Hemsworth. He is of Dutch (from his immigrant maternal grandfather), Irish, English, Scottish, and German ancestry. His uncle, by marriage, was Rod Ansell, the bushman who inspired the film Crocodile Dundee (1986).
 
@@ -1236,7 +1250,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VEf-D1-jwa">
-                                                    <rect key="frame" x="8" y="7" width="56" height="70"/>
+                                                    <rect key="frame" x="8" y="7" width="60" height="88"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -1270,7 +1284,7 @@ Chris's American representative, management company ROAR, also manages actress E
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U0r-n8-9dL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1660" y="875"/>
+            <point key="canvasLocation" x="1660" y="874.8768472906404"/>
         </scene>
     </scenes>
     <resources>
