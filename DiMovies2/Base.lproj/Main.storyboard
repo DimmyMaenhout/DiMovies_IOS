@@ -612,14 +612,14 @@
                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ZcC-9D-ICA">
                                                                                                     <rect key="frame" x="0.0" y="16" width="232" height="12"/>
                                                                                                     <subviews>
-                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Genre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkS-kf-pMr">
-                                                                                                            <rect key="frame" x="0.0" y="0.0" width="157" height="12"/>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GkS-kf-pMr">
+                                                                                                            <rect key="frame" x="0.0" y="0.0" width="32.333333333333336" height="12"/>
                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
-                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Action, Thriller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNt-df-ZeQ">
-                                                                                                            <rect key="frame" x="161" y="0.0" width="71" height="12"/>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Action, Thriller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JNt-df-ZeQ">
+                                                                                                            <rect key="frame" x="36.333333333333357" y="0.0" width="195.66666666666663" height="12"/>
                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                                             <nil key="highlightedColor"/>
@@ -769,7 +769,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chris Hemsworth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deB-eO-rtA">
-                                                    <rect key="frame" x="73" y="7" width="367" height="21"/>
+                                                    <rect key="frame" x="73" y="7" width="294" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1072,14 +1072,14 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ZNE-pY-lpq">
                                                                                                     <rect key="frame" x="0.0" y="16" width="232" height="12"/>
                                                                                                     <subviews>
-                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Genre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEi-Cy-U2w">
-                                                                                                            <rect key="frame" x="0.0" y="0.0" width="157" height="12"/>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Genre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEi-Cy-U2w">
+                                                                                                            <rect key="frame" x="0.0" y="0.0" width="32.333333333333336" height="12"/>
                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                                             <nil key="highlightedColor"/>
                                                                                                         </label>
-                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Action, Thriller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V43-Il-Dzo">
-                                                                                                            <rect key="frame" x="161" y="0.0" width="71" height="12"/>
+                                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Action, Thriller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V43-Il-Dzo">
+                                                                                                            <rect key="frame" x="36.333333333333357" y="0.0" width="195.66666666666663" height="12"/>
                                                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                                             <nil key="highlightedColor"/>
@@ -1225,18 +1225,18 @@ Chris's American representative, management company ROAR, also manages actress E
                                         <rect key="frame" x="0.0" y="767" width="375" height="103"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7FZ-Dp-v3a" id="D10-VG-OTF">
-                                            <rect key="frame" x="0.0" y="0.0" width="308" height="102.66666666666667"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="315" height="102.66666666666667"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chris Hemsworth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mF8-Qa-8S9">
-                                                    <rect key="frame" x="72" y="7" width="286" height="21"/>
+                                                    <rect key="frame" x="72" y="7" width="294" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Elv-8Z-qqD">
-                                                    <rect key="frame" x="72" y="27" width="236" height="68"/>
+                                                    <rect key="frame" x="72" y="27" width="243" height="68"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                     <string key="text">Chris Hemsworth was born in Melbourne, Australia, to Leonie (van Os), a teacher of English, and Craig Hemsworth, a social-services counselor. His brothers are actors Liam Hemsworth and Luke Hemsworth. He is of Dutch (from his immigrant maternal grandfather), Irish, English, Scottish, and German ancestry. His uncle, by marriage, was Rod Ansell, the bushman who inspired the film Crocodile Dundee (1986).
 
@@ -1250,7 +1250,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VEf-D1-jwa">
-                                                    <rect key="frame" x="8" y="7" width="60" height="88"/>
+                                                    <rect key="frame" x="8" y="7" width="61" height="88"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
