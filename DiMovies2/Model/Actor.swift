@@ -1,27 +1,22 @@
-//
-//  Actor.swift
-//  DiMovies2
-//
-//  Created by Dimmy Maenhout on 24/12/2017.
-//  Copyright © 2017 Dimmy Maenhout. All rights reserved.
-//
-
 import Foundation
-class Actor {
-    var id : Int
-    var photo = ""
+import RealmSwift
+
+class Actor : Object {
+    @objc dynamic var id : Int = 0
+    @objc dynamic var photo : String = ""
     //var imdb_id : Int?
-    var name = ""
-    var birthYear = ""
-    var deathDay = ""
-    var biography = ""
-    var gender : Int //0 = not set, 1 = female, 2 = male
-    var placeOfBirth = ""
-    var photoFilePath = ""
-    var profilePath = ""
+    @objc dynamic var name : String = ""
+    @objc dynamic var birthYear : String = ""
+    @objc dynamic var deathDay : String = ""
+    @objc dynamic var biography : String = ""
+    @objc dynamic var gender : Int = 0//0 = not set, 1 = female, 2 = male
+    @objc dynamic var placeOfBirth : String = ""
+    @objc dynamic var photoFilePath : String = ""
+    @objc dynamic var profilePath : String = ""
     //var also_known_as: [String] = []
     
-    init(id: Int, name: String, birthyear: String, deathday: String, biography: String, gender: Int, placeOfBirth: String /*, alsoKnowsAs: [String]*/, photoFilePath : String, profilePath: String){
+    convenience init(id: Int, name: String, birthyear: String, deathday: String, biography: String, gender: Int, placeOfBirth: String /*, alsoKnowsAs: [String]*/, photoFilePath : String, profilePath: String){
+        self.init()
         self.id = id
         self.name = name
         self.birthYear = birthyear

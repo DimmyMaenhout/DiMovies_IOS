@@ -1,28 +1,21 @@
 import Foundation
 import UIKit
+import RealmSwift
 
 class MovieSelectionViewController : UIViewController {
     
     var movieTask: URLSessionTask?
-    let session = URLSession(configuration: .ephemeral)
-    let apiKey = "fba7c35c2680c39c8829a17d5e902b97"
-    let baseURL_TMDB = "https://api.themoviedb.org/3"
-    //for actor photo
-    let baseUrl = "https://image.tmdb.org/t/p/"
-    let originalPosterSize = "original"
     //Movie selected from MovieViewController
     var movie : Movie!
-//    var movieDetails : [String : Any] = [:]
-//    var actor : Actor!
     //gaan we opvullen met actors die we hebben opgehaald (eerst converteren van JSON naar object!)
     var actors : [Actor] = []
     var actorsWithDetails : [Actor] = []
-    var cast: [[String : Actor]] = [[:]]
     var stars: [String] = []
     var youtubeTrailerKey = ""
     
     let dispatchGroup = DispatchGroup()
-    
+    var sv = UIView()
+    var user: User?
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -31,29 +24,29 @@ class MovieSelectionViewController : UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        guard let movieID = movie.id else {
-            print("Movie Selection View Controlelr line 34, movieID is nil")
-            return
-        }
-        print("Movie selection view controller line 38, movieID = \(movieID)")
-        getMovieDetails(for: movieID)
-        getYoutubeTrailerKey(for: movieID)
-        getCast(for: movieID)
-//        De code in de dispatchGrupo.notifiy zou pas moeten uitgevoerd worden als de andere calls klaar zijn
+        user = try! Realm().objects(User.self)[0]
+        
+        getMovieDetails(for: movie.id)
+        getYoutubeTrailerKey(for: movie.id)
+        getCast(for: movie.id)
+        
+//        De code in de dispatchGroup.notifiy zou pas moeten uitgevoerd worden als de andere calls klaar zijn
         dispatchGroup.notify(queue: .global()){
-            print("Movie selection view controller line 44, # actors: \(self.actors.count) actors: \(self.actors)")
+            print("Movie selection view controller line 34, # actors: \(self.actors.count) actors: \(self.actors)")
             for actor in self.actors {
-                print("Movie selection view controller line 46,\(actor) actorID: \(actor.id)")
+
                 self.getActorDetails(for: actor.id)
             }
-            print("Movie selection view controller line 49, # cast \(self.cast.count) cast: \(self.cast)")
-            print("Movie selection view controller line 50, # actorsWithDetails \(self.actorsWithDetails.count) cast: \(self.actorsWithDetails)")
         }
-
-        print("Movie selection view controller line 53, # cast: \(cast.count)\t # actors: \(actors.count)")
 //        Updaten van de UI (moet op de main thread gebeuren)
         dispatchGroup.notify(queue: .main){
             self.tableView.reloadData()
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if actors.count == 0 {
+             sv = UIViewController.displaySpinner(onView: self.tableView)
         }
     }
     
@@ -84,27 +77,23 @@ class MovieSelectionViewController : UIViewController {
                 return
             }
             self.actors = actors
-            print("Movie selection view controller line 87, # actors: \(actors.count)")
+            print("Movie selection view controller line 79, # actors: \(actors.count)")
             self.dispatchGroup.leave()
         })
         movieTask!.resume()
-        
     }
     
     func getActorDetails(for actorID: Int) {
         dispatchGroup.enter()
         movieTask = TmdbAPIService.getActorInfo(for: actorID, completion: { (actorDetails) in
+            UIViewController.removeSpinner(spinner: self.sv)
             guard let actor = actorDetails else {
                 return
             }
-            self.cast.append([actor.name : actor])
             self.actorsWithDetails.append(actor)
-            print("Movie selection view controller line 102, actor: \(actor.biography)")
-            print("Movie selection view controller line 103, cast: \(self.cast.count) \t # actors: \(self.actors.count) \t # actorsWithDetails: \(self.actorsWithDetails.count)")
             self.tableView.reloadData()
             self.dispatchGroup.leave()
         })
-        print("Movie selection view controller line 107, cast: \(self.cast.count) \t # actors: \(self.actors.count)")
         movieTask!.resume()
     }
 }
@@ -123,11 +112,163 @@ extension MovieSelectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        + 2 voor movieHeader en trailerCell
-        print("Movie Selection view controller line 126, nr of rows: \(actorsWithDetails.count + 2)")
-        return actorsWithDetails.count + 2//actors.count + 2
-
+        print("Movie Selection view controller line 114, nr of rows: \(actorsWithDetails.count + 2)")
+        return actorsWithDetails.count + 2
     }
 
+    @objc func wantToWatchTriggered(_ sender: AnyObject){
+
+        let realm = try! Realm()
+        let header = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! MovieHeaderCell
+        
+        if header.wantToWatchMovie.isOn {
+            
+            if header.seenMovie.isOn {
+                
+                header.seenMovie.isOn = false
+                
+                try! realm.write {
+//                    mss hier een guard van maken
+                    
+                    let deleteMovie = user!.moviesSeen.filter("id == \(movie.id)").first
+                    let deleteIndex = user!.moviesSeen.index(of: deleteMovie!)
+                    
+                    let message = "\(deleteMovie!.title) is removed from 'Movies seen'"
+                    let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                    self.present(alert, animated: true)
+                    
+                    // duration in seconds
+                    let duration: Double = 2
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
+                        alert.dismiss(animated: true)
+                    }
+                    user!.moviesSeen.remove(at: deleteIndex!)
+//                    realm.delete(deleteMovie!)
+                }
+            }
+            
+            try! realm.write {
+                let message = "\(movie.title) is added to 'Movies to watch'"
+                let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                self.present(alert, animated: true)
+                
+                // duration in seconds
+                let duration: Double = 2
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
+                    alert.dismiss(animated: true)
+                }
+                user!.moviesToWatch.append(movie)
+                print("Movie selection view controller line 140, # movies to watch: \(user!.moviesToWatch.count) \n overview movie saved:\(user!.moviesToWatch.first!.overview)")
+            }
+        }
+//        switch staat uit dus film mag ook niet in "want to watch" lijst zitten
+        else {
+            if checkIfMovieAlreadyInDb(for: user!.moviesToWatch) == true {
+                try! realm.write {
+                    let deleteMovie = user!.moviesToWatch.filter("id == \(movie.id)").first
+                    let deleteIndex = user!.moviesToWatch.index(of: deleteMovie!)
+                    
+                    let message = "\(deleteMovie!.title) is removed from 'Movies to watch'"
+                    let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                    self.present(alert, animated: true)
+                    
+                    // duration in seconds
+                    let duration: Double = 2
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
+                        alert.dismiss(animated: true)
+                    }
+                    user!.moviesToWatch.remove(at: deleteIndex!)
+                }
+            }
+        }
+    }
+    
+   @objc func seenTriggered(_ sender: AnyObject){
+    
+        let realm = try! Realm()
+        let header = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! MovieHeaderCell
+    
+        if header.seenMovie.isOn {
+            
+            if header.wantToWatchMovie.isOn {
+                
+                header.wantToWatchMovie.isOn = false
+                
+                try! realm.write {
+                    //                    mss hier een guard van maken
+                    let deleteMovie = user!.moviesToWatch.filter("id == \(movie.id)").first
+                    let deleteIndex = user!.moviesToWatch.index(of: deleteMovie!)
+
+                    let message = "\(deleteMovie!.title) is removed from 'Movies to watch'"
+                    let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                    self.present(alert, animated: true)
+                    
+                    // duration in seconds
+                    let duration: Double = 2
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
+                        alert.dismiss(animated: true)
+                    }
+                    
+                    user!.moviesToWatch.remove(at: deleteIndex!)
+                    //                    realm.delete(deleteMovie!)
+                }
+            }
+            
+            try! realm.write {
+                let message = "\(movie.title) is added to 'Movies seen'"
+                let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                self.present(alert, animated: true)
+                
+                // duration in seconds
+                let duration: Double = 2
+                
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
+                    alert.dismiss(animated: true)
+                }
+                user!.moviesSeen.append(movie)
+                print("Movie selection view controller line 168, # movies to watch: \(user!.moviesSeen.count) \n overview movie saved:\(user!.moviesSeen.first!.overview)")
+            }
+        }
+//        Movies seen switch staat uit dus film mag niet in lijst zitten
+        else {
+            if checkIfMovieAlreadyInDb(for: user!.moviesSeen) == true {
+                try! realm.write {
+                    let deleteMovie = user!.moviesSeen.filter("id == \(movie.id)").first
+                    let deleteIndex = user!.moviesSeen.index(of: deleteMovie!)
+                    
+                    let message = "\(deleteMovie!.title) is removed from 'Movies seen'"
+                    let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                    self.present(alert, animated: true)
+                    
+                    // duration in seconds
+                    let duration: Double = 2
+                    
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
+                        alert.dismiss(animated: true)
+                    }
+                    user!.moviesSeen.remove(at: deleteIndex!)
+                }
+            }
+        }
+    }
+    
+    func checkIfMovieAlreadyInDb(for list: List<Movie>) -> Bool {
+  
+        var containsMovie = false
+//        var inList = ""
+        
+        for m in list {
+            if m.id == movie.id {
+                containsMovie = true
+            }
+        }
+        return containsMovie
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch (indexPath.row) {
@@ -135,29 +276,50 @@ extension MovieSelectionViewController: UITableViewDataSource {
         case 0:
             let movieHeaderCell = tableView.dequeueReusableCell(withIdentifier: "movieHeaderCell", for: indexPath) as! MovieHeaderCell
             
-            movieHeaderCell.duration.text = "\(String(describing: movie.duration!))"
-            movieHeaderCell.genre.text = movie.genres.joined(separator: ",")
+            movieHeaderCell.duration.text = "\(String(describing: movie.duration))"
+//            movieHeaderCell.genre.text = movie.genres.joined(separator: ",")
 
-            print("Movie selection view controller line 141, actorsWithDetails.prefix(8): \(actorsWithDetails.prefix(8))")
+            print("Movie selection view controller line 196, actorsWithDetails.prefix(8): \(actorsWithDetails.prefix(8))")
 //            get first 8 cast members
-            for i in actorsWithDetails.prefix(8) {
-                let actor = i
-                stars.append(actor.name)
+            if stars.isEmpty || stars.count != 8 {
+                stars.removeAll()
+                for i in actorsWithDetails.prefix(8) {
+                    let actor = i
+                    stars.append(actor.name)
+                }
             }
 
             let namesStars = stars.joined(separator: ", ")
             movieHeaderCell.starsInMovie.text = namesStars
-            print("Movie selection view controller line 150, movie stars: \(movie.stars)")
             movieHeaderCell.overview.text = movie.overview
-            print("Movie selection view controller line 152, movie overview: \(movie.overview)")
-            let punten : String = String(format: "%.1F",movie.vote_average!)
+            
+            let punten : String = String(format: "%.1F",movie.vote_average)
             movieHeaderCell.score.text = punten
             movieHeaderCell.title.text = movie.title
            
 //            Poster for movie, gets the original size of the poster
-            let posterUrl = URL(string: baseUrl + originalPosterSize + movie.poster_path)
-            let data = try! Data.init(contentsOf: posterUrl!)
-            movieHeaderCell.poster.image = UIImage(data: data)
+            if movie.poster_path != "" {
+                let posterUrl = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + movie.poster_path)
+                let data = try! Data.init(contentsOf: posterUrl!)
+                movieHeaderCell.poster.image = UIImage(data: data)
+            }
+
+//            toevoegen van film aan de gepaste lijst, indien film al in db zet switch op true
+//            Film zit al in moviesSeen
+            if checkIfMovieAlreadyInDb(for: user!.moviesSeen) == true {
+                movieHeaderCell.seenMovie.isOn = true
+            }
+//                film zit nog niet in moviesSeen
+//            else {
+                movieHeaderCell.seenMovie.addTarget(self, action: #selector((seenTriggered(_:))), for: .valueChanged)
+//            }
+            
+//            film zit al in movies to watch
+            if checkIfMovieAlreadyInDb(for: user!.moviesToWatch) == true {
+                movieHeaderCell.wantToWatchMovie.isOn = true
+            } //else {
+                movieHeaderCell.wantToWatchMovie.addTarget(self, action: #selector((wantToWatchTriggered(_:))), for: .valueChanged)
+//            }
             
             return movieHeaderCell
 
@@ -173,7 +335,7 @@ extension MovieSelectionViewController: UITableViewDataSource {
         default:
             let actorCell = tableView.dequeueReusableCell(withIdentifier: "actorCell", for: indexPath) as! ActorCell
             
-            print("Movie Selection view controller line 176, got here (actor cell), actors[indexPath.row].biography: \(actors[indexPath.row - 2].biography)")
+            print("Movie Selection view controller line 252, got here (actor cell), actors[indexPath.row].biography: \(actors[indexPath.row - 2].biography)")
             
             if actorsWithDetails[indexPath.row - 2].biography.isEmpty {
                 actorsWithDetails[indexPath.row - 2].biography = "N/A"
@@ -185,12 +347,11 @@ extension MovieSelectionViewController: UITableViewDataSource {
             if actorsWithDetails[indexPath.row - 2].profilePath != ""  {
                 //            image can be displayed with \(baseUrl) + \(sizeProfilePhoto) + imageURL
                 let imageURL = actorsWithDetails[indexPath.row - 2].photoFilePath
-                let photoURL = URL(string: baseUrl + "original"/* sizeProfilePhoto */+ imageURL)!
-                print("Movie Selection view controller line 186, photoUrl: \(photoURL)")
+                let photoURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + imageURL)!
+                print("Movie Selection view controller line 265, photoUrl: \(photoURL)")
                 let data = try! Data.init(contentsOf: photoURL)
                 actorCell.photo.image = UIImage(data: data)
             }
-            
             return actorCell
         }
     }
@@ -226,6 +387,29 @@ extension MovieSelectionViewController: UITableViewDataSource {
             
             default:
                 return 86
+        }
+    }
+}
+
+// To show the spinner I used this tutorial: http://brainwashinc.com/2017/07/21/loading-activity-indicator-ios-swift/
+extension UIViewController {
+    
+    class func displaySpinner(onView: UIView) -> UIView {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        return spinnerView
+    }
+    class func removeSpinner(spinner: UIView) {
+        DispatchQueue.main.async {
+            spinner.removeFromSuperview()
         }
     }
 }
