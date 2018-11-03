@@ -20,7 +20,6 @@ class MoviesViewController : UIViewController {
         if movies.count == 0 {
             sv = UIViewController.displaySpinner(onView: self.view)
         }
-        
     }
     override func viewDidLoad() {
        super.viewDidLoad()
@@ -37,7 +36,7 @@ class MoviesViewController : UIViewController {
         moviesTask = TmdbAPIService.getMoviesPlaying(with: currentPage){
             UIViewController.removeSpinner(spinner: self.sv)
             self.movies = $0!
-//            self.tableView.reloadData()
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
