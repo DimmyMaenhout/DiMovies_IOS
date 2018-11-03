@@ -15,7 +15,8 @@ class MovieSelectionViewController : UIViewController {
     
     let dispatchGroup = DispatchGroup()
     var sv = UIView()
-    var user: User?
+    var user: User!
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -128,12 +129,11 @@ extension MovieSelectionViewController: UITableViewDataSource {
                 header.seenMovie.isOn = false
                 
                 try! realm.write {
-//                    mss hier een guard van maken
+
+                    let deleteMovieFromCollection = user.collections.filter("id == 1").first!.movies.filter("id == \(movie.id)").first!
+                    let deleteIndex = user.collections.filter("id == 0").first!.movies.index(of: deleteMovieFromCollection)
                     
-                    let deleteMovie = user!.moviesSeen.filter("id == \(movie.id)").first
-                    let deleteIndex = user!.moviesSeen.index(of: deleteMovie!)
-                    
-                    let message = "\(deleteMovie!.title) is removed from 'Movies seen'"
+                    let message = "\(deleteMovieFromCollection.title) is removed from 'Movies seen'"
                     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                     self.present(alert, animated: true)
                     
@@ -143,8 +143,7 @@ extension MovieSelectionViewController: UITableViewDataSource {
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
                         alert.dismiss(animated: true)
                     }
-                    user!.moviesSeen.remove(at: deleteIndex!)
-//                    realm.delete(deleteMovie!)
+                    user.collections.filter("id == 0").first!.movies.remove(at: deleteIndex!)
                 }
             }
             
@@ -159,18 +158,19 @@ extension MovieSelectionViewController: UITableViewDataSource {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
                     alert.dismiss(animated: true)
                 }
-                user!.moviesToWatch.append(movie)
-                print("Movie selection view controller line 140, # movies to watch: \(user!.moviesToWatch.count) \n overview movie saved:\(user!.moviesToWatch.first!.overview)")
+                user.collections.filter("id == 1").first!.movies.append(movie)
+                print("Movie selection view controller line 140, # movies to watch: \(user.collections.filter("id == 1").first!.movies.count)")
             }
         }
 //        switch staat uit dus film mag ook niet in "want to watch" lijst zitten
         else {
             if checkIfMovieAlreadyInDb(for: user!.moviesToWatch) == true {
                 try! realm.write {
-                    let deleteMovie = user!.moviesToWatch.filter("id == \(movie.id)").first
-                    let deleteIndex = user!.moviesToWatch.index(of: deleteMovie!)
                     
-                    let message = "\(deleteMovie!.title) is removed from 'Movies to watch'"
+                    let deleteMovieFromCollection = user.collections.filter("id == 1").first!.movies.filter("id == \(movie.id)").first
+                    let deleteIndex = user.moviesToWatch.index(of: deleteMovieFromCollection!)
+                    
+                    let message = "\(deleteMovieFromCollection!.title) is removed from 'Movies to watch'"
                     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                     self.present(alert, animated: true)
                     
@@ -180,7 +180,7 @@ extension MovieSelectionViewController: UITableViewDataSource {
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
                         alert.dismiss(animated: true)
                     }
-                    user!.moviesToWatch.remove(at: deleteIndex!)
+                    user.collections.filter("id == 1").first!.movies.remove(at: deleteIndex!)
                 }
             }
         }
@@ -198,11 +198,11 @@ extension MovieSelectionViewController: UITableViewDataSource {
                 header.wantToWatchMovie.isOn = false
                 
                 try! realm.write {
-                    //                    mss hier een guard van maken
-                    let deleteMovie = user!.moviesToWatch.filter("id == \(movie.id)").first
-                    let deleteIndex = user!.moviesToWatch.index(of: deleteMovie!)
 
-                    let message = "\(deleteMovie!.title) is removed from 'Movies to watch'"
+                    let deleteMovieFromCollection = user.collections.filter("id == 1").first!.movies.filter("id == \(movie.id)").first
+                    let deleteIndex = user.collections.filter("id == 1").first!.movies.index(of: deleteMovieFromCollection!)
+
+                    let message = "\(deleteMovieFromCollection!.title) is removed from 'Movies to watch'"
                     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                     self.present(alert, animated: true)
                     
@@ -213,8 +213,7 @@ extension MovieSelectionViewController: UITableViewDataSource {
                         alert.dismiss(animated: true)
                     }
                     
-                    user!.moviesToWatch.remove(at: deleteIndex!)
-                    //                    realm.delete(deleteMovie!)
+                    user.collections.filter("id == 1").first!.movies.remove(at: deleteIndex!)
                 }
             }
             
@@ -229,18 +228,19 @@ extension MovieSelectionViewController: UITableViewDataSource {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
                     alert.dismiss(animated: true)
                 }
-                user!.moviesSeen.append(movie)
-                print("Movie selection view controller line 168, # movies to watch: \(user!.moviesSeen.count) \n overview movie saved:\(user!.moviesSeen.first!.overview)")
+                user.collections.filter("id == 0").first!.movies.append(movie)
+                print("Movie selection view controller line 237, # movies seen: \( user.collections.filter("id == 0").first!.movies.count)")
+
             }
         }
-//        Movies seen switch staat uit dus film mag niet in lijst zitten
+//        Movies seen (id == 0) switch staat uit dus film mag niet in lijst zitten
         else {
-            if checkIfMovieAlreadyInDb(for: user!.moviesSeen) == true {
+            if checkIfMovieAlreadyInDb(for: user.collections.filter("id == 0").first!.movies) == true {
                 try! realm.write {
-                    let deleteMovie = user!.moviesSeen.filter("id == \(movie.id)").first
-                    let deleteIndex = user!.moviesSeen.index(of: deleteMovie!)
+                    let deleteMovieFromCollection =  user.collections.filter("id == 0").first!.movies.filter("id == \(movie.id)").first!
+                    let deleteIndex = user.collections.filter("id == 0").first!.movies.index(of: deleteMovieFromCollection)
                     
-                    let message = "\(deleteMovie!.title) is removed from 'Movies seen'"
+                    let message = "\(deleteMovieFromCollection.title) is removed from 'Movies seen'"
                     let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
                     self.present(alert, animated: true)
                     
@@ -250,7 +250,7 @@ extension MovieSelectionViewController: UITableViewDataSource {
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
                         alert.dismiss(animated: true)
                     }
-                    user!.moviesSeen.remove(at: deleteIndex!)
+                    user.collections.filter("id == 0").first!.movies.remove(at: deleteIndex!)
                 }
             }
         }
@@ -306,20 +306,18 @@ extension MovieSelectionViewController: UITableViewDataSource {
 
 //            toevoegen van film aan de gepaste lijst, indien film al in db zet switch op true
 //            Film zit al in moviesSeen
-            if checkIfMovieAlreadyInDb(for: user!.moviesSeen) == true {
+            if checkIfMovieAlreadyInDb(for: user.collections.filter("id == 0").first!.movies) == true {
                 movieHeaderCell.seenMovie.isOn = true
             }
 //                film zit nog niet in moviesSeen
 //            else {
                 movieHeaderCell.seenMovie.addTarget(self, action: #selector((seenTriggered(_:))), for: .valueChanged)
 //            }
-            
 //            film zit al in movies to watch
-            if checkIfMovieAlreadyInDb(for: user!.moviesToWatch) == true {
+            if checkIfMovieAlreadyInDb(for: user.collections.filter("id == 1").first!.movies) == true {
                 movieHeaderCell.wantToWatchMovie.isOn = true
-            } //else {
+            }
                 movieHeaderCell.wantToWatchMovie.addTarget(self, action: #selector((wantToWatchTriggered(_:))), for: .valueChanged)
-//            }
             
             return movieHeaderCell
 
