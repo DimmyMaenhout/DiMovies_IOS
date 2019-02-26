@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import RealmSwift
 
-class MovieSelectionViewController : UIViewController {
+class MovieDetailsViewController : UIViewController {
     
     var movieTask: URLSessionTask?
     //Movie selected from MovieViewController
@@ -46,6 +46,7 @@ class MovieSelectionViewController : UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         if actors.count == 0 {
              sv = UIViewController.displaySpinner(onView: self.tableView)
         }
@@ -99,12 +100,22 @@ class MovieSelectionViewController : UIViewController {
     }
 }
 
-extension MovieSelectionViewController : UITableViewDelegate{
+extension MovieDetailsViewController : UITableViewDelegate{
 
     
 }
 
-extension MovieSelectionViewController: UITableViewDataSource {
+extension MovieDetailsViewController: UITableViewDataSource {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let addMovieToCollectionViewController = segue.destination as! AddMovieToCollectionViewController
+        addMovieToCollectionViewController.movie = movie
+    }
+    
+    @IBAction func unwindToMovieDetail(_ sender: UIStoryboardSegue) {
+        
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         

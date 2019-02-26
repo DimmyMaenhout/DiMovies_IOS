@@ -4,7 +4,7 @@ import RealmSwift
 /*
  *  Shows movies in cinema
  */
-class MoviesViewController : UIViewController {
+class MoviesPlayingViewController : UIViewController {
     
     var moviesTBMD : [Dictionary<String, Any>?] = []
     var movies: [Movie] = []
@@ -12,9 +12,9 @@ class MoviesViewController : UIViewController {
     var sv = UIView()
     var currentPage = 1
     var isFetchInProgress = false
+    
     @IBOutlet weak var tableView: UITableView!
-
-//    Spinner is called here (to center it to the view)
+    //    Spinner is called here (to center it to the view)
     override func viewWillAppear(_ animated: Bool) {
 //        indien we anders terug komen (bv van search) blijft de spinner op de pagina
         if movies.count == 0 {
@@ -49,12 +49,12 @@ class MoviesViewController : UIViewController {
             fatalError("Unknown segue")
         }
         
-        let movieSelectionViewController = segue.destination as! MovieSelectionViewController
-        movieSelectionViewController.movie = movies[tableView.indexPathForSelectedRow!.row]
+        let movieDetailsViewController = segue.destination as! MovieDetailsViewController
+        movieDetailsViewController.movie = movies[tableView.indexPathForSelectedRow!.row]
     }
 }
 
-extension MoviesViewController : UITableViewDataSource {
+extension MoviesPlayingViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -121,7 +121,7 @@ extension MoviesViewController : UITableViewDataSource {
     }
 }
 
-extension MoviesViewController : UITableViewDelegate {
+extension MoviesPlayingViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
