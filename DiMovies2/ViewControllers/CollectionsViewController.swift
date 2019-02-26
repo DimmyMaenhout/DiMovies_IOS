@@ -48,7 +48,7 @@ extension CollectionsViewController : UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        //        Zorgt ervoor dat de table cell niet meer geselecteerd is als we terug komen
+        //  Deselects the tableViewCell when we return
         tableView.deselectRow(at: indexPath, animated: true)
         print("UserViewController line 34, selectedList: \(String(describing: selectedCellId))")
     }
@@ -58,7 +58,8 @@ extension CollectionsViewController : UITableViewDelegate {
         var deleteAction: UIContextualAction?
         
         switch user!.collections[indexPath.row].id {
-//            Er zijn 2 collections die niet kunnen verwijderd worden, namelijk de standaard "Seen" en "Want to watch" collections
+//            There are 2 collections that can't be deleted, the standard collections 'Seen' and 'Want to watch'
+            
         case 0 ..< 2:
             
             deleteAction = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
@@ -91,7 +92,7 @@ extension CollectionsViewController : UITableViewDelegate {
 extension CollectionsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
            return user?.collections.count ?? 0
     }
     
@@ -104,8 +105,14 @@ extension CollectionsViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserlistCell", for: indexPath) as! NameListViewCell
 //        nodig om de juiste lijst te tonen in volgende controller (UserMoviesOverviewController)
         selectedCellId = user!.collections[indexPath.row].id
-        cell.listName = user!.collections[indexPath.row].name
+        cell.nameList.text = user!.collections[indexPath.row].name
+        cell.nrOfMovies.text = "\(user!.collections[indexPath.row].movies.count)"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 65
     }
 }
