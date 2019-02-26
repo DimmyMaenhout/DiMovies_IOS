@@ -33,8 +33,8 @@ class SearchViewController : UIViewController {
             fatalError("Unknown segue")
         }
         
-        let movieSelectionViewController = segue.destination as! MovieSelectionViewController
-        movieSelectionViewController.movie = movieResults[tableView.indexPathForSelectedRow!.row]
+        let movieDetailsViewController = segue.destination as! MovieDetailsViewController
+        movieDetailsViewController.movie = movieResults[tableView.indexPathForSelectedRow!.row]
     }
 }
 
@@ -159,7 +159,11 @@ extension SearchViewController: UITableViewDataSource {
             UIViewController.removeSpinner(spinner: self.sv)
 
             self.isFetchInProgress = false
-            self.movieResults.insert(contentsOf: searchResults!, at: self.movieResults.count)
+            guard let searchResults = searchResults else {
+                print("searchResults was nil")
+                return
+            }
+            self.movieResults.insert(contentsOf:searchResults, at: self.movieResults.count)
             print("Search view controller line 163, movieResults.count: \(self.movieResults.count)")
             DispatchQueue.main.async {
 
