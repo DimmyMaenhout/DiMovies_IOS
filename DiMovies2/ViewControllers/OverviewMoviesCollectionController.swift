@@ -107,7 +107,7 @@ extension OverviewMoviesColletionController : UITableViewDataSource {
         let punten : String = String(format: "%.1F",movie.vote_average) //!
         cell.score.text = punten
         print("Overview movies collection controller line 107, movie.name: \(movie.title)")
-        if movie.poster_path != "" {
+        if !movie.poster_path.isEmpty {
             
             //voor image bestaat de url uit 3 delen = base_url, full_size and the file path
             let imageURL = movie.poster_path
