@@ -12,8 +12,15 @@ class CollectionsViewController: UIViewController {
     
     override func viewDidLoad() {
         user = try! Realm().objects(User.self)[0]
+        tableView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         switch segue.identifier {
