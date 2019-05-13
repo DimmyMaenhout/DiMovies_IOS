@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import SDWebImage
 
 class MovieDetailsViewController : UIViewController {
     
@@ -310,9 +311,9 @@ extension MovieDetailsViewController: UITableViewDataSource {
            
 //            Poster for movie, gets the original size of the poster
             if movie.poster_path != "" {
-                let posterUrl = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + movie.poster_path)
-                let data = try! Data.init(contentsOf: posterUrl!)
-                movieHeaderCell.poster.image = UIImage(data: data)
+                let posterUrl = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.originalSizePoster + movie.poster_path)
+                //let data = try! Data.init(contentsOf: posterUrl!)
+                movieHeaderCell.poster.sd_setImage(with: posterUrl)//.image = UIImage(data: data)
             }
 
 //            toevoegen van film aan de gepaste lijst, indien film al in db zet switch op true
@@ -356,10 +357,11 @@ extension MovieDetailsViewController: UITableViewDataSource {
             if actorsWithDetails[indexPath.row - 2].profilePath != ""  {
                 //            image can be displayed with \(baseUrl) + \(sizeProfilePhoto) + imageURL
                 let imageURL = actorsWithDetails[indexPath.row - 2].photoFilePath
-                let photoURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + imageURL)!
+                let photoURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePosterW92 + imageURL)!
                 print("Movie Selection view controller line 265, photoUrl: \(photoURL)")
                 let data = try! Data.init(contentsOf: photoURL)
-                actorCell.photo.image = UIImage(data: data)
+                actorCell.photo.sd_setImage(with: photoURL)
+                //actorCell.photo.image = UIImage(data: data)
             }
             return actorCell
         }
