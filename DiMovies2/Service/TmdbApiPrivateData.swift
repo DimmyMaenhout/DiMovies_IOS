@@ -2,5 +2,5 @@ import Foundation
 
 struct TmdbApiPrivateData {
     
-    static let apiKey = ""
+    static let apiKey = ''
 }
