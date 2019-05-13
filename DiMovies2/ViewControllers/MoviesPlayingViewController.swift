@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import SDWebImage
 /*
  *  Shows movies in cinema
  */
@@ -35,7 +36,9 @@ class MoviesPlayingViewController : UIViewController {
         moviesTask?.cancel()
         moviesTask = TmdbAPIService.getMoviesPlaying(with: currentPage){
             UIViewController.removeSpinner(spinner: self.sv)
-            self.movies = $0!
+            print("movies playing controller line 39, movies: \($0)")
+            guard let movies = $0 else { return }
+            self.movies = movies//$0!
             
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -78,12 +81,12 @@ extension MoviesPlayingViewController : UITableViewDataSource {
         cell.overview.text = movie.overview
         
         if movie.poster_path != "" {
-        
-            //voor image bestaat de url uit 3 delen = base_url, full_size and the file path
+
+            // The image url exists of 3 pieces: base_url, full_size and the file path
             let imageURL = movie.poster_path
-            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + imageURL)!
+            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePosterW92 + imageURL)!
             let data = try! Data.init(contentsOf: moviePosterURL)
-            cell.poster.image =  UIImage(data: data)
+            cell.poster.sd_setImage(with: moviePosterURL)
         }
         return cell
     }
