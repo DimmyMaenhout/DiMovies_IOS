@@ -127,9 +127,9 @@ extension SearchViewController: UITableViewDataSource {
         
         if movie.poster_path != "" {
             
-            //voor image bestaat de url uit 3 delen = base_url, full_size and the file path
+            //For the image the url exists of 3 pieces: base_url, full_size and the file path
             let imageURL = movie.poster_path
-            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + imageURL)!
+            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePosterW92 + imageURL)!
             let data = try! Data.init(contentsOf: moviePosterURL)
             cell.poster.image =  UIImage(data: data)
         }
