@@ -1246,7 +1246,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                     <rect key="frame" x="0.0" y="247.33333333333337" width="359" height="232"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ktd-eg-4pd">
-                                                                            <rect key="frame" x="1" y="-1" width="359" height="233"/>
+                                                                            <rect key="frame" x="1" y="-1" width="359" height="234"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <string key="text">Nick Fury is the director of S.H.I.E.L.D., an international peace-keeping agency. The agency is a who's who of Marvel Super Heroes, with Iron Man, The Incredible Hulk, Thor, Captain America, Hawkeye and Black Widow. When global security is threatened by Loki and his cohorts, Nick Fury and his team will need all their powers to save the world from disaster which is formed by Loki and his team</string>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1382,7 +1382,7 @@ Chris's American representative, management company ROAR, also manages actress E
             </objects>
             <point key="canvasLocation" x="1670" y="1173"/>
         </scene>
-        <!--Add To Collection-->
+        <!--Add to collection-->
         <scene sceneID="8mo-B2-nh3">
             <objects>
                 <viewController id="PyI-Yq-IIh" customClass="AddMovieToCollectionViewController" customModule="DiMovies2" customModuleProvider="target" sceneMemberID="viewController">
@@ -1403,45 +1403,42 @@ Chris's American representative, management company ROAR, also manages actress E
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Seen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPq-Ii-8jK">
-                                                    <rect key="frame" x="15" y="11" width="275.33333333333331" height="58"/>
+                                                    <rect key="frame" x="15" y="11" width="256.33333333333331" height="58"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhx-nd-VV7">
-                                                    <rect key="frame" x="306.33333333333331" y="11" width="7.6666666666666856" height="58"/>
+                                                    <rect key="frame" x="287.33333333333331" y="11" width="7.6666666666666856" height="58"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jf1-GS-E2y">
-                                                    <rect key="frame" x="330" y="25" width="30" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="lap-a7-mcw"/>
-                                                        <constraint firstAttribute="width" constant="30" id="lwk-qa-NgG"/>
-                                                    </constraints>
-                                                    <state key="normal" image="UnCheckbox"/>
-                                                    <state key="selected" image="Checkbox"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LPG-UW-Vlz">
+                                                    <rect key="frame" x="311" y="24.333333333333329" width="51" height="31"/>
+                                                    <color key="onTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="thumbTintColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
-                                                        <action selector="checkboxTapped:" destination="pH9-ZZ-I0l" eventType="touchUpInside" id="zla-sG-eHS"/>
+                                                        <action selector="switchTapped:" destination="PyI-Yq-IIh" eventType="valueChanged" id="yZb-Ey-HeP"/>
                                                     </connections>
-                                                </button>
+                                                </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Jf1-GS-E2y" firstAttribute="leading" secondItem="fhx-nd-VV7" secondAttribute="trailing" constant="16" id="E2Q-89-KUz"/>
+                                                <constraint firstItem="LPG-UW-Vlz" firstAttribute="trailing" secondItem="Y7t-Ih-Is5" secondAttribute="trailingMargin" id="47L-Cv-3Sk"/>
                                                 <constraint firstItem="fhx-nd-VV7" firstAttribute="bottom" secondItem="Y7t-Ih-Is5" secondAttribute="bottomMargin" id="GYM-Xe-tQx"/>
                                                 <constraint firstItem="fhx-nd-VV7" firstAttribute="leading" secondItem="GPq-Ii-8jK" secondAttribute="trailing" constant="16" id="HVd-q2-AZB"/>
                                                 <constraint firstItem="GPq-Ii-8jK" firstAttribute="leading" secondItem="Y7t-Ih-Is5" secondAttribute="leadingMargin" id="IIr-vj-JQj"/>
                                                 <constraint firstItem="GPq-Ii-8jK" firstAttribute="bottom" secondItem="Y7t-Ih-Is5" secondAttribute="bottomMargin" id="Kao-Td-zXn"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Jf1-GS-E2y" secondAttribute="trailing" id="Ugv-I8-dh1"/>
+                                                <constraint firstItem="LPG-UW-Vlz" firstAttribute="leading" secondItem="fhx-nd-VV7" secondAttribute="trailing" constant="16" id="eQq-er-d3l"/>
                                                 <constraint firstItem="fhx-nd-VV7" firstAttribute="top" secondItem="Y7t-Ih-Is5" secondAttribute="topMargin" id="jrX-Cz-a10"/>
                                                 <constraint firstItem="GPq-Ii-8jK" firstAttribute="top" secondItem="Y7t-Ih-Is5" secondAttribute="topMargin" id="k2k-bH-yey"/>
-                                                <constraint firstItem="Jf1-GS-E2y" firstAttribute="centerY" secondItem="Y7t-Ih-Is5" secondAttribute="centerY" id="n74-Hd-PWH"/>
+                                                <constraint firstItem="LPG-UW-Vlz" firstAttribute="top" secondItem="Y7t-Ih-Is5" secondAttribute="topMargin" constant="13.33" id="sJZ-wa-Bff"/>
+                                                <constraint firstItem="LPG-UW-Vlz" firstAttribute="centerY" secondItem="Y7t-Ih-Is5" secondAttribute="centerY" id="wYC-b1-HmP"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1333333333" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="checkBtn" destination="Jf1-GS-E2y" id="lGH-os-iJP"/>
+                                            <outlet property="addToCollectionSwitch" destination="LPG-UW-Vlz" id="eCM-o7-8Od"/>
                                             <outlet property="collectionMovieCount" destination="fhx-nd-VV7" id="XSV-hj-bfe"/>
                                             <outlet property="collectionName" destination="GPq-Ii-8jK" id="eC2-4q-D6s"/>
                                         </connections>
@@ -1462,7 +1459,7 @@ Chris's American representative, management company ROAR, also manages actress E
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8Er-Ys-IYN"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add To Collection" id="9Sb-pI-4fT">
+                    <navigationItem key="navigationItem" title="Add to collection" id="9Sb-pI-4fT">
                         <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="ga5-UM-90d">
                             <connections>
                                 <segue destination="QG8-xn-Oyf" kind="unwind" unwindAction="unwindToMovieDetail:" id="XZB-C1-Qpf"/>
@@ -1498,45 +1495,39 @@ Chris's American representative, management company ROAR, also manages actress E
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Seen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWV-3t-T0j">
-                                                    <rect key="frame" x="15" y="11" width="275.33333333333331" height="58"/>
+                                                    <rect key="frame" x="15" y="11" width="256.33333333333331" height="58"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ses-lS-HIJ">
-                                                    <rect key="frame" x="306.33333333333331" y="11" width="7.6666666666666856" height="58"/>
+                                                    <rect key="frame" x="287.33333333333331" y="11" width="7.6666666666666856" height="58"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gXz-hw-8hg">
-                                                    <rect key="frame" x="330" y="25" width="30" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="2Um-2g-Jua"/>
-                                                        <constraint firstAttribute="width" constant="30" id="4lX-F1-e68"/>
-                                                    </constraints>
-                                                    <state key="normal" image="UnCheckbox"/>
-                                                    <state key="selected" image="Checkbox"/>
-                                                    <connections>
-                                                        <action selector="checkboxTapped:" destination="pH9-ZZ-I0l" eventType="touchUpInside" id="uwq-1O-t8s"/>
-                                                    </connections>
-                                                </button>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dkq-vP-EhY">
+                                                    <rect key="frame" x="311" y="24.333333333333329" width="51" height="31"/>
+                                                    <color key="onTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="thumbTintColor" red="0.89987521699999995" green="0.50656467009999995" blue="0.1078559028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </switch>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="dkq-vP-EhY" firstAttribute="top" secondItem="E6d-zo-YMl" secondAttribute="topMargin" constant="13.33" id="7G0-kt-3EK"/>
+                                                <constraint firstItem="dkq-vP-EhY" firstAttribute="leading" secondItem="ses-lS-HIJ" secondAttribute="trailing" constant="16" id="7op-Qm-Jwo"/>
                                                 <constraint firstItem="LWV-3t-T0j" firstAttribute="top" secondItem="E6d-zo-YMl" secondAttribute="topMargin" id="CzB-fb-CHb"/>
+                                                <constraint firstItem="dkq-vP-EhY" firstAttribute="trailing" secondItem="E6d-zo-YMl" secondAttribute="trailingMargin" id="JUu-Z7-8bD"/>
                                                 <constraint firstItem="LWV-3t-T0j" firstAttribute="leading" secondItem="E6d-zo-YMl" secondAttribute="leadingMargin" id="MNm-yA-59h"/>
                                                 <constraint firstItem="ses-lS-HIJ" firstAttribute="top" secondItem="E6d-zo-YMl" secondAttribute="topMargin" id="TBd-Zg-2SD"/>
                                                 <constraint firstItem="LWV-3t-T0j" firstAttribute="bottom" secondItem="E6d-zo-YMl" secondAttribute="bottomMargin" id="Tpb-i1-baz"/>
-                                                <constraint firstItem="gXz-hw-8hg" firstAttribute="leading" secondItem="ses-lS-HIJ" secondAttribute="trailing" constant="16" id="dvE-LK-gh1"/>
                                                 <constraint firstItem="ses-lS-HIJ" firstAttribute="bottom" secondItem="E6d-zo-YMl" secondAttribute="bottomMargin" id="fdt-rf-Hht"/>
                                                 <constraint firstItem="ses-lS-HIJ" firstAttribute="leading" secondItem="LWV-3t-T0j" secondAttribute="trailing" constant="16" id="sfG-Vy-T9h"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="gXz-hw-8hg" secondAttribute="trailing" id="yXk-Qn-AO0"/>
-                                                <constraint firstItem="gXz-hw-8hg" firstAttribute="centerY" secondItem="E6d-zo-YMl" secondAttribute="centerY" id="z4f-m0-9yT"/>
+                                                <constraint firstItem="dkq-vP-EhY" firstAttribute="centerY" secondItem="E6d-zo-YMl" secondAttribute="centerY" id="vWy-hp-Sru"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1333333333" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="checkBtn" destination="gXz-hw-8hg" id="zyM-ux-YkQ"/>
+                                            <outlet property="addToCollectionSwitch" destination="dkq-vP-EhY" id="0m1-RV-Vwt"/>
                                             <outlet property="collectionMovieCount" destination="ses-lS-HIJ" id="irK-3r-PtG"/>
                                             <outlet property="collectionName" destination="LWV-3t-T0j" id="uUx-jB-o1Z"/>
                                         </connections>
@@ -1557,7 +1548,7 @@ Chris's American representative, management company ROAR, also manages actress E
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yd3-Cc-1ly"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="1yJ-1r-GVs">
+                    <navigationItem key="navigationItem" title="Add to collection" id="1yJ-1r-GVs">
                         <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="done" id="53K-fM-B3z">
                             <connections>
                                 <segue destination="K7i-Jd-Bbq" kind="unwind" unwindAction="unwindToMovieDetail:" id="Opc-ID-hVG"/>
@@ -1576,9 +1567,7 @@ Chris's American representative, management company ROAR, also manages actress E
         </scene>
     </scenes>
     <resources>
-        <image name="Checkbox" width="60" height="60"/>
         <image name="The Avengers Poster" width="631" height="946"/>
-        <image name="UnCheckbox" width="60" height="60"/>
         <image name="home-30" width="22.5" height="22.5"/>
         <image name="search-filled-30" width="22.5" height="22.5"/>
         <image name="user-30" width="22.5" height="22.5"/>
