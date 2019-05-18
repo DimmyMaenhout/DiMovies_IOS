@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import SDWebImage
 
 class SearchViewController : UIViewController {
     
@@ -26,6 +27,8 @@ class SearchViewController : UIViewController {
         searchBar.delegate = self
         searchBar.becomeFirstResponder()
         searchBar.returnKeyType = UIReturnKeyType.done
+        //tapping closes the keyboard
+        self.hideKeyBoardOnTap()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -46,21 +49,27 @@ extension SearchViewController : UISearchBarDelegate {
             print("Search view controller line 43, searchKeywords is nil")
             return
         }
-//        nodig voor pagination
-        searchString = searchKeywords
         
-        print("Search view controller line 46, searchKeywords: \(searchKeywords)")
-        searchTask?.cancel()
-        searchTask = TmdbAPIService.getMovieByName(for: searchKeywords, page: currentPage) {
-            UIViewController.removeSpinner(spinner: self.sv)
-            self.movieResults.removeAll()
-            self.movieResults = $0!
-            self.tableView.reloadData()
+        if !searchKeywords.isEmpty {
             
+            //        nodig voor pagination
+            searchString = searchKeywords
+            
+            print("Search view controller line 46, searchKeywords: \(searchKeywords)")
+            searchTask?.cancel()
+            searchTask = TmdbAPIService.getMovieByName(for: searchKeywords, page: currentPage) {
+                UIViewController.removeSpinner(spinner: self.sv)
+                self.movieResults.removeAll()
+                self.movieResults = $0!
+                self.tableView.reloadData()
+                
+            }
+            searchTask?.resume()
+            sv = UIViewController.displaySpinner(onView: self.view)
+            self.view.endEditing(true)
+        } else {
+            searchTask?.cancel()
         }
-        searchTask?.resume()
-        sv = UIViewController.displaySpinner(onView: self.view)
-        self.view.endEditing(true)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

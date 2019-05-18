@@ -21,6 +21,7 @@
 		63376A46214EA19800DD51F8 /* trailerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63376A45214EA19800DD51F8 /* trailerCell.swift */; };
 		6338172B216A2B5C00A78E2B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6338172A216A2B5C00A78E2B /* User.swift */; };
 		634939312288700E009762A3 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634939302288700E009762A3 /* WebKit.framework */; };
+		634939342290AD47009762A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634939332290AD47009762A3 /* ViewController.swift */; };
 		635322B32167FD390063CBC1 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635322B22167FD390063CBC1 /* CollectionsViewController.swift */; };
 		636B321D2061950800B7F084 /* TmdbAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636B321C2061950800B7F084 /* TmdbAPIService.swift */; };
 		6379B4811FEFF75200C73FE8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6379B47F1FEFF75200C73FE8 /* Main.storyboard */; };
@@ -51,6 +52,7 @@
 		63376A45214EA19800DD51F8 /* trailerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trailerCell.swift; sourceTree = "<group>"; };
 		6338172A216A2B5C00A78E2B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		634939302288700E009762A3 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		634939332290AD47009762A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		635322B22167FD390063CBC1 /* CollectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
 		636B321C2061950800B7F084 /* TmdbAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbAPIService.swift; sourceTree = "<group>"; };
 		6379B4801FEFF75200C73FE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -104,6 +106,14 @@
 			path = Repo;
 			sourceTree = "<group>";
 		};
+		634939322290AD1E009762A3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				634939332290AD47009762A3 /* ViewController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		636B321E2061955600B7F084 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +150,7 @@
 				63981D4B1FEFC9CF00F2DB63 /* Info.plist */,
 				63981D481FEFC9CF00F2DB63 /* LaunchScreen.storyboard */,
 				6379B47F1FEFF75200C73FE8 /* Main.storyboard */,
+				634939322290AD1E009762A3 /* Extensions */,
 				6305CCF21FEFD1B300CF39B1 /* Model */,
 				636B321E2061955600B7F084 /* Service */,
 				63981D531FEFCA2900F2DB63 /* ViewControllers */,
@@ -318,6 +329,7 @@
 				63B6EE3C221CD0CE009992C6 /* AddMovieToCollectionViewController.swift in Sources */,
 				635322B32167FD390063CBC1 /* CollectionsViewController.swift in Sources */,
 				63322124216B5E0D00F62BD2 /* OverviewMoviesCollectionController.swift in Sources */,
+				634939342290AD47009762A3 /* ViewController.swift in Sources */,
 				632F044E216786ED007CD6DA /* SearchViewController.swift in Sources */,
 				63376A46214EA19800DD51F8 /* trailerCell.swift in Sources */,
 				63981D551FEFCBEF00F2DB63 /* MovieCell.swift in Sources */,

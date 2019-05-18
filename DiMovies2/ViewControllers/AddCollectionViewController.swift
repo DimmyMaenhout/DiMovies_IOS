@@ -15,6 +15,8 @@ class AddCollectionViewController: UITableViewController {
         let realm = try! Realm()
         user = try! realm.objects(User.self)[0]
         collectionNameField.becomeFirstResponder()
+        //from UIViewController extension
+        self.hideKeyBoardOnTap()
         
     }
     
