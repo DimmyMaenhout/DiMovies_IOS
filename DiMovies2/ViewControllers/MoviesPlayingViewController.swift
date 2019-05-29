@@ -1,10 +1,11 @@
 import Foundation
 import UIKit
 import RealmSwift
+import SDWebImage
 /*
  *  Shows movies in cinema
  */
-class MoviesViewController : UIViewController {
+class MoviesPlayingViewController : UIViewController {
     
     var moviesTBMD : [Dictionary<String, Any>?] = []
     var movies: [Movie] = []
@@ -12,15 +13,14 @@ class MoviesViewController : UIViewController {
     var sv = UIView()
     var currentPage = 1
     var isFetchInProgress = false
+    
     @IBOutlet weak var tableView: UITableView!
-
-//    Spinner is called here (to center it to the view)
+    //    Spinner is called here (to center it to the view)
     override func viewWillAppear(_ animated: Bool) {
 //        indien we anders terug komen (bv van search) blijft de spinner op de pagina
         if movies.count == 0 {
-            sv = UIViewController.displaySpinner(onView: self.view)
+            sv = self.displaySpinner(onView: self.view)
         }
-        
     }
     override func viewDidLoad() {
        super.viewDidLoad()
@@ -35,9 +35,11 @@ class MoviesViewController : UIViewController {
         
         moviesTask?.cancel()
         moviesTask = TmdbAPIService.getMoviesPlaying(with: currentPage){
-            UIViewController.removeSpinner(spinner: self.sv)
-            self.movies = $0!
-//            self.tableView.reloadData()
+            self.removeSpinner(spinner: self.sv)
+            print("movies playing controller line 39, movies: \($0)")
+            guard let movies = $0 else { return }
+            self.movies = movies//$0!
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -50,12 +52,12 @@ class MoviesViewController : UIViewController {
             fatalError("Unknown segue")
         }
         
-        let movieSelectionViewController = segue.destination as! MovieSelectionViewController
-        movieSelectionViewController.movie = movies[tableView.indexPathForSelectedRow!.row]
+        let movieDetailsViewController = segue.destination as! MovieDetailsViewController
+        movieDetailsViewController.movie = movies[tableView.indexPathForSelectedRow!.row]
     }
 }
 
-extension MoviesViewController : UITableViewDataSource {
+extension MoviesPlayingViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -79,12 +81,12 @@ extension MoviesViewController : UITableViewDataSource {
         cell.overview.text = movie.overview
         
         if movie.poster_path != "" {
-        
-            //voor image bestaat de url uit 3 delen = base_url, full_size and the file path
+
+            // The image url exists of 3 pieces: base_url, full_size and the file path
             let imageURL = movie.poster_path
-            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + imageURL)!
-            let data = try! Data.init(contentsOf: moviePosterURL)
-            cell.poster.image =  UIImage(data: data)
+            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePosterW92 + imageURL)!
+            //let data = try! Data.init(contentsOf: moviePosterURL)
+            cell.poster.sd_setImage(with: moviePosterURL)
         }
         return cell
     }
@@ -109,7 +111,7 @@ extension MoviesViewController : UITableViewDataSource {
         moviesTask?.cancel()
         moviesTask = TmdbAPIService.getMoviesPlaying(with: currentPage) { moviesPlaying in
 
-            UIViewController.removeSpinner(spinner: self.sv)
+            self.removeSpinner(spinner: self.sv)
             self.isFetchInProgress = false
             self.movies.insert(contentsOf: moviesPlaying!, at: self.movies.count)
             DispatchQueue.main.async {
@@ -118,11 +120,11 @@ extension MoviesViewController : UITableViewDataSource {
             }
         }
         moviesTask!.resume()
-        sv = UIViewController.displaySpinner(onView: self.view)
+        sv = self.displaySpinner(onView: self.view)
     }
 }
 
-extension MoviesViewController : UITableViewDelegate {
+extension MoviesPlayingViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

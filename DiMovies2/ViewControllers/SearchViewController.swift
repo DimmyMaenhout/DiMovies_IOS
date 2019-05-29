@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import SDWebImage
 
 class SearchViewController : UIViewController {
     
@@ -26,6 +27,8 @@ class SearchViewController : UIViewController {
         searchBar.delegate = self
         searchBar.becomeFirstResponder()
         searchBar.returnKeyType = UIReturnKeyType.done
+        //tapping closes the keyboard
+        self.hideKeyBoardOnTap()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -33,8 +36,8 @@ class SearchViewController : UIViewController {
             fatalError("Unknown segue")
         }
         
-        let movieSelectionViewController = segue.destination as! MovieSelectionViewController
-        movieSelectionViewController.movie = movieResults[tableView.indexPathForSelectedRow!.row]
+        let movieDetailsViewController = segue.destination as! MovieDetailsViewController
+        movieDetailsViewController.movie = movieResults[tableView.indexPathForSelectedRow!.row]
     }
 }
 
@@ -46,21 +49,31 @@ extension SearchViewController : UISearchBarDelegate {
             print("Search view controller line 43, searchKeywords is nil")
             return
         }
-//        nodig voor pagination
-        searchString = searchKeywords
         
-        print("Search view controller line 46, searchKeywords: \(searchKeywords)")
-        searchTask?.cancel()
-        searchTask = TmdbAPIService.getMovieByName(for: searchKeywords, page: currentPage) {
-            UIViewController.removeSpinner(spinner: self.sv)
-            self.movieResults.removeAll()
-            self.movieResults = $0!
-            self.tableView.reloadData()
+        if !searchKeywords.isEmpty {
             
+            //        nodig voor pagination
+            searchString = searchKeywords
+            
+            print("Search view controller line 46, searchKeywords: \(searchKeywords)")
+            searchTask?.cancel()
+            searchTask = TmdbAPIService.getMovieByName(for: searchKeywords, page: currentPage) {
+                self.removeSpinner(spinner: self.sv)
+                self.movieResults.removeAll()
+                self.movieResults = $0!
+                
+                DispatchQueue.main.async {
+                    
+                    self.tableView.reloadData()
+                }
+                
+            }
+            searchTask?.resume()
+            sv = self.displaySpinner(onView: self.view)
+            self.view.endEditing(true)
+        } else {
+            searchTask?.cancel()
         }
-        searchTask?.resume()
-        sv = UIViewController.displaySpinner(onView: self.view)
-        self.view.endEditing(true)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -127,9 +140,9 @@ extension SearchViewController: UITableViewDataSource {
         
         if movie.poster_path != "" {
             
-            //voor image bestaat de url uit 3 delen = base_url, full_size and the file path
+            //For the image the url exists of 3 pieces: base_url, full_size and the file path
             let imageURL = movie.poster_path
-            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePoster + imageURL)!
+            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePosterW92 + imageURL)!
             let data = try! Data.init(contentsOf: moviePosterURL)
             cell.poster.image =  UIImage(data: data)
         }
@@ -156,10 +169,14 @@ extension SearchViewController: UITableViewDataSource {
         searchTask?.cancel()
         searchTask = TmdbAPIService.getMovieByName(for: searchString, page: currentPage, completion: { (searchResults) in
             
-            UIViewController.removeSpinner(spinner: self.sv)
+            self.removeSpinner(spinner: self.sv)
 
             self.isFetchInProgress = false
-            self.movieResults.insert(contentsOf: searchResults!, at: self.movieResults.count)
+            guard let searchResults = searchResults else {
+                print("searchResults was nil")
+                return
+            }
+            self.movieResults.insert(contentsOf:searchResults, at: self.movieResults.count)
             print("Search view controller line 163, movieResults.count: \(self.movieResults.count)")
             DispatchQueue.main.async {
 
@@ -167,6 +184,6 @@ extension SearchViewController: UITableViewDataSource {
             }
         })
             searchTask!.resume()
-            sv = UIViewController.displaySpinner(onView: self.view)
+            sv = self.displaySpinner(onView: self.view)
     }
 }

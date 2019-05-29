@@ -6,6 +6,7 @@ class User : Object {
     
     let moviesSeen = List<Movie>()
     let moviesToWatch = List<Movie>()
+    let collections = List<Collection>()
     
     convenience init(username: String) {
         self.init()
