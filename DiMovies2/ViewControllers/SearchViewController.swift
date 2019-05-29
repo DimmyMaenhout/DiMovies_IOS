@@ -58,14 +58,18 @@ extension SearchViewController : UISearchBarDelegate {
             print("Search view controller line 46, searchKeywords: \(searchKeywords)")
             searchTask?.cancel()
             searchTask = TmdbAPIService.getMovieByName(for: searchKeywords, page: currentPage) {
-                UIViewController.removeSpinner(spinner: self.sv)
+                self.removeSpinner(spinner: self.sv)
                 self.movieResults.removeAll()
                 self.movieResults = $0!
-                self.tableView.reloadData()
+                
+                DispatchQueue.main.async {
+                    
+                    self.tableView.reloadData()
+                }
                 
             }
             searchTask?.resume()
-            sv = UIViewController.displaySpinner(onView: self.view)
+            sv = self.displaySpinner(onView: self.view)
             self.view.endEditing(true)
         } else {
             searchTask?.cancel()
@@ -165,7 +169,7 @@ extension SearchViewController: UITableViewDataSource {
         searchTask?.cancel()
         searchTask = TmdbAPIService.getMovieByName(for: searchString, page: currentPage, completion: { (searchResults) in
             
-            UIViewController.removeSpinner(spinner: self.sv)
+            self.removeSpinner(spinner: self.sv)
 
             self.isFetchInProgress = false
             guard let searchResults = searchResults else {
@@ -180,6 +184,6 @@ extension SearchViewController: UITableViewDataSource {
             }
         })
             searchTask!.resume()
-            sv = UIViewController.displaySpinner(onView: self.view)
+            sv = self.displaySpinner(onView: self.view)
     }
 }
