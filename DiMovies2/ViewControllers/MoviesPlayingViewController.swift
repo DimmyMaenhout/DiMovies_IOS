@@ -19,7 +19,7 @@ class MoviesPlayingViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
 //        indien we anders terug komen (bv van search) blijft de spinner op de pagina
         if movies.count == 0 {
-            sv = UIViewController.displaySpinner(onView: self.view)
+            sv = self.displaySpinner(onView: self.view)
         }
     }
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class MoviesPlayingViewController : UIViewController {
         
         moviesTask?.cancel()
         moviesTask = TmdbAPIService.getMoviesPlaying(with: currentPage){
-            UIViewController.removeSpinner(spinner: self.sv)
+            self.removeSpinner(spinner: self.sv)
             print("movies playing controller line 39, movies: \($0)")
             guard let movies = $0 else { return }
             self.movies = movies//$0!
@@ -111,7 +111,7 @@ extension MoviesPlayingViewController : UITableViewDataSource {
         moviesTask?.cancel()
         moviesTask = TmdbAPIService.getMoviesPlaying(with: currentPage) { moviesPlaying in
 
-            UIViewController.removeSpinner(spinner: self.sv)
+            self.removeSpinner(spinner: self.sv)
             self.isFetchInProgress = false
             self.movies.insert(contentsOf: moviesPlaying!, at: self.movies.count)
             DispatchQueue.main.async {
@@ -120,7 +120,7 @@ extension MoviesPlayingViewController : UITableViewDataSource {
             }
         }
         moviesTask!.resume()
-        sv = UIViewController.displaySpinner(onView: self.view)
+        sv = self.displaySpinner(onView: self.view)
     }
 }
 
