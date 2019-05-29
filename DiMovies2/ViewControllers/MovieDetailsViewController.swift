@@ -49,7 +49,7 @@ class MovieDetailsViewController : UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         if actors.count == 0 {
-             sv = UIViewController.displaySpinner(onView: self.tableView)
+             sv = self.displaySpinner(onView: self.tableView)
         }
     }
     
@@ -89,12 +89,17 @@ class MovieDetailsViewController : UIViewController {
     func getActorDetails(for actorID: Int) {
         dispatchGroup.enter()
         movieTask = TmdbAPIService.getActorInfo(for: actorID, completion: { (actorDetails) in
-            UIViewController.removeSpinner(spinner: self.sv)
+            self.removeSpinner(spinner: self.sv)
             guard let actor = actorDetails else {
                 return
             }
+            
             self.actorsWithDetails.append(actor)
-            self.tableView.reloadData()
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+            
             self.dispatchGroup.leave()
         })
         movieTask!.resume()
@@ -398,29 +403,6 @@ extension MovieDetailsViewController: UITableViewDataSource {
             
             default:
                 return 86
-        }
-    }
-}
-
-// To show the spinner I used this tutorial: http://brainwashinc.com/2017/07/21/loading-activity-indicator-ios-swift/
-extension UIViewController {
-    
-    class func displaySpinner(onView: UIView) -> UIView {
-        let spinnerView = UIView.init(frame: onView.bounds)
-        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
-        let ai = UIActivityIndicatorView.init(activityIndicatorStyle: .whiteLarge)
-        ai.startAnimating()
-        ai.center = spinnerView.center
-        
-        DispatchQueue.main.async {
-            spinnerView.addSubview(ai)
-            onView.addSubview(spinnerView)
-        }
-        return spinnerView
-    }
-    class func removeSpinner(spinner: UIView) {
-        DispatchQueue.main.async {
-            spinner.removeFromSuperview()
         }
     }
 }
