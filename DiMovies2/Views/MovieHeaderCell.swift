@@ -14,10 +14,6 @@ class MovieHeaderCell : UITableViewCell {
     
     @IBOutlet weak var title: UILabel!
     
-    @IBOutlet weak var seenMovie: UISwitch!
-    
-    @IBOutlet weak var wantToWatchMovie: UISwitch!
-    
     @IBOutlet weak var score: UILabel!
     
     @IBOutlet weak var duration: UILabel!

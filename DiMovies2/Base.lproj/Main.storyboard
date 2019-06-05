@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gyh-OG-5kQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gyh-OG-5kQ">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -575,47 +575,10 @@
                                                             <rect key="frame" x="0.0" y="24.333333333333343" width="359" height="479.33333333333326"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Pju-R8-P8t">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="247.33333333333334"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="173.33333333333334"/>
                                                                     <subviews>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fSS-qa-EYT" userLabel="Switches ">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="70"/>
-                                                                            <subviews>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IfV-HG-fLR" userLabel="Movie seen">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="31"/>
-                                                                                    <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31j-g7-nTR">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="310" height="31"/>
-                                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                            <color key="textColor" red="0.8980392157" green="0.50588235290000005" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                            <nil key="highlightedColor"/>
-                                                                                        </label>
-                                                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ewP-B8-WS4">
-                                                                                            <rect key="frame" x="310" y="0.0" width="51" height="31"/>
-                                                                                            <color key="onTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                                            <color key="thumbTintColor" red="1" green="0.65745048279999996" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                        </switch>
-                                                                                    </subviews>
-                                                                                </stackView>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8t-JX-9aO" userLabel="Want to see movie">
-                                                                                    <rect key="frame" x="0.0" y="38.999999999999993" width="359" height="31.000000000000007"/>
-                                                                                    <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Want to watch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdF-Rx-djw">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="310" height="31"/>
-                                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                            <color key="textColor" red="0.8980392157" green="0.50588235290000005" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                            <nil key="highlightedColor"/>
-                                                                                        </label>
-                                                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YIs-zY-rHD">
-                                                                                            <rect key="frame" x="310" y="0.0" width="51" height="31"/>
-                                                                                            <color key="onTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                                            <color key="thumbTintColor" red="1" green="0.65745048279999996" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                        </switch>
-                                                                                    </subviews>
-                                                                                </stackView>
-                                                                            </subviews>
-                                                                        </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="PGC-6g-jx3">
-                                                                            <rect key="frame" x="0.0" y="74" width="359" height="155"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="155"/>
                                                                             <subviews>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="The Avengers Poster" translatesAutoresizingMaskIntoConstraints="NO" id="y9X-7r-nBe">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="121" height="155"/>
@@ -715,7 +678,7 @@
                                                                                             </constraints>
                                                                                         </stackView>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="UZN-ln-t0O" userLabel="Stack View actors featured">
-                                                                                            <rect key="frame" x="0.0" y="32.000000000000014" width="232" height="122.99999999999999"/>
+                                                                                            <rect key="frame" x="0.0" y="32" width="232" height="123"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stars:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dM2-4K-ZRb">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="33" height="14.333333333333334"/>
@@ -724,7 +687,7 @@
                                                                                                     <nil key="highlightedColor"/>
                                                                                                 </label>
                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I6l-eP-A1e">
-                                                                                                    <rect key="frame" x="0.0" y="14.333333333333321" width="232" height="108.66666666666669"/>
+                                                                                                    <rect key="frame" x="0.0" y="14.33333333333335" width="232" height="108.66666666666669"/>
                                                                                                     <subviews>
                                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Scarlett Johansson, Chris Hemsworth,  Chris Evans, Robert Downy Jr, Mark Ruffalo, Jeremy Renner, Tom Hiddleston, Cobie Smulders" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQd-TA-Bdd">
                                                                                                             <rect key="frame" x="0.0" y="3" width="233" height="104"/>
@@ -751,7 +714,7 @@
                                                                             </subviews>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySy-Vy-eup">
-                                                                            <rect key="frame" x="0.0" y="232.99999999999997" width="359" height="14.333333333333343"/>
+                                                                            <rect key="frame" x="0.0" y="159" width="359" height="14.333333333333343"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Release date: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Skk-Zv-o9k">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="79.666666666666671" height="14.333333333333334"/>
@@ -776,10 +739,10 @@
                                                                     </constraints>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="e7g-qc-PNW">
-                                                                    <rect key="frame" x="0.0" y="247.33333333333337" width="359" height="232"/>
+                                                                    <rect key="frame" x="0.0" y="173.33333333333331" width="359" height="306"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVA-1O-rYx">
-                                                                            <rect key="frame" x="1" y="-1" width="359" height="233"/>
+                                                                            <rect key="frame" x="1" y="-1" width="359" height="307"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <string key="text">Nick Fury is the director of S.H.I.E.L.D., an international peace-keeping agency. The agency is a who's who of Marvel Super Heroes, with Iron Man, The Incredible Hulk, Thor, Captain America, Hawkeye and Black Widow. When global security is threatened by Loki and his cohorts, Nick Fury and his team will need all their powers to save the world from disaster which is formed by Loki and his team</string>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -809,10 +772,8 @@
                                             <outlet property="poster" destination="y9X-7r-nBe" id="RDF-Ob-E5a"/>
                                             <outlet property="releaseDate" destination="WNl-7a-2O7" id="lxr-e7-oR4"/>
                                             <outlet property="score" destination="Otw-DR-Guy" id="8PI-OC-joO"/>
-                                            <outlet property="seenMovie" destination="ewP-B8-WS4" id="Spx-ak-u7o"/>
                                             <outlet property="starsInMovie" destination="FQd-TA-Bdd" id="8a6-vV-vJ0"/>
                                             <outlet property="title" destination="s5g-gH-Efm" id="ZSK-w1-OQ4"/>
-                                            <outlet property="wantToWatchMovie" destination="YIs-zY-rHD" id="yCE-Wt-OXz"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="trailerCell" rowHeight="219" id="3fY-QJ-OU9" userLabel="trailerCell" customClass="TrailerCell" customModule="DiMovies2" customModuleProvider="target">
@@ -1042,47 +1003,10 @@ Chris's American representative, management company ROAR, also manages actress E
                                                             <rect key="frame" x="0.0" y="24.333333333333343" width="359" height="479.33333333333326"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="2xd-De-QyL">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="247.33333333333334"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="173.33333333333334"/>
                                                                     <subviews>
-                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g6S-oc-uBC" userLabel="Switches ">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="70"/>
-                                                                            <subviews>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4UR-YM-SyE" userLabel="Movie seen">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="31"/>
-                                                                                    <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwZ-oS-jeL">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="310" height="31"/>
-                                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                            <color key="textColor" red="0.8980392157" green="0.50588235290000005" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                            <nil key="highlightedColor"/>
-                                                                                        </label>
-                                                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="W0c-iI-B2S">
-                                                                                            <rect key="frame" x="310" y="0.0" width="51" height="31"/>
-                                                                                            <color key="onTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                                            <color key="thumbTintColor" red="1" green="0.65745048279999996" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                        </switch>
-                                                                                    </subviews>
-                                                                                </stackView>
-                                                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8o-7I-wrH" userLabel="Want to see movie">
-                                                                                    <rect key="frame" x="0.0" y="38.999999999999993" width="359" height="31.000000000000007"/>
-                                                                                    <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Want to watch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKs-al-Lfr">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="310" height="31"/>
-                                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                            <color key="textColor" red="0.8980392157" green="0.50588235290000005" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                            <nil key="highlightedColor"/>
-                                                                                        </label>
-                                                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Azh-Di-kod">
-                                                                                            <rect key="frame" x="310" y="0.0" width="51" height="31"/>
-                                                                                            <color key="onTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                                            <color key="thumbTintColor" red="1" green="0.65745048279999996" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                                        </switch>
-                                                                                    </subviews>
-                                                                                </stackView>
-                                                                            </subviews>
-                                                                        </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="rcj-C8-aqQ">
-                                                                            <rect key="frame" x="0.0" y="74" width="359" height="155"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="155"/>
                                                                             <subviews>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="The Avengers Poster" translatesAutoresizingMaskIntoConstraints="NO" id="ANk-3R-OPS">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="121" height="155"/>
@@ -1182,7 +1106,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                                             </constraints>
                                                                                         </stackView>
                                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="v0e-Zr-8x1" userLabel="Stack View actors featured">
-                                                                                            <rect key="frame" x="0.0" y="32.000000000000014" width="232" height="122.99999999999999"/>
+                                                                                            <rect key="frame" x="0.0" y="32" width="232" height="123"/>
                                                                                             <subviews>
                                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stars:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQt-Jo-Uf0">
                                                                                                     <rect key="frame" x="0.0" y="0.0" width="33" height="14.333333333333334"/>
@@ -1191,7 +1115,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                                                     <nil key="highlightedColor"/>
                                                                                                 </label>
                                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEK-Sr-n0N">
-                                                                                                    <rect key="frame" x="0.0" y="14.333333333333321" width="232" height="108.66666666666669"/>
+                                                                                                    <rect key="frame" x="0.0" y="14.33333333333335" width="232" height="108.66666666666669"/>
                                                                                                     <subviews>
                                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Scarlett Johansson, Chris Hemsworth,  Chris Evans, Robert Downy Jr, Mark Ruffalo, Jeremy Renner, Tom Hiddleston, Cobie Smulders" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FH4-ji-yhK">
                                                                                                             <rect key="frame" x="0.0" y="3" width="233" height="104"/>
@@ -1218,7 +1142,7 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                             </subviews>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="unE-Sv-HHw">
-                                                                            <rect key="frame" x="0.0" y="232.99999999999997" width="359" height="14.333333333333343"/>
+                                                                            <rect key="frame" x="0.0" y="159" width="359" height="14.333333333333343"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="749" text="Release date: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zD4-3O-pim">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="79.666666666666671" height="14.333333333333334"/>
@@ -1243,10 +1167,10 @@ Chris's American representative, management company ROAR, also manages actress E
                                                                     </constraints>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gqh-Ii-jsB">
-                                                                    <rect key="frame" x="0.0" y="247.33333333333337" width="359" height="232"/>
+                                                                    <rect key="frame" x="0.0" y="173.33333333333331" width="359" height="306"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ktd-eg-4pd">
-                                                                            <rect key="frame" x="1" y="-1" width="359" height="234"/>
+                                                                            <rect key="frame" x="1" y="-1" width="359" height="308"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <string key="text">Nick Fury is the director of S.H.I.E.L.D., an international peace-keeping agency. The agency is a who's who of Marvel Super Heroes, with Iron Man, The Incredible Hulk, Thor, Captain America, Hawkeye and Black Widow. When global security is threatened by Loki and his cohorts, Nick Fury and his team will need all their powers to save the world from disaster which is formed by Loki and his team</string>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1276,10 +1200,8 @@ Chris's American representative, management company ROAR, also manages actress E
                                             <outlet property="poster" destination="ANk-3R-OPS" id="qcx-hL-7pS"/>
                                             <outlet property="releaseDate" destination="GqO-Wt-CuV" id="rRf-TN-9Qg"/>
                                             <outlet property="score" destination="g4X-r2-tMd" id="1Gn-Kc-08o"/>
-                                            <outlet property="seenMovie" destination="W0c-iI-B2S" id="leH-4p-Bpv"/>
                                             <outlet property="starsInMovie" destination="FH4-ji-yhK" id="xYz-rC-TXc"/>
                                             <outlet property="title" destination="Jcu-OE-4V6" id="Yd3-xB-Nyy"/>
-                                            <outlet property="wantToWatchMovie" destination="Azh-Di-kod" id="NX4-br-vqu"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="trailerCell" rowHeight="219" id="XsF-xv-Tli" userLabel="trailerCell" customClass="TrailerCell" customModule="DiMovies2" customModuleProvider="target">
@@ -1568,8 +1490,8 @@ Chris's American representative, management company ROAR, also manages actress E
     </scenes>
     <resources>
         <image name="The Avengers Poster" width="631" height="946"/>
-        <image name="home-30" width="22.5" height="22.5"/>
-        <image name="search-filled-30" width="22.5" height="22.5"/>
-        <image name="user-30" width="22.5" height="22.5"/>
+        <image name="home-30" width="30" height="30"/>
+        <image name="search-filled-30" width="30" height="30"/>
+        <image name="user-30" width="30" height="30"/>
     </resources>
 </document>
