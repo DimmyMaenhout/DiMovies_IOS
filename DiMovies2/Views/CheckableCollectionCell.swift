@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 class CheckableCollectionCell: UITableViewCell {
@@ -9,13 +8,8 @@ class CheckableCollectionCell: UITableViewCell {
     
     var collection: Collection! {
         didSet {
-            
             collectionName.text = collection.name
-            
             collectionMovieCount.text = "\(collection.movies.count)"
-            
-            //checkBtn.isSelected = false
         }
     }
-    
 }
