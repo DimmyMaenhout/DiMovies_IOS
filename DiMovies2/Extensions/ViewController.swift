@@ -1,12 +1,3 @@
-//
-//  viewControllerExtension.swift
-//  DiMovies2
-//
-//  Created by Dimmy Maenhout on 18/05/2019.
-//  Copyright © 2019 Dimmy Maenhout. All rights reserved.
-//
-
-import Foundation
 import UIKit
 
 extension UIViewController {
