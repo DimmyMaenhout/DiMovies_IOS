@@ -6,7 +6,6 @@ target 'DiMovies2' do
   use_frameworks!
 
   # Pods for DiMovies2
-  pod 'Alamofire', '~> 4.7’
   pod 'RealmSwift', '~> 3.10'
   pod 'SDWebImage'
 end
