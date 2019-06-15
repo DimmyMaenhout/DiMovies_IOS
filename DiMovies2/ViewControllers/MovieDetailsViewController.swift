@@ -5,20 +5,19 @@ import SDWebImage
 
 class MovieDetailsViewController : UIViewController {
     
-    var movieTask: URLSessionTask?
-    //Movie selected from MovieViewController
+    private var movieTask: URLSessionTask?
+    //MARK: Movie selected from MovieViewController
     var movie : Movie!
-    //gaan we opvullen met actors die we hebben opgehaald (eerst converteren van JSON naar object!)
-    var actors : [Actor] = []
-    var actorsWithDetails : [Actor] = []
-    var stars: [String] = []
-    var youtubeTrailerKey = ""
+    private var actors : [Actor] = []
+    private var actorsWithDetails : [Actor] = []
+    private var stars: [String] = []
+    private var youtubeTrailerKey = ""
+    private var sv = UIView()
+    private var user: User!
+    private let dispatchGroup = DispatchGroup()
     
-    let dispatchGroup = DispatchGroup()
-    var sv = UIView()
-    var user: User!
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,16 +31,14 @@ class MovieDetailsViewController : UIViewController {
         getYoutubeTrailerKey(for: movie.id)
         getCast(for: movie.id)
         
-//        De code in de dispatchGroup.notifiy zou pas moeten uitgevoerd worden als de andere calls klaar zijn
+        //MARK: De code in de dispatchGroup.notifiy zou pas moeten uitgevoerd worden als de getCast call klaar is
         dispatchGroup.notify(queue: .global()){
-            print("Movie selection view controller line 34, # actors: \(self.actors.count) actors: \(self.actors)")
             for actor in self.actors {
-
                 self.getActorDetails(for: actor.id)
             }
         }
-//        Updaten van de UI (moet op de main thread gebeuren)
-        dispatchGroup.notify(queue: .main){
+        //MARK: Updaten van de UI (moet op de main thread gebeuren)
+        DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
@@ -80,7 +77,6 @@ class MovieDetailsViewController : UIViewController {
                 return
             }
             self.actors = actors
-            print("Movie selection view controller line 79, # actors: \(actors.count)")
             self.dispatchGroup.leave()
         })
         movieTask!.resume()
@@ -122,29 +118,9 @@ extension MovieDetailsViewController: UITableViewDataSource {
     @IBAction func unwindToMovieDetail(_ sender: UIStoryboardSegue) {
         
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        + 2 voor movieHeader en trailerCell
-        print("Movie Selection view controller line 114, nr of rows: \(actorsWithDetails.count + 2)")
+        //MARK: + 2 voor movieHeader en trailerCell
         return actorsWithDetails.count + 2
-    }
-    
-    func checkIfMovieAlreadyInDb(for list: List<Movie>) -> Bool {
-  
-        var containsMovie = false
-//        var inList = ""
-        
-        for m in list {
-            if m.id == movie.id {
-                containsMovie = true
-            }
-        }
-        return containsMovie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -152,13 +128,12 @@ extension MovieDetailsViewController: UITableViewDataSource {
         switch (indexPath.row) {
             
         case 0:
-            let movieHeaderCell = tableView.dequeueReusableCell(withIdentifier: "movieHeaderCell", for: indexPath) as! MovieHeaderCell
+            let movieHeaderCell = tableView.dequeueReusableCell(withIdentifier: Constants.movieHeaderCellIdentifier, for: indexPath) as! MovieHeaderCell
             
             movieHeaderCell.duration.text = "\(String(describing: movie.duration))"
 //            movieHeaderCell.genre.text = movie.genres.joined(separator: ",")
 
-            print("Movie selection view controller line 196, actorsWithDetails.prefix(8): \(actorsWithDetails.prefix(8))")
-//            get first 8 cast members
+            //MARK: get first 8 cast members
             if stars.isEmpty || stars.count != 8 {
                 stars.removeAll()
                 for i in actorsWithDetails.prefix(8) {
@@ -166,7 +141,7 @@ extension MovieDetailsViewController: UITableViewDataSource {
                     stars.append(actor.name)
                 }
             }
-
+            movieHeaderCell.releaseDate.text = movie.release_date
             let namesStars = stars.joined(separator: ", ")
             movieHeaderCell.starsInMovie.text = namesStars
             movieHeaderCell.overview.text = movie.overview
@@ -175,80 +150,52 @@ extension MovieDetailsViewController: UITableViewDataSource {
             movieHeaderCell.score.text = punten
             movieHeaderCell.title.text = movie.title
            
-//            Poster for movie, gets the original size of the poster
-            if movie.poster_path != "" {
-                let posterUrl = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.originalSizePoster + movie.poster_path)
-                //let data = try! Data.init(contentsOf: posterUrl!)
-                movieHeaderCell.poster.sd_setImage(with: posterUrl)//.image = UIImage(data: data)
+            // MARK: Poster for movie, gets the (small) size of the poster
+            if !movie.poster_path.isEmpty {
+                let posterUrl = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePosterW342 + movie.poster_path)
+                movieHeaderCell.poster.sd_setImage(with: posterUrl)
             }
-            
             return movieHeaderCell
 
         case 1:
-            let trailerCell = tableView.dequeueReusableCell(withIdentifier: "trailerCell", for: indexPath) as! TrailerCell
-            
-            let embedUrl = URL(string: "https://www.youtube.com/embed/\(youtubeTrailerKey)")
+            let trailerCell = tableView.dequeueReusableCell(withIdentifier: Constants.trailerCellIdentifier, for: indexPath) as! TrailerCell
+            let embedUrl = URL(string: "\(Constants.youtubeEmbedURL)\(youtubeTrailerKey)")
             let trailerRequest = URLRequest(url: embedUrl!)
             trailerCell.webView.load(trailerRequest)
             
             return trailerCell
 
         default:
-            let actorCell = tableView.dequeueReusableCell(withIdentifier: "actorCell", for: indexPath) as! ActorCell
-            
-            print("Movie Selection view controller line 252, got here (actor cell), actors[indexPath.row].biography: \(actors[indexPath.row - 2].biography)")
+            let actorCell = tableView.dequeueReusableCell(withIdentifier: Constants.actorCellIdentifier, for: indexPath) as! ActorCell
             
             if actorsWithDetails[indexPath.row - 2].biography.isEmpty {
-                actorsWithDetails[indexPath.row - 2].biography = "N/A"
+                actorsWithDetails[indexPath.row - 2].biography = Constants.notAvailableString
             }
             actorCell.bio.text = actorsWithDetails[indexPath.row - 2].biography
             actorCell.name.text = actorsWithDetails[indexPath.row - 2].name
             
             
-            if actorsWithDetails[indexPath.row - 2].profilePath != ""  {
-                //            image can be displayed with \(baseUrl) + \(sizeProfilePhoto) + imageURL
+            if !actorsWithDetails[indexPath.row - 2].profilePath.isEmpty  {
+                //MARK: image can be displayed with \(baseUrl) + \(sizeProfilePhoto) + imageURL
                 let imageURL = actorsWithDetails[indexPath.row - 2].photoFilePath
                 let photoURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePosterW92 + imageURL)!
-                print("Movie Selection view controller line 265, photoUrl: \(photoURL)")
-                let data = try! Data.init(contentsOf: photoURL)
                 actorCell.photo.sd_setImage(with: photoURL)
-                //actorCell.photo.image = UIImage(data: data)
             }
             return actorCell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        
         switch indexPath.row {
             
             case 0:
-                return 475// UITableViewAutomaticDimension
+                return 475
             
             case 1:
                 return 250
             
-            case 2:
-                return 86
-            
             default:
-                return 86
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        switch indexPath.row {
-            
-            case 0:
-                return UITableViewAutomaticDimension
-            
-            case 2:
-                return 86
-            
-            default:
-                return 86
+                return 120
         }
     }
 }
