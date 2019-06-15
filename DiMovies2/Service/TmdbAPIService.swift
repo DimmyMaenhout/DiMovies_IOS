@@ -1,12 +1,10 @@
 import Foundation
-//import Alamofire
 
 enum TmdbAPIService {
     
     private static let session = URLSession(configuration: .ephemeral)
-    /*
-        Ophalen films die momenteel in de cinema spelen
-    */
+    
+    //MARK: Ophalen films die momenteel in de cinema spelen
     static func getMoviesPlaying(with page: Int, completion: @escaping ([Movie]?) -> Void) -> URLSessionTask {
         let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/now_playing?page=\(page)&language=en-US&api_key=\(TmdbApiPrivateData.apiKey)")!
         
@@ -15,7 +13,7 @@ enum TmdbAPIService {
             let completion: ([Movie]?) -> Void = {
                 movies in
                 DispatchQueue.main.async {
-//                    verwijst naar completion als parameter in func
+                    //MARK: Points to the completion as parameter in func
                     completion(movies)
                 }
             }
@@ -30,37 +28,38 @@ enum TmdbAPIService {
                     completion(nil)
                     return
             }
-            print("Tmbd API Service line 43, page: \(page) result: \(String(describing: result))")
+
             var movies : [Movie] = []
             for i in 0 ... json.count - 1 {
                 let movie = json[i]
                 movies.append(Movie(movie_id: movie["id"] as! Int,
-                                   imdb_id: "",
-                                   title: movie["title"] as! String,
-                                   overview: movie["overview"] as! String,
-                                   duration: 0,
-                                   popularity: movie["popularity"] as! Double,
-                                   releaseDate: movie["release_date"] as! String,
-                                   status: "",
-                                   tagline: "",
-                                   vote_average: movie["vote_average"] as! Double,
-                                   votecount: movie["vote_count"] as! Int,
-                                   stars: "",
-//                                   genres: [],
-                                   poster_path: movie["poster_path"] as? String ?? "",
-                                   trailerUrl: ""))
+                                    imdb_id: "",
+                                    title: movie["title"] as! String,
+                                    overview: movie["overview"] as! String,
+                                    duration: 0,
+                                    popularity: movie["popularity"] as! Double,
+                                    releaseDate: movie["release_date"] as! String,
+                                    status: "",
+                                    tagline: "",
+                                    vote_average: movie["vote_average"] as! Double,
+                                    votecount: movie["vote_count"] as! Int,
+                                    stars: "",
+                                    //                                   genres: [],
+                    poster_path: movie["poster_path"] as? String ?? "",
+                    trailerUrl: ""))
             }
             completion(movies)
         }
     }
-    /* Details van elke film ophalen */
+    
+    //Mark: Get details for every movie
     static func getMovieDetails(for movieID: Int, completion: @escaping (Movie?) -> Void) -> URLSessionTask {
-
+        
         let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/\(movieID)?language=en-US&api_key=\(TmdbApiPrivateData.apiKey)")!
-        print("Tmbd API Service line 73, movieID: \(movieID)")
+        
         return session.dataTask(with: url) {
             data, response, error in
-            print("Tmbd API Service line 76, got here")
+            
             let completion: (Movie?) -> Void = {
                 movie in
                 DispatchQueue.main.async {
@@ -78,9 +77,7 @@ enum TmdbAPIService {
                     completion(nil)
                     return
             }
-            
-            print("Tmdb API Service line 94, result: \(result)")
-            print("Tmdb API Service line 95, json: \(json)")
+            print("Tmdb API Service line 80, json: \(json)")
             let film = Movie(movie_id: json["id"] as! Int,
                              imdb_id: "",
                              title: json["title"] as! String,
@@ -93,16 +90,14 @@ enum TmdbAPIService {
                              vote_average: json["vote_average"] as! Double,
                              votecount: json["vote_count"] as! Int,
                              stars: "",
-                             poster_path: json["poster_path"] as! String,
+                             poster_path: json["poster_path"] as? String ?? "",
                              trailerUrl: "")
             
             completion(film)
         }
     }
     
-    /*
-     Ophalen cast (acteurs) die hebben meegespeeld in de film
-    */
+    //Mark: Get cast (actors) who played in the movie
     static func getCast(for movieID: Int, completion: @escaping ([Actor]?) -> Void) -> URLSessionTask {
         let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/\(movieID)/credits?api_key=\(TmdbApiPrivateData.apiKey)")!
         
@@ -121,14 +116,14 @@ enum TmdbAPIService {
                     completion(nil)
                     return
             }
-
+            
             guard let result = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let json = result!["cast"] as? [[String: Any]] else {
                     print("Tmdb API Service line 146, result is nil")
                     completion(nil)
                     return
             }
-            print("Tmbd API Service line 151, getCast json: \(json)")
+            
             var cast : [Actor] = []
             for i in 0 ... json.count - 1 {
                 let actor = json[i]
@@ -142,10 +137,9 @@ enum TmdbAPIService {
                                   photoFilePath: "",
                                   profilePath: ""))
             }
-            for i in 0 ... cast.count - 1 {
-                let actor = cast[i]
-                print("actor \(i): \(actor.name)\n \(actor.id)")
-            }
+//            for i in 0 ... cast.count - 1 {
+//                let actor = cast[i]
+//            }
             completion(cast)
         }
     }
@@ -153,7 +147,7 @@ enum TmdbAPIService {
     static func getActorInfo(for actorID: Int, completion: @escaping (Actor?) -> Void) -> URLSessionTask {
         
         let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/person/\(actorID)?api_key=\(TmdbApiPrivateData.apiKey)&append_to_response=images")!
-        print("TMDB API Service line 177, url: \(url)")
+        
         return session.dataTask(with: url){
             data, response, error in
             let completion: (Actor?) -> Void = {
@@ -162,7 +156,7 @@ enum TmdbAPIService {
                     completion(actor)
                 }
             }
-            print("Tmdb API Service line 186, data: \(String(describing: data))")
+            
             guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200,
                 let data = data else {
@@ -177,39 +171,34 @@ enum TmdbAPIService {
             }
             guard let images = result!["images"] as! [String: [Any]]? else {
                 completion(nil)
-            return
+                return
             }
-            print("Tmdb API Service line 203, images: \(String(describing: images)) \n images[profiles]\(String(describing: images["profiles"]))")
-            print("Tmdb API Service line 204, result: \(String(describing: result))")
+            
             guard let profiles = images["profiles"],
                 let lastImageObject = profiles.last as! [String: Any]?,
                 let imagePath = lastImageObject["file_path"] as! String?else {
-                completion(nil)
-                return
+                    completion(nil)
+                    return
             }
-            print("Tmdb API Service line 211, lastImageObject: \(String(describing: lastImageObject))")
-            print("Tmdb API Service line 212, imagePath: \(String(describing: imagePath))")
-
+            
             let actor = Actor(id: result!["id"] as! Int,
                               name: result!["name"] as! String,
                               birthyear: result!["birthday"] as? String ?? "N/A",
                               deathday: "", //result!["deathday"] as! String,
-                              biography: result!["biography"] as? String ?? "N/A",
-                              gender: result!["gender"] as! Int,
-                              placeOfBirth: result!["place_of_birth"] as? String ?? "N/A",
-                              photoFilePath: imagePath,
-                              profilePath: result!["profile_path"] as! String)
-            print("TMDB API Service line 226, actor biography: \(actor.biography)")
+                biography: result!["biography"] as? String ?? "N/A",
+                gender: result!["gender"] as! Int,
+                placeOfBirth: result!["place_of_birth"] as? String ?? "N/A",
+                photoFilePath: imagePath,
+                profilePath: result!["profile_path"] as! String)
+            //print("TMDB API Service line 226, actor biography: \(actor.biography)")
             completion(actor)
         }
     }
     
-    /*
-     Ophalen van de youtube key voor de film
-    */
+    //MARK: Get youtube key for trailer
     static func getTrailerUrlKey(for movieID: Int, completion: @escaping (String?) -> Void) -> URLSessionTask {
         //http://api.themoviedb.org/3/movie/400/videos?api_key=apiKey
-    let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/\(movieID)/videos?api_key=\(TmdbApiPrivateData.apiKey)")!
+        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/\(movieID)/videos?api_key=\(TmdbApiPrivateData.apiKey)")!
         
         return session.dataTask(with: url) {
             data, response, error in
@@ -227,29 +216,21 @@ enum TmdbAPIService {
             }
             guard let result = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let json = result!["results"] as? [[String: Any]] else {
-                completion(nil)
-                return
+                    completion(nil)
+                    return
             }
             
             var youtubeKey = ""
             if json.count > 0 {
-                print("TMDB API Service line 262, json[0][key]: \(String(describing: json[0]["key"]))")
-                
                 youtubeKey = json[0]["key"]! as! String
             }
-            print("TMDB API Service line 266, youtubeKey: \(youtubeKey)")
             
             completion(youtubeKey)
         }
     }
     
-    /*
-        vb werkende url adhv titel
-        https://api.themoviedb.org/3/search/movie?api_key=apiKey&query=the+fast+and+the+furious
-        baseURL_TMDB/search/movie?api_key=apiKey&query=the+fast+and+the+furious
-    */
+    //MARK: Get movie by name
     static func getMovieByName(for movieName: String, page: Int, completion: @escaping ([Movie]?) -> Void) -> URLSessionTask {
-//        https://api.themoviedb.org/3/search/movie?api_key=apiKey&language=en-US&query=the%20best%20of%20me&page=1&include_adult=false
         let movie = movieName.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         
         let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/search/movie?api_key=\(TmdbApiPrivateData.apiKey)&language=en-US&query=\(movie!)&page=\(page)&include_adult=false")!
@@ -259,11 +240,11 @@ enum TmdbAPIService {
             let completion: ([Movie]?) -> Void = {
                 movies in
                 DispatchQueue.main.async {
-                    //                    verwijst naar completion als parameter in func
+                    //MARK: Points to completion as paramter in func
                     completion(movies)
                 }
             }
-
+            
             guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200,
                 let data = data else {
@@ -272,11 +253,11 @@ enum TmdbAPIService {
             }
             guard let result = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                 let json = result!["results"] as? [[String: Any]] else {
-                    //                    print("Tmbd API Service line 40, result or json is nil")
+                    print("Tmbd API Service line 40, result or json is nil")
                     completion(nil)
                     return
             }
-            guard let posters = json.first as! [String: Any]? else {
+            guard let posters = json.first else {
                 completion(nil)
                 return
             }
@@ -284,7 +265,7 @@ enum TmdbAPIService {
             var movies : [Movie] = []
             for i in 0 ... json.count - 1 {
                 let movie = json[i]
-                print("Tmbd API Service line 318, getMovieByName poster_path: \(String(describing: movie["poster_path"]))")
+                
                 movies.append(Movie(movie_id: movie["id"] as! Int,
                                     imdb_id: "",
                                     title: movie["title"] as! String,
@@ -297,7 +278,7 @@ enum TmdbAPIService {
                                     vote_average: movie["vote_average"] as! Double,
                                     votecount: movie["vote_count"] as! Int,
                                     stars: "",
-//                                    genres: [],
+                                    // genres: [],
                                     poster_path: movie["poster_path"]as? String ?? "",
                                     trailerUrl: ""))
                 
