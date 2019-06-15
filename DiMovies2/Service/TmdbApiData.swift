@@ -7,4 +7,5 @@ struct TmdbApiData {
     static let baseUrlPoster = "https://image.tmdb.org/t/p/"
     static let originalSizePoster = "original"
     static let sizePosterW92 = "w92"
+    static let sizePosterW342 = "w342"
 }
