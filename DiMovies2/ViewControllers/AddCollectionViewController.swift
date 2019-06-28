@@ -4,18 +4,18 @@ import RealmSwift
 
 class AddCollectionViewController: UITableViewController {
     
-    var user: User!
+    private var user: User!
     var collection: Collection?
     
-    @IBOutlet weak var saveButton: UIBarButtonItem!
-    @IBOutlet weak var collectionNameField: UITextField!
+    @IBOutlet private weak var saveButton: UIBarButtonItem!
+    @IBOutlet private weak var collectionNameField: UITextField!
     
     override func viewDidLoad() {
         
         let realm = try! Realm()
         user = try! realm.objects(User.self)[0]
         collectionNameField.becomeFirstResponder()
-        //from UIViewController extension
+        //Mark: From UIViewController extension
         self.hideKeyBoardOnTap()
         
     }
@@ -23,7 +23,7 @@ class AddCollectionViewController: UITableViewController {
     @IBAction func saveCollection() {
         
         if collection == nil {
-            performSegue(withIdentifier: "didAddCollection", sender: self)
+            performSegue(withIdentifier: Constants.didAddCollectionSegue, sender: self)
         }
     }
     
@@ -35,23 +35,21 @@ class AddCollectionViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         switch segue.identifier {
-        case "didAddCollection":
+        case Constants.didAddCollectionSegue:
             if let collectionName = collectionNameField.text {
-
                 collection = Collection(name: collectionName)
             }
         default:
-            
-            fatalError("Unknow segue")
+            fatalError(Constants.unknownSegue)
         }
     }
     
 }
 
 extension AddCollectionViewController: UITextFieldDelegate {
-//    The text field calls this method whenever user actions cause its text to change.
-//    Use this method to validate text as it is typed by the user. For example,
-//    you could use this method to prevent the user from entering anything but numerical values.
+    //MARK: The text field calls this method whenever user actions cause its text to change.
+    //MARK: Use this method to validate text as it is typed by the user. For example,
+    //MARK: you could use this method to prevent the user from entering anything but numerical values.
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if let text = textField.text {
@@ -62,7 +60,7 @@ extension AddCollectionViewController: UITextFieldDelegate {
         else {
             saveButton.isEnabled = string.count > 0
         }
-//        true if the specified text range should be replaced; otherwise, false to keep the old text.
+        //MARK: True if the specified text range should be replaced; otherwise, false to keep the old text.
         return true
     }
 }

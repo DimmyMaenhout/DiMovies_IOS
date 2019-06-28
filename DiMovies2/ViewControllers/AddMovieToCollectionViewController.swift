@@ -5,13 +5,13 @@ import RealmSwift
 class AddMovieToCollectionViewController: UIViewController {
 
     var user: User!
-    // film die we (eventueel) gaan opslaan, doorgekregen door vorige viewController (movie detail vc)
+    //MARK: Movie we're possibly going to save, from previous viewcontroller (MovieDetailViewController)
     var movie: Movie!
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var doneBarButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         
@@ -29,18 +29,17 @@ class AddMovieToCollectionViewController: UIViewController {
 extension AddMovieToCollectionViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return  user.collections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "selectCollectionToAddMovieCell", for: indexPath) as! CheckableCollectionCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.selectCollectionToAddMovieCellIdentifier, for: indexPath) as! CheckableCollectionCell
         
         cell.collectionName.text = user.collections[indexPath.row].name
         cell.collectionMovieCount.text = "\(String(describing: user.collections[indexPath.row].movies.count))"
         cell.addToCollectionSwitch.tag = user.collections[indexPath.row].id
-        // If the collections are loaded in the tableView there must be checked if the movie is already in a collection or not to in order to give the switch the right value
+        //MARK: If the collections are loaded in the tableView there must be checked if the movie is already in a collection or not to in order to give the switch the right value
         if checkIfMovieAlreadyInDb(for: user.collections[indexPath.row]) {
             
             cell.addToCollectionSwitch.isOn = true
@@ -55,41 +54,37 @@ extension AddMovieToCollectionViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        //Zorgt ervoor dat de table cell niet meer geselecteerd is als we terug komen
+        //MARK: Zorgt ervoor dat de table cell niet meer geselecteerd is als we terug komen
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         return 65
     }
     
     @objc func switchTapped(_ sender: UISwitch) {
-        //sender.tag is the id of the collection
-        
-        // movie is in collection, so delete movie
+        //MARK: Sender.tag is the id of the collection
+        //MARK: Movie is in collection, so delete movie
         if sender.isOn == true{
-            let selectedCollection = user.collections.filter("id == \(sender.tag)").first!
+            let selectedCollection = user.collections.filter("\(Constants.idString) == \(sender.tag)").first!
             addMovieToCollection(collection: selectedCollection)
         }
-            // movie not in collection, add movie
+        //MARK: Movie not in collection, add movie
         else {
-            let selectedCollection = user.collections.filter("id == \(sender.tag)").first!
+            let selectedCollection = user.collections.filter("\(Constants.idString) == \(sender.tag)").first!
             deleteMovieFromCollection(collection: selectedCollection)
         }
-        
     }
     
     func addMovieToCollection(collection: Collection) {
         try! realm.write {
-            user.collections.filter("id == \(collection.id)").first!.movies.append(movie)
+            user.collections.filter("\(Constants.idString) == \(collection.id)").first!.movies.append(movie)
             
-            let message = "\(movie.title) is added to  '\(user.collections.filter("id == \(collection.id)").first!.name)'"
+            let message = "\(movie.title) is added to  '\(user.collections.filter("\(Constants.idString) == \(collection.id)").first!.name)'"
             let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
             self.present(alert, animated: true)
             
-            // duration in seconds
+            //MARK: Duration in seconds
             let duration: Double = 1.5
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {
@@ -100,18 +95,18 @@ extension AddMovieToCollectionViewController: UITableViewDataSource {
     }
     
     func deleteMovieFromCollection(collection: Collection) {
-        let deleteMovieFromCollection = user.collections.filter("id == \(collection.id)").first!.movies.filter("id == \(movie.id)").first!
+        let deleteMovieFromCollection = user.collections.filter("\(Constants.idString) == \(collection.id)").first!.movies.filter("\(Constants.idString) == \(movie.id)").first!
         
-        let deleteIndex = user.collections.filter("id == \(collection.id)").first!.movies.index(of: deleteMovieFromCollection)
+        let deleteIndex = user.collections.filter("\(Constants.idString) == \(collection.id)").first!.movies.index(of: deleteMovieFromCollection)
         
         try! realm.write {
-            user.collections.filter("id == \(collection.id)").first!.movies.remove(at: deleteIndex!)
+            user.collections.filter("\(Constants.idString) == \(collection.id)").first!.movies.remove(at: deleteIndex!)
             
-            let message = "\(movie.title) is removed from  '\(user.collections.filter("id == \(collection.id)").first!.name)'"
+            let message = "\(movie.title) is removed from  '\(user.collections.filter("\(Constants.idString) == \(collection.id)").first!.name)'"
             let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
             self.present(alert, animated: true)
             
-            // duration in seconds
+            //MARK: duration in seconds
             let duration: Double = 1.5
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + duration) {

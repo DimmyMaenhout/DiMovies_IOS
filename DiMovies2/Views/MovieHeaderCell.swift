@@ -1,33 +1,13 @@
-//
-//  MovieHeaderCell.swift
-//  DiMovies2
-//
-//  Created by Dimmy Maenhout on 24/12/2017.
-//  Copyright © 2017 Dimmy Maenhout. All rights reserved.
-//
-
-import Foundation
 import UIKit
-import WebKit
 
 class MovieHeaderCell : UITableViewCell {
     
     @IBOutlet weak var title: UILabel!
-    
-    @IBOutlet weak var seenMovie: UISwitch!
-    
-    @IBOutlet weak var wantToWatchMovie: UISwitch!
-    
     @IBOutlet weak var score: UILabel!
-    
     @IBOutlet weak var duration: UILabel!
-    
     @IBOutlet weak var genre: UILabel!
-    
     @IBOutlet weak var starsInMovie: UILabel!
-    
     @IBOutlet weak var overview: UILabel!
-    
     @IBOutlet weak var poster: UIImageView!
     @IBOutlet weak var releaseDate: UILabel!
     

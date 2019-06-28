@@ -3,20 +3,17 @@ import UIKit
 import SDWebImage
 
 class SearchViewController : UIViewController {
-    
-//    combined results (movies & series) with type (int) as key
-//    var searchResults : [Int: [Any]] = [:]
-    var movieResults : [Movie] = []
-//    var serieResults : [Movie] = [] //type gaat nog veranderd moeten worden
-    var searchTask : URLSessionTask?
-    let sections = [Type.Movies/*"Movies"*//*, "Series"*/]
-    var sv = UIView()
-    var isFetchInProgress = false
-    var currentPage = 1
-//    name of movie / serie searched
-    var searchString = ""
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
+
+    private var movieResults : [Movie] = []
+    private var searchTask : URLSessionTask?
+    private let sections = [Type.Movies]
+    private var sv = UIView()
+    private var isFetchInProgress = false
+    private var currentPage = 1
+    //MARK: name of movie / serie searched
+    private var searchString = ""
+    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +29,8 @@ class SearchViewController : UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "selectedSearchMovie" else {
-            fatalError("Unknown segue")
+        guard segue.identifier == Constants.selectedSearchMovieSegue else {
+            fatalError(Constants.unknownSegue)
         }
         
         let movieDetailsViewController = segue.destination as! MovieDetailsViewController
@@ -51,11 +48,9 @@ extension SearchViewController : UISearchBarDelegate {
         }
         
         if !searchKeywords.isEmpty {
-            
-            //        nodig voor pagination
+            //MARK: Necessary for pagination
             searchString = searchKeywords
             
-            print("Search view controller line 46, searchKeywords: \(searchKeywords)")
             searchTask?.cancel()
             searchTask = TmdbAPIService.getMovieByName(for: searchKeywords, page: currentPage) {
                 self.removeSpinner(spinner: self.sv)
@@ -63,10 +58,8 @@ extension SearchViewController : UISearchBarDelegate {
                 self.movieResults = $0!
                 
                 DispatchQueue.main.async {
-                    
                     self.tableView.reloadData()
                 }
-                
             }
             searchTask?.resume()
             sv = self.displaySpinner(onView: self.view)
@@ -77,31 +70,31 @@ extension SearchViewController : UISearchBarDelegate {
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        if there is text in searchbar, clear text
+        //MARK: If there is text in searchbar, clear text
         if searchBar.text != "" {
             searchBar.text = ""
         }
     }
-   
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        Zorgt ervoor dat de table cell niet meer geselecteerd is als we terug komen
+        //MARK: Zorgt ervoor dat de table cell niet meer geselecteerd is als we terug komen
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchSectionheaderCell") as! SearchSectionHeaderCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.searchSectionHeaderCellIdentifier) as! SearchSectionHeaderCell
         
         switch section {
         case 0:
-            cell.sectionTitle.text = "Movies"
+            cell.sectionTitle.text = Constants.moviesSectionHeader
         case 1:
-            cell.sectionTitle.text = "Series"
+            cell.sectionTitle.text = Constants.seriesSectionHeader
         default:
             break
         }
@@ -125,22 +118,20 @@ extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchedMovieCell", for: indexPath) as! MovieCell
-        //        print("Search view controller line 74, #movies: ", movies.count, indexPath.row)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.searchedMovieCellIdentifier, for: indexPath) as! MovieCell
         let movie = movieResults[indexPath.row]
-        //        print("Search view controller line 76, \(movies[indexPath.row]): \(movie.title)")
         cell.title.text = movie.title
-        let punten : String = String(format: "%.1F",movie.vote_average) //!
+        let punten : String = String(format: "%.1F",movie.vote_average)
         cell.score.text = punten
         
         if movie.overview.isEmpty {
-            movie.overview = "N/A"
+            movie.overview = Constants.notAvailableString
         }
         cell.overview.text = movie.overview
         
-        if movie.poster_path != "" {
+        if !movie.poster_path.isEmpty {
             
-            //For the image the url exists of 3 pieces: base_url, full_size and the file path
+            //MARK: For the image, the url exists of 3 pieces: base_url, full_size and the file path
             let imageURL = movie.poster_path
             let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePosterW92 + imageURL)!
             cell.poster.sd_setImage(with: moviePosterURL)
@@ -151,38 +142,34 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastItem = movieResults.count - 1
         if indexPath.row == lastItem {
-            //            load more data (next page)
+            //MARK: Load more data (next page)
             fetchMoreMovies()
         }
     }
-    //    gets the next page with searched movies
+    //MARK: Gets the next page with searched movies
     func fetchMoreMovies() {
-//        if fetch is already in progress don't fetch again
+        //MARK: If fetch is already in progress, don't fetch again
         guard !isFetchInProgress else {
             return
         }
         
         isFetchInProgress = true
         currentPage += 1
-        print("Search view controller line 155, searchString: \(searchString), currentPage: \(String(currentPage))")
         searchTask?.cancel()
         searchTask = TmdbAPIService.getMovieByName(for: searchString, page: currentPage, completion: { (searchResults) in
-            
             self.removeSpinner(spinner: self.sv)
-
             self.isFetchInProgress = false
             guard let searchResults = searchResults else {
                 print("searchResults was nil")
                 return
             }
             self.movieResults.insert(contentsOf:searchResults, at: self.movieResults.count)
-            print("Search view controller line 163, movieResults.count: \(self.movieResults.count)")
+            
             DispatchQueue.main.async {
-
                 self.tableView.reloadData()
             }
         })
-            searchTask!.resume()
-            sv = self.displaySpinner(onView: self.view)
+        searchTask!.resume()
+        sv = self.displaySpinner(onView: self.view)
     }
 }

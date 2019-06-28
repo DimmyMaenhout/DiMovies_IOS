@@ -26,6 +26,7 @@
 		636B321D2061950800B7F084 /* TmdbAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636B321C2061950800B7F084 /* TmdbAPIService.swift */; };
 		6379B4811FEFF75200C73FE8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6379B47F1FEFF75200C73FE8 /* Main.storyboard */; };
 		6379B4831FEFFC5C00C73FE8 /* ActorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379B4821FEFFC5C00C73FE8 /* ActorCell.swift */; };
+		6393FE0922B4E30F0034FBA0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6393FE0822B4E30F0034FBA0 /* Constants.swift */; };
 		63981D401FEFC9CF00F2DB63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981D3F1FEFC9CF00F2DB63 /* AppDelegate.swift */; };
 		63981D4A1FEFC9CF00F2DB63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63981D481FEFC9CF00F2DB63 /* LaunchScreen.storyboard */; };
 		63981D521FEFC9F000F2DB63 /* MoviesPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63981D511FEFC9F000F2DB63 /* MoviesPlayingViewController.swift */; };
@@ -57,6 +58,7 @@
 		636B321C2061950800B7F084 /* TmdbAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TmdbAPIService.swift; sourceTree = "<group>"; };
 		6379B4801FEFF75200C73FE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6379B4821FEFFC5C00C73FE8 /* ActorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorCell.swift; sourceTree = "<group>"; };
+		6393FE0822B4E30F0034FBA0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		63981D3C1FEFC9CF00F2DB63 /* DiMovies2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiMovies2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63981D3F1FEFC9CF00F2DB63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63981D491FEFC9CF00F2DB63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				63981D531FEFCA2900F2DB63 /* ViewControllers */,
 				63981D561FEFCBF500F2DB63 /* Views */,
 				6313ABC8216CC9CC00A98892 /* Repo */,
+				6393FE0822B4E30F0034FBA0 /* Constants.swift */,
 			);
 			path = DiMovies2;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DiMovies2/Pods-DiMovies2-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -309,6 +313,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -325,6 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6393FE0922B4E30F0034FBA0 /* Constants.swift in Sources */,
 				63981D401FEFC9CF00F2DB63 /* AppDelegate.swift in Sources */,
 				63B6EE3C221CD0CE009992C6 /* AddMovieToCollectionViewController.swift in Sources */,
 				635322B32167FD390063CBC1 /* CollectionsViewController.swift in Sources */,

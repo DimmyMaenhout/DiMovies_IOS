@@ -1,12 +1,10 @@
-import Foundation
 import UIKit
 import WebKit
 
 class TrailerCell : UITableViewCell {
     
     @IBOutlet weak var webView: WKWebView!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }

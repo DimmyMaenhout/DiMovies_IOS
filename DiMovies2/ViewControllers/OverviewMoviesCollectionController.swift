@@ -1,13 +1,13 @@
 import UIKit
 import RealmSwift
 
-// Toont alle films van een collectie
+//MARK: Shows all movies from a collection
 class OverviewMoviesColletionController : UIViewController {
     
-    var user : User!
+    private var user : User!
     var selectedListId: Int?
-    var collection: Collection!
-    @IBOutlet weak var tableView: UITableView!
+    private var collection: Collection!
+    @IBOutlet private weak var tableView: UITableView!
     
     override func viewDidLoad() {
         
@@ -30,34 +30,35 @@ extension OverviewMoviesColletionController : UITableViewDelegate {
         var movie : Movie?
         var seenAction : UIContextualAction?
         var deleteAction : UIContextualAction?
-        //        indien user film heeft bekeken kan hij deze op de "seen" lijst zetten of verwijderen
-//        1 = want to watch
+        //Mark: When the user has seen the movie, he can place it in the 'seen' collection or remove it from the collection
+        //MARK: 1 = 'Want to watch' collection, 0 = 'Seen' collection
         if selectedListId == 1 {
             seenAction = UIContextualAction(style: .normal, title: "Seen") {
                 (action, view, completionHandler) in
                 
-                movie = self.user.collections.filter("id == 1").first!.movies[indexPath.row]// self.user!.moviesToWatch[indexPath.row]
+                movie = self.user.collections.filter("\(Constants.idString) == \(Constants.seenCollectionId)").first!.movies[indexPath.row]
                 
                 let realm = try! Realm()
                 try! realm.write {
-                    //                adding movie to other collection and deleting it from current
-//                    self.user!.moviesSeen.append(movie!)
-                    self.user.collections.filter("id == 0").first!.movies.append(movie!)
-//                    self.user!.moviesToWatch.remove(at: indexPath.row)
-                    self.user.collections.filter("id == 1").first!.movies.remove(at: indexPath.row)
+                    // Mark: Adding movie to 'Seen' collection and deleting it from 'Want to watch'
+                    self.user.collections.filter("\(Constants.idString) == \(Constants.wantToWatchCollectionId)").first!.movies.append(movie!)
+                    self.user.collections.filter("\(Constants.idString) == \(Constants.seenCollectionId)").first!.movies.remove(at: indexPath.row)
                 }
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 completionHandler(true)
             }
             seenAction!.backgroundColor = UIColor.orange
             
-            deleteAction = UIContextualAction(style: .destructive, title: "Delete") {
+            deleteAction = UIContextualAction(style: .destructive, title: Constants.deleteString) {
                 (action, view, completionHandler) in
                 
-                if self.selectedListId == 0/*self.selectedList == "Movies seen"*/ {
-                    movie = self.user.collections.filter("id == 0").first!.movies[indexPath.row] // self.user!.moviesSeen[indexPath.row]
-                } else if self.selectedListId == 1 {
-                    movie = self.user.collections.filter("id == 1").first!.movies[indexPath.row] // self.user!.moviesToWatch[indexPath.row]
+                if self.selectedListId == Constants.wantToWatchCollectionId {
+                    
+                    movie = self.user.collections.filter("\(Constants.idString) == \(Constants.wantToWatchCollectionId)").first!.movies[indexPath.row]
+                }
+                else if self.selectedListId == Constants.seenCollectionId {
+                    
+                    movie = self.user.collections.filter("\(Constants.idString) == \(Constants.seenCollectionId)").first!.movies[indexPath.row]
                 }
                 let realm = try! Realm()
                 try! realm.write {
@@ -68,15 +69,15 @@ extension OverviewMoviesColletionController : UITableViewDelegate {
             }
             return UISwipeActionsConfiguration(actions: [deleteAction!, seenAction!])
         }
-            //            alle collections hebben de mogelijkheid om films te verwijderen, enkel bij "Want to watch" is er ook nog de optie "Seen"
+            //Mark: All collections have the possibility to delete movies, only 'Want to watch' has the option 'Seen'
         else {
-            deleteAction = UIContextualAction(style: .destructive, title: "Delete") {
+            deleteAction = UIContextualAction(style: .destructive, title: Constants.deleteString) {
                 (action, view, completionHandler) in
-                
-                if self.selectedListId == 0/*"Movies seen"*/ {
-                    movie = self.user.collections.filter("id == 0").first!.movies[indexPath.row] // self.user!.moviesSeen[indexPath.row]
+                // MARK: 0 = 'Seen' Collection, 1 = 'Want to watch' collection
+                if self.selectedListId == 0 {
+                    movie = self.user.collections.filter("\(Constants.idString) == \(Constants.wantToWatchCollectionId)").first!.movies[indexPath.row]
                 } else if self.selectedListId == 1 {
-                    movie = self.user.collections.filter("id == 1").first!.movies[indexPath.row] // self.user!.moviesToWatch[indexPath.row]
+                    movie = self.user.collections.filter("\(Constants.idString) == \(Constants.seenCollectionId)").first!.movies[indexPath.row]
                 }
                 
                 let realm = try! Realm()
@@ -93,25 +94,23 @@ extension OverviewMoviesColletionController : UITableViewDelegate {
 
 extension OverviewMoviesColletionController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Overview movies collection controller line 94, collection.movies.count: \(collection.movies.count)")
         return collection.movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell") as! MovieCell
-        
-        let movie = collection.movies[indexPath.row]//user!.moviesSeen[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.movieCellIdentifier) as! MovieCell
+        let movie = collection.movies[indexPath.row]
         cell.title.text = movie.title
         cell.overview.text = movie.overview
-        let punten : String = String(format: "%.1F",movie.vote_average) //!
+        let punten : String = String(format: "%.1F",movie.vote_average)
         cell.score.text = punten
-        print("Overview movies collection controller line 107, movie.name: \(movie.title)")
+
         if !movie.poster_path.isEmpty {
             
-            //voor image bestaat de url uit 3 delen = base_url, full_size and the file path
+            //Mark: Image URL exists of 3 pieces: base_url, full_size and the file path
             let imageURL = movie.poster_path
-            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + "original" + imageURL)!
+            let moviePosterURL = URL(string: TmdbApiData.baseUrlPoster + TmdbApiData.sizePosterW92 + imageURL)!
             let data = try! Data.init(contentsOf: moviePosterURL)
             cell.poster.image =  UIImage(data: data)
         }
