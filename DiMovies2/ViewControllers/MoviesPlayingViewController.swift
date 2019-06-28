@@ -2,7 +2,6 @@ import Foundation
 import UIKit
 import RealmSwift
 import SDWebImage
-import Reachability
 
 //MARK: Shows movies in cinema
 class MoviesPlayingViewController : UIViewController {
