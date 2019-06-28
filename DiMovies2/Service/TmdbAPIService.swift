@@ -6,7 +6,7 @@ enum TmdbAPIService {
     
     //MARK: Ophalen films die momenteel in de cinema spelen
     static func getMoviesPlaying(with page: Int, completion: @escaping ([Movie]?) -> Void) -> URLSessionTask {
-        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)/movie/now_playing?page=\(page)&language=en-US&api_key=\(TmdbApiPrivateData.apiKey)")!
+        let url = URL(string: "\(TmdbApiData.baseURL_TMDB)\(TmdbApiData.moviesPlayingURL)page=\(page)&language=en-US&api_key=\(TmdbApiPrivateData.apiKey)")!
         
         return session.dataTask(with: url) {
             data, response, error in
