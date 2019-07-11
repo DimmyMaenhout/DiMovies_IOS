@@ -7,7 +7,6 @@ import SDWebImage
 class MoviesPlayingViewController : UIViewController {
     // MARK: - Variables
     private var sv = UIView()
-    private var currentPage = 1
 
     private var viewModel = MoviesPlayingViewModel()
 
