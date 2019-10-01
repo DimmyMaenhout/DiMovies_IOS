@@ -24,7 +24,7 @@ $ open Ketnet.xcworkspace
 
 ### PhenixSdk problems
 ```
-$ Pods -> PhenixSdk -> lib -> Universal -> phenixSdk.framework 
+$ go to folder Pods -> PhenixSdk -> lib -> Universal -> phenixSdk.framework 
 $ replace PhenixSdk with binary file
 ```
 ### Xcode settings
